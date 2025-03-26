@@ -1,0 +1,1302 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\MyTown MySQL\\My Town\\mytown\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\updatebannerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\updatebannerrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\dataaccess\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\dataaccess\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\busprofilepreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\busprofilepreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\businessprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\businessprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\services\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\services\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\controllers\\shoppercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\controllers\\shoppercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\dataaccess\\shopperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\dataaccess\\shopperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\dataaccess\\ishopperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\dataaccess\\ishopperrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\shopperregisterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\shopperregisterdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\appdbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\appdbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\shopperregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\shopperregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\shopperverification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\shopperverification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\addtocart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\addtocart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\orderdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\orderdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\cartitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\cartitemdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\paymentrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\paymentrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\payments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\payments.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\products.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\products.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\wishlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\wishlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\shopdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\shopdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\businessregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\businessregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\mytown.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\mytown.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\paymentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\paymentrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\businesssearchresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\businesssearchresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\businesscategoriescs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\businesscategoriescs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\product_sub_categories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\product_sub_categories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\subcategoryimages_busregid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\subcategoryimages_busregid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\registration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\mytown.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\mytown.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\businessservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\businessservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\services.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\services.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\services_sub_categories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\services_sub_categories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/DESKTOP_9C6PO0P_SQLEXPRESS/mytown/True/SqlTable/dbo.products.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/DESKTOP_9C6PO0P_SQLEXPRESS/mytown/True/SqlTable/dbo.product_sub_categories.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/DESKTOP_9C6PO0P_SQLEXPRESS/mytown/True/SqlTable/dbo.BusinessCategories.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\siri\\AppData\\Local\\Temp\\qle0axlw..sql||{CC5D8DF0-88F4-4BB2-9DBB-B48CEE65C30A}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\registrationwithbusinessregid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\registrationwithbusinessregid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250219043542_Updatetodb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211150302_imagepositionsdecimal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211144654_imagepositions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211051241_bustime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250205143225_busprofilepreviewimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250205142946_imageposition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250203122425_htcoltoproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122130002_Imagescategoriessd.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122085705_catimagesbus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122125549_Imagescategories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122090001_catimagesbusid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDbContextModelSnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250127140008_addingtodb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241119155200_addlatesttodb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241227062626_shopperregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241226155207_businessregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122101031_productsnservicestablestodb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122102042_productsnservicestablesdbnew.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122101659_productsnservicestablesdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122100141_profileproductsnservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241120152359_addlatesttablesdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241115081947_Alterbusinesscolumnames.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241114142946_AddColumnstoRegistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241113112536_AddCityFieldToRegistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241111131106_MigrationName.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241111111025_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241101112508_CreateRegistrationTable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\siri\\My Town\\mytown\\mytown\\Migrations\\20241024014208_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\migrations\\20250227085131_initialmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\migrations\\20250227085131_initialmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\migrations\\20250317084020_postalcodecoltoshopperergister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\migrations\\20250317084020_postalcodecoltoshopperergister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\migrations\\20250317042057_addtocarttables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\migrations\\20250317042057_addtocarttables.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\migrations\\20250326044413_emailverification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\migrations\\20250326044413_emailverification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|c:\\mytown mysql\\my town\\mytown\\mytown\\migrations\\20250325105722_imagecoordinates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{13D32DB0-66B7-4644-947C-E46B7FA63006}|mytown\\mytown.csproj|solutionrelative:mytown\\migrations\\20250325105722_imagecoordinates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 17,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Startup.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Startup.cs",
+              "RelativeDocumentMoniker": "mytown\\Startup.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Startup.cs",
+              "RelativeToolTip": "mytown\\Startup.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAACEAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T11:42:58.738Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UpdateBannerRequest.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\UpdateBannerRequest.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\UpdateBannerRequest.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\UpdateBannerRequest.cs",
+              "RelativeToolTip": "mytown\\Models\\UpdateBannerRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T10:21:06.604Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IShopperRepository.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\DataAccess\\IShopperRepository.cs",
+              "RelativeDocumentMoniker": "mytown\\DataAccess\\IShopperRepository.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\DataAccess\\IShopperRepository.cs",
+              "RelativeToolTip": "mytown\\DataAccess\\IShopperRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T05:01:50.548Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Services\\EmailService.cs",
+              "RelativeDocumentMoniker": "mytown\\Services\\EmailService.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Services\\EmailService.cs",
+              "RelativeToolTip": "mytown\\Services\\EmailService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T05:33:23.903Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "shopperRegisterDto.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\shopperRegisterDto.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\shopperRegisterDto.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\shopperRegisterDto.cs",
+              "RelativeToolTip": "mytown\\Models\\shopperRegisterDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T05:14:28.181Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IEmailService.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Services\\IEmailService.cs",
+              "RelativeDocumentMoniker": "mytown\\Services\\IEmailService.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Services\\IEmailService.cs",
+              "RelativeToolTip": "mytown\\Services\\IEmailService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T05:32:36.326Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\DataAccess\\UserRepository.cs",
+              "RelativeDocumentMoniker": "mytown\\DataAccess\\UserRepository.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\DataAccess\\UserRepository.cs",
+              "RelativeToolTip": "mytown\\DataAccess\\UserRepository.cs",
+              "ViewState": "AgIAAO0AAAAAAAAAAAAgwA8BAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T17:21:03.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "businessprofile.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\businessprofile.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\businessprofile.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\businessprofile.cs",
+              "RelativeToolTip": "mytown\\Models\\businessprofile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T15:34:37.661Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "mytown\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Controllers\\UserController.cs",
+              "RelativeToolTip": "mytown\\Controllers\\UserController.cs",
+              "ViewState": "AgIAADkBAAAAAAAAAAAAAFUBAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T17:18:33.862Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\AppDbContext.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\AppDbContext.cs",
+              "RelativeToolTip": "mytown\\Models\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T17:13:54.342Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "busprofilepreview.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\busprofilepreview.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\busprofilepreview.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\busprofilepreview.cs",
+              "RelativeToolTip": "mytown\\Models\\busprofilepreview.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T16:40:16.601Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Program.cs",
+              "RelativeDocumentMoniker": "mytown\\Program.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Program.cs",
+              "RelativeToolTip": "mytown\\Program.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAAACwAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-19T08:43:15.598Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\appsettings.json",
+              "RelativeDocumentMoniker": "mytown\\appsettings.json",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\appsettings.json",
+              "RelativeToolTip": "mytown\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-23T17:15:14.209Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "AppDbContextFactory.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\AppDbContextFactory.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\AppDbContextFactory.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\AppDbContextFactory.cs",
+              "RelativeToolTip": "mytown\\Models\\AppDbContextFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T10:57:13.713Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ShopperRepository.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\DataAccess\\ShopperRepository.cs",
+              "RelativeDocumentMoniker": "mytown\\DataAccess\\ShopperRepository.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\DataAccess\\ShopperRepository.cs",
+              "RelativeToolTip": "mytown\\DataAccess\\ShopperRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T05:02:34.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ShopperController.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Controllers\\ShopperController.cs",
+              "RelativeDocumentMoniker": "mytown\\Controllers\\ShopperController.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Controllers\\ShopperController.cs",
+              "RelativeToolTip": "mytown\\Controllers\\ShopperController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T05:11:10.775Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 78,
+              "Title": "20250326044413_emailverification.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Migrations\\20250326044413_emailverification.cs",
+              "RelativeDocumentMoniker": "mytown\\Migrations\\20250326044413_emailverification.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Migrations\\20250326044413_emailverification.cs",
+              "RelativeToolTip": "mytown\\Migrations\\20250326044413_emailverification.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T04:44:13.588Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "shopperverification.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\shopperverification.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\shopperverification.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\shopperverification.cs",
+              "RelativeToolTip": "mytown\\Models\\shopperverification.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T04:42:20.864Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "addtocart.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\addtocart.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\addtocart.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\addtocart.cs",
+              "RelativeToolTip": "mytown\\Models\\addtocart.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T04:37:13.988Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "CartItemDto.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\CartItemDto.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\CartItemDto.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\CartItemDto.cs",
+              "RelativeToolTip": "mytown\\Models\\CartItemDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAA8wBEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T05:37:16.555Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "orderdetails.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\orderdetails.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\orderdetails.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\orderdetails.cs",
+              "RelativeToolTip": "mytown\\Models\\orderdetails.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-14T09:25:39.37Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "shopperregister.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\shopperregister.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\shopperregister.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\shopperregister.cs",
+              "RelativeToolTip": "mytown\\Models\\shopperregister.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABIAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-27T06:08:13.726Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 79,
+              "Title": "20250325105722_imagecoordinates.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Migrations\\20250325105722_imagecoordinates.cs",
+              "RelativeDocumentMoniker": "mytown\\Migrations\\20250325105722_imagecoordinates.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Migrations\\20250325105722_imagecoordinates.cs",
+              "RelativeToolTip": "mytown\\Migrations\\20250325105722_imagecoordinates.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T10:57:22.474Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "PaymentRequestModel.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\PaymentRequestModel.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\PaymentRequestModel.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\PaymentRequestModel.cs",
+              "RelativeToolTip": "mytown\\Models\\PaymentRequestModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-17T05:43:45.755Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "order.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\order.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\order.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\order.cs",
+              "RelativeToolTip": "mytown\\Models\\order.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-14T09:25:01.715Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 76,
+              "Title": "20250317084020_postalcodecoltoshopperergister.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Migrations\\20250317084020_postalcodecoltoshopperergister.cs",
+              "RelativeDocumentMoniker": "mytown\\Migrations\\20250317084020_postalcodecoltoshopperergister.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Migrations\\20250317084020_postalcodecoltoshopperergister.cs",
+              "RelativeToolTip": "mytown\\Migrations\\20250317084020_postalcodecoltoshopperergister.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-17T08:40:20.653Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 77,
+              "Title": "20250317042057_addtocarttables.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Migrations\\20250317042057_addtocarttables.cs",
+              "RelativeDocumentMoniker": "mytown\\Migrations\\20250317042057_addtocarttables.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Migrations\\20250317042057_addtocarttables.cs",
+              "RelativeToolTip": "mytown\\Migrations\\20250317042057_addtocarttables.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-17T04:20:57.937Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "payments.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\payments.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\payments.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\payments.cs",
+              "RelativeToolTip": "mytown\\Models\\payments.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-14T09:27:34.463Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "products.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\products.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\products.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\products.cs",
+              "RelativeToolTip": "mytown\\Models\\products.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAAC8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T10:08:13.638Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "wishlist.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\wishlist.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\wishlist.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\wishlist.cs",
+              "RelativeToolTip": "mytown\\Models\\wishlist.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T05:01:15.113Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "shopdetails.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\shopdetails.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\shopdetails.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\shopdetails.cs",
+              "RelativeToolTip": "mytown\\Models\\shopdetails.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T16:44:17.938Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "businessregister.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\businessregister.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\businessregister.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\businessregister.cs",
+              "RelativeToolTip": "mytown\\Models\\businessregister.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAAAwAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T12:06:26.145Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 75,
+              "Title": "20250227085131_Initialmigration.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Migrations\\20250227085131_Initialmigration.cs",
+              "RelativeDocumentMoniker": "mytown\\Migrations\\20250227085131_Initialmigration.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Migrations\\20250227085131_Initialmigration.cs",
+              "RelativeToolTip": "mytown\\Migrations\\20250227085131_Initialmigration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-27T08:51:31.618Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "mytown.csproj",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\mytown.csproj",
+              "RelativeDocumentMoniker": "mytown\\mytown.csproj",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\mytown.csproj",
+              "RelativeToolTip": "mytown\\mytown.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-10-24T03:54:27.807Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "20250219043542_Updatetodb.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250219043542_Updatetodb.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250219043542_Updatetodb.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250219043542_Updatetodb.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250219043542_Updatetodb.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-19T04:35:43.043Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "20250211150302_imagepositionsdecimal.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211150302_imagepositionsdecimal.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211150302_imagepositionsdecimal.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211150302_imagepositionsdecimal.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211150302_imagepositionsdecimal.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T15:03:02.886Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "PaymentRequest.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\PaymentRequest.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\PaymentRequest.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\PaymentRequest.cs",
+              "RelativeToolTip": "mytown\\Models\\PaymentRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T03:54:41.12Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "businesssearchresult.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\businesssearchresult.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\businesssearchresult.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\businesssearchresult.cs",
+              "RelativeToolTip": "mytown\\Models\\businesssearchresult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-06T14:28:44.17Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "businesscategoriescs.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\businesscategoriescs.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\businesscategoriescs.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\businesscategoriescs.cs",
+              "RelativeToolTip": "mytown\\Models\\businesscategoriescs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T15:27:28.75Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "product_sub_categories.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\product_sub_categories.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\product_sub_categories.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\product_sub_categories.cs",
+              "RelativeToolTip": "mytown\\Models\\product_sub_categories.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T10:12:40.649Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "20250211144654_imagepositions.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211144654_imagepositions.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211144654_imagepositions.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211144654_imagepositions.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211144654_imagepositions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T14:46:54.486Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "20250211051241_bustime.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211051241_bustime.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211051241_bustime.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211051241_bustime.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250211051241_bustime.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-11T05:12:41.445Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "subcategoryimages_busregid.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\subcategoryimages_busregid.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\subcategoryimages_busregid.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\subcategoryimages_busregid.cs",
+              "RelativeToolTip": "mytown\\Models\\subcategoryimages_busregid.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T08:51:13.299Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Registration.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\Registration.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\Registration.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\Registration.cs",
+              "RelativeToolTip": "mytown\\Models\\Registration.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAuwA0AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T11:58:26.32Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "20250205143225_busprofilepreviewimage.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250205143225_busprofilepreviewimage.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250205143225_busprofilepreviewimage.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250205143225_busprofilepreviewimage.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250205143225_busprofilepreviewimage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-05T14:32:25.868Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "20250205142946_imageposition.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250205142946_imageposition.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250205142946_imageposition.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250205142946_imageposition.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250205142946_imageposition.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-05T14:29:46.883Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "20250203122425_htcoltoproduct.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250203122425_htcoltoproduct.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250203122425_htcoltoproduct.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250203122425_htcoltoproduct.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250203122425_htcoltoproduct.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T12:24:26.076Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "20250122130002_Imagescategoriessd.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122130002_Imagescategoriessd.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122130002_Imagescategoriessd.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122130002_Imagescategoriessd.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122130002_Imagescategoriessd.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T13:00:02.577Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "20250122085705_catimagesbus.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122085705_catimagesbus.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122085705_catimagesbus.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122085705_catimagesbus.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122085705_catimagesbus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T08:57:05.263Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "20250122125549_Imagescategories.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122125549_Imagescategories.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122125549_Imagescategories.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122125549_Imagescategories.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122125549_Imagescategories.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T12:55:49.429Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "20250122090001_catimagesbusid.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122090001_catimagesbusid.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122090001_catimagesbusid.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122090001_catimagesbusid.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250122090001_catimagesbusid.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T09:00:01.555Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "AppDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDbContextModelSnapshot.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDbContextModelSnapshot.cs",
+              "ViewState": "AgIAAOkBAAAAAAAAACBjwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T11:03:45.281Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "mytown",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\mytown.csproj",
+              "RelativeDocumentMoniker": "mytown\\mytown.csproj",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\mytown.csproj",
+              "RelativeToolTip": "mytown\\mytown.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-01-27T09:35:08.496Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "20250127140008_addingtodb.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250127140008_addingtodb.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250127140008_addingtodb.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250127140008_addingtodb.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20250127140008_addingtodb.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T14:00:08.187Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "services.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\services.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\services.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\services.cs",
+              "RelativeToolTip": "mytown\\Models\\services.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwBwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T10:16:22.812Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "businessservices.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\businessservices.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\businessservices.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\businessservices.cs",
+              "RelativeToolTip": "mytown\\Models\\businessservices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-19T15:30:29.068Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "services_sub_categories.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\services_sub_categories.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\services_sub_categories.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\services_sub_categories.cs",
+              "RelativeToolTip": "mytown\\Models\\services_sub_categories.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T10:14:25.374Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "20241119155200_addlatesttodb.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241119155200_addlatesttodb.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241119155200_addlatesttodb.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241119155200_addlatesttodb.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241119155200_addlatesttodb.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T07:25:09.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
+              "Title": "20241227062626_shopperregister.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241227062626_shopperregister.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241227062626_shopperregister.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241227062626_shopperregister.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241227062626_shopperregister.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-27T06:26:26.286Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 62,
+              "Title": "20241226155207_businessregister.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241226155207_businessregister.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241226155207_businessregister.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241226155207_businessregister.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241226155207_businessregister.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAABRwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-26T15:52:08.078Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "RegistrationWithBusinessRegId.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\RegistrationWithBusinessRegId.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\RegistrationWithBusinessRegId.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\RegistrationWithBusinessRegId.cs",
+              "RelativeToolTip": "mytown\\Models\\RegistrationWithBusinessRegId.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-27T06:05:13.198Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "dbo.BusinessCategories.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/DESKTOP_9C6PO0P_SQLEXPRESS/mytown/True/SqlTable/dbo.BusinessCategories.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/DESKTOP_9C6PO0P_SQLEXPRESS/mytown/True/SqlTable/dbo.BusinessCategories.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-12-01T16:08:25.473Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "dbo.products.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/DESKTOP_9C6PO0P_SQLEXPRESS/mytown/True/SqlTable/dbo.products.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/DESKTOP_9C6PO0P_SQLEXPRESS/mytown/True/SqlTable/dbo.products.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-12-01T15:53:56.065Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "dbo.product_sub_categories.sql",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/DESKTOP_9C6PO0P_SQLEXPRESS/mytown/True/SqlTable/dbo.product_sub_categories.sql",
+              "ToolTip": "ViewDataWindow_MSSQL__/DESKTOP_9C6PO0P_SQLEXPRESS/mytown/True/SqlTable/dbo.product_sub_categories.sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-12-01T16:08:13.006Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 63,
+              "Title": "20241122101031_productsnservicestablestodb.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122101031_productsnservicestablestodb.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122101031_productsnservicestablestodb.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122101031_productsnservicestablestodb.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122101031_productsnservicestablestodb.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T10:10:31.912Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 64,
+              "Title": "20241122102042_productsnservicestablesdbnew.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122102042_productsnservicestablesdbnew.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122102042_productsnservicestablesdbnew.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122102042_productsnservicestablesdbnew.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122102042_productsnservicestablesdbnew.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T10:20:42.499Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 65,
+              "Title": "20241122101659_productsnservicestablesdb.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122101659_productsnservicestablesdb.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122101659_productsnservicestablesdb.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122101659_productsnservicestablesdb.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122101659_productsnservicestablesdb.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T10:16:59.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 66,
+              "Title": "20241122100141_profileproductsnservices.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122100141_profileproductsnservices.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122100141_profileproductsnservices.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122100141_profileproductsnservices.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241122100141_profileproductsnservices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-22T10:01:41.161Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 67,
+              "Title": "20241120152359_addlatesttablesdb.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241120152359_addlatesttablesdb.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241120152359_addlatesttablesdb.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241120152359_addlatesttablesdb.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241120152359_addlatesttablesdb.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-20T15:23:59.939Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 68,
+              "Title": "20241115081947_Alterbusinesscolumnames.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241115081947_Alterbusinesscolumnames.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241115081947_Alterbusinesscolumnames.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241115081947_Alterbusinesscolumnames.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241115081947_Alterbusinesscolumnames.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-15T08:19:47.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 69,
+              "Title": "20241114142946_AddColumnstoRegistration.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241114142946_AddColumnstoRegistration.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241114142946_AddColumnstoRegistration.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241114142946_AddColumnstoRegistration.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241114142946_AddColumnstoRegistration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T14:29:46.724Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 70,
+              "Title": "20241113112536_AddCityFieldToRegistration.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241113112536_AddCityFieldToRegistration.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241113112536_AddCityFieldToRegistration.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241113112536_AddCityFieldToRegistration.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241113112536_AddCityFieldToRegistration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T11:25:36.274Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "qle0axlw..sql",
+              "DocumentMoniker": "C:\\Users\\siri\\AppData\\Local\\Temp\\qle0axlw..sql",
+              "RelativeDocumentMoniker": "..\\..\\..\\Users\\siri\\AppData\\Local\\Temp\\qle0axlw..sql",
+              "ToolTip": "C:\\Users\\siri\\AppData\\Local\\Temp\\qle0axlw..sql",
+              "RelativeToolTip": "..\\..\\..\\Users\\siri\\AppData\\Local\\Temp\\qle0axlw..sql",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2024-11-11T11:47:11.636Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 71,
+              "Title": "20241111131106_MigrationName.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241111131106_MigrationName.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241111131106_MigrationName.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241111131106_MigrationName.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241111131106_MigrationName.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T13:11:06.413Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 72,
+              "Title": "20241111111025_InitialCreate.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241111111025_InitialCreate.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241111111025_InitialCreate.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241111111025_InitialCreate.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241111111025_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T11:10:25.855Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 73,
+              "Title": "20241101112508_CreateRegistrationTable.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241101112508_CreateRegistrationTable.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241101112508_CreateRegistrationTable.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241101112508_CreateRegistrationTable.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\AppDb\\20241101112508_CreateRegistrationTable.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAIBpwEcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T11:25:08.716Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\User.cs",
+              "RelativeDocumentMoniker": "mytown\\Models\\User.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Models\\User.cs",
+              "RelativeToolTip": "mytown\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAcAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T17:13:01.036Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 74,
+              "Title": "20241024014208_InitialCreate.cs",
+              "DocumentMoniker": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\20241024014208_InitialCreate.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\20241024014208_InitialCreate.cs",
+              "ToolTip": "C:\\siri\\My Town\\mytown\\mytown\\Migrations\\20241024014208_InitialCreate.cs",
+              "RelativeToolTip": "..\\..\\..\\siri\\My Town\\mytown\\mytown\\Migrations\\20241024014208_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAMBdwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-01T11:03:26.9Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "mytown\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Properties\\launchSettings.json",
+              "RelativeToolTip": "mytown\\Properties\\launchSettings.json",
+              "ViewState": "AgIAABAAAAAAAAAAAAAuwBoAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-24T03:58:02.686Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "mytown\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\MyTown MySQL\\My Town\\mytown\\mytown\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "mytown\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T03:57:17.432Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
