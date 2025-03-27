@@ -1,40 +1,54 @@
-﻿using MailKit.Net.Smtp;
-using MailKit.Security;
-using MimeKit;
-using MimeKit.Text;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using mytown.Services;
 using System;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace mytown.Services
+public class EmailService : IEmailService
 {
-    public class EmailService : IEmailService
+    private readonly string _smtpServer;
+    private readonly int _smtpPort;
+    private readonly string _smtpUser;
+    private readonly string _smtpPass;
+    private readonly string _senderEmail;
+
+    public EmailService(IConfiguration configuration)
     {
-        private readonly IConfiguration _configuration;
+        var emailSettings = configuration.GetSection("EmailSettings");
+        _smtpServer = emailSettings["SmtpServer"];
+        _smtpPort = 587; // Use from config if needed
+        _smtpUser = emailSettings["SenderEmail"];
+        _smtpPass = emailSettings["SenderPassword"];
+        _senderEmail = _smtpUser;
+    }
 
-        public EmailService(IConfiguration configuration)
+    public async Task SendVerificationEmail(string email, string verificationLink)
+    {
+        try
         {
-            _configuration = configuration;
-        }
-
-        public async Task SendVerificationEmail(string email, string verificationLink)
-        {
-            var emailSettings = _configuration.GetSection("EmailSettings");
-
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(emailSettings["SenderName"], emailSettings["SenderEmail"]));
-            message.To.Add(new MailboxAddress("", email));
-            message.Subject = "Email Verification";
-            message.Body = new TextPart(TextFormat.Html)
+            using (var smtpClient = new SmtpClient(_smtpServer))
             {
-                Text = $"<p>Click the link below to verify your email:</p><a href='{verificationLink}'>Verify Email</a>"
-            };
+                smtpClient.Port = _smtpPort;
+                smtpClient.Credentials = new NetworkCredential(_smtpUser, _smtpPass);
+                smtpClient.EnableSsl = true; // Ensure SSL/TLS is enabled
 
-            using var smtp = new SmtpClient();
-            await smtp.ConnectAsync(emailSettings["SmtpServer"], int.Parse(emailSettings["SmtpPort"]), SecureSocketOptions.StartTls);
-            await smtp.AuthenticateAsync(emailSettings["SmtpUsername"], emailSettings["SmtpPassword"]);
-            await smtp.SendAsync(message);
-            await smtp.DisconnectAsync(true);
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(_senderEmail),
+                    Subject = "Email Verification - MyTown",
+                    Body = $"Click the link to verify your email: <a href='{verificationLink}'>Verify Email</a>",
+                    IsBodyHtml = true
+                };
+                mailMessage.To.Add(email);
+
+                await smtpClient.SendMailAsync(mailMessage);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error sending email: {ex.Message}");
+            throw new Exception("Failed to send verification email.");
         }
     }
 }

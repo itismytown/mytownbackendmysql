@@ -19,8 +19,8 @@ namespace mytown.DataAccess
 
         public async Task<shopperregister> RegisterShopper(shopperregister shopper)
         {
-            if (await IsEmailTaken(shopper.Email))
-                throw new Exception("Email is already in use.");
+            //if (await IsEmailTaken(shopper.Email))
+            //    throw new Exception("Email is already in use.");
 
             shopper.NewPassword = BCrypt.Net.BCrypt.HashPassword(shopper.NewPassword);
             shopper.CnfPassword = shopper.NewPassword;
@@ -78,5 +78,7 @@ namespace mytown.DataAccess
             await _context.SaveChangesAsync();
             return true;
         }
+
+       
     }
 }

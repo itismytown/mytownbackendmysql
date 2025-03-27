@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity.Data;
 using Newtonsoft.Json.Linq;
 using System.Buffers.Text;
 using Stripe;
+using mytown.Services;
 
 namespace mytown.Controllers
 {
@@ -22,12 +23,14 @@ namespace mytown.Controllers
         
         private readonly IWebHostEnvironment _env;
         private readonly string stripeSecretKey = "sk_test_51QtS7OFMWqb9scCuoOdpdCcEb7WultTBEDZMEF7MsjyvgbbdHsQalQyKXsDQaYKBFg4DAAQkL1VeGp6DfO6FZ0CW00hbxqjakt";
+        private readonly IEmailService _emailService;
 
-        public UserController(UserRepository userRepository, IWebHostEnvironment env)
+        public UserController(UserRepository userRepository, IWebHostEnvironment env, IEmailService emailService)
         {
             _userRepository = userRepository; // Inject UserRepository
             _env = env;  // Inject IWebHostEnvironment to get access to WebRootPath
             StripeConfiguration.ApiKey = stripeSecretKey;
+            _emailService = emailService;
         }
 
        
@@ -573,6 +576,77 @@ namespace mytown.Controllers
             return Ok(shopper);
         }
 
+        #endregion
+
+        #region Shopper emailverifivation
+        [HttpPost("shopregister")]
+        public async Task<IActionResult> Register([FromBody] shopperRegisterDto model)
+        {
+            try
+            {
+                if (model.Password != model.ConfirmPassword)
+                    return BadRequest("Passwords do not match.");
+
+                var shopper = new shopperregister
+                {
+                    Username = model.Username,
+                    Email = model.Email,
+                    NewPassword = BCrypt.Net.BCrypt.HashPassword(model.Password),
+                    CnfPassword = BCrypt.Net.BCrypt.HashPassword(model.ConfirmPassword),
+                    Address = model.Address,
+                    Town = model.Town,
+                    City = model.City,
+                    State = model.State,
+                    Country = model.Country,
+                    Postalcode = model.Postalcode,
+                    PhoneNo = model.PhoneNo,
+                    Photoname = model.Photoname,
+                    IsEmailVerified = false
+                };
+
+                var registeredUser = await _userRepository.RegisterShopper(shopper);
+
+                var verification = await _userRepository.GenerateEmailVerification(model.Email);
+                var verificationLink = $"{Request.Scheme}://{Request.Host}/api/shopper/verify-email?token={verification.VerificationToken}";
+
+                await _emailService.SendVerificationEmail(model.Email, verificationLink);
+
+                return Ok(new { message = "Registration successful! Please check your email for verification." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
+
+        [HttpGet("verify-email")]
+        public async Task<IActionResult> VerifyEmail([FromQuery] string token)
+        {
+            bool isVerified = await _userRepository.VerifyEmail(token);
+
+            if (!isVerified)
+                return BadRequest("Invalid or expired token.");
+
+            return Ok("Email successfully verified! You can now log in.");
+        }
+
+        [HttpPost("resend-verification")]
+        public async Task<IActionResult> ResendVerificationEmail([FromBody] string email)
+        {
+            try
+            {
+                var verification = await _userRepository.GenerateEmailVerification(email);
+                var verificationLink = $"{Request.Scheme}://{Request.Host}/api/shopper/verify-email?token={verification.VerificationToken}";
+
+                await _emailService.SendVerificationEmail(email, verificationLink);
+
+                return Ok("Verification email resent. Please check your inbox.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
+        }
         #endregion
 
         #region services
