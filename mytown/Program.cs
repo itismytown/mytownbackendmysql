@@ -44,16 +44,19 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IShopperRepository, ShopperRepository>();
 
-// Enable CORS to allow requests from http://localhost:3003
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")  // Allow only this origin
-              .AllowAnyMethod()                      // Allow any HTTP method (GET, POST, etc.)
-              .AllowAnyHeader();                     // Allow any headers (e.g., Content-Type)
+        policy.WithOrigins(
+            "http://localhost:3000",  // Local React frontend
+            "https://mytown-wa-d8gmezfjg7d7hhdy.canadacentral-01.azurewebsites.net" // Deployed frontend
+        )
+        .AllowAnyMethod()
+        .AllowAnyHeader();
     });
 });
+
 
 builder.Services.AddAuthentication();
 try { 
