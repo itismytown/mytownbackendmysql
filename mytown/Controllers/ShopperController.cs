@@ -46,8 +46,24 @@ public class ShopperController : ControllerBase
 
             var registeredUser = await _shopperRepository.RegisterShopper(shopper);
 
+          
+            if (registeredUser == null)
+                return StatusCode(409, new { error = "Email is already in use." }); // Return 409 Conflict
+
+
+            // var backendUrl = "http://localhost:5100"; // Your actual backend URL
             var verification = await _shopperRepository.GenerateEmailVerification(model.Email);
-            var verificationLink = $"{Request.Scheme}://{Request.Host}/api/shopper/verify-email?token={verification.VerificationToken}";
+
+            var frontendUrl = "https://mytown-wa-d8gmezfjg7d7hhdy.canadacentral-01.azurewebsites.net"; // Your React app URL
+            var verificationLink = $"{frontendUrl}/verify-email?token={verification.VerificationToken}";
+
+            await _emailService.SendVerificationEmail(model.Email, verificationLink);
+
+            Console.WriteLine($"Verification Link: {verificationLink}"); // Debugging
+
+
+           
+          //  var verificationLink = $"{Request.Scheme}://{Request.Host}/api/shopper/verify-email?token={verification.VerificationToken}";
 
            await _emailService.SendVerificationEmail(model.Email, verificationLink);
 

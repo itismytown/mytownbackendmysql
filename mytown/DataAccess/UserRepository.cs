@@ -69,7 +69,7 @@ namespace mytown.DataAccess
 
             // 🔹 If no business user found, check shopperregister
             var shopper = await _context.ShopperRegisters
-                .FirstOrDefaultAsync(s => s.Email == email && s.CnfPassword == password);
+                .FirstOrDefaultAsync(s => s.Email == email);
 
             if (shopper != null)
             {
