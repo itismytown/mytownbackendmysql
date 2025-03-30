@@ -51,38 +51,57 @@ namespace mytown.DataAccess
 
         public async Task<object> LoginAsync(string email, string password)
         {
-            // 🔹 Check BusinessRegister first
-            var user = await _context.BusinessRegisters
-                .FirstOrDefaultAsync(r => r.BusEmail == email && r.CnfPassword == password);
+            // 🔹 First, check the BusinessRegisters table for a business user.
+            var businessUser = await _context.BusinessRegisters
+                .FirstOrDefaultAsync(r => r.BusEmail == email);
 
-            if (user != null)
+            if (businessUser != null)
             {
+                // Verify the password using BCrypt.
+                // If the stored hash is in the CnfPassword field, verify against it.
+                if (!BCrypt.Net.BCrypt.Verify(password, businessUser.CnfPassword))
+                {
+                    // Incorrect password.
+                    return null;
+                }
+
+                // Load the corresponding business profile.
                 var businessProfile = await _context.BusinessProfiles
-                    .FirstOrDefaultAsync(bp => bp.BusRegId == user.BusRegId);
+                    .FirstOrDefaultAsync(bp => bp.BusRegId == businessUser.BusRegId);
 
                 return new
                 {
-                    user,
-                    businessProfile
+                    user = businessUser,
+                    businessProfile = businessProfile
                 };
             }
 
-            // 🔹 If no business user found, check shopperregister
+            // 🔹 If no business user is found, check the ShopperRegisters table.
             var shopper = await _context.ShopperRegisters
                 .FirstOrDefaultAsync(s => s.Email == email);
 
             if (shopper != null)
             {
+                // Verify the password using BCrypt.
+                // In your registration code for shopper, the hashed password is stored in the NewPassword field.
+                if (!BCrypt.Net.BCrypt.Verify(password, shopper.NewPassword))
+                {
+                    // Incorrect password.
+                    return null;
+                }
+
                 return new
                 {
                     user = (object)null,
                     businessProfile = (object)null,
-                    shopper  // Shopper object
-                }; // Return shopper object directly
+                    shopper = shopper
+                };
             }
 
-            return null; // No user found
+            // If no matching user is found, return null.
+            return null;
         }
+
 
 
         public async Task<bool> UserExists(Registration regDetails)

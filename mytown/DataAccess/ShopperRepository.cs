@@ -22,15 +22,11 @@ namespace mytown.DataAccess
             if (await IsEmailTaken(shopper.Email))
                 return null;
             //throw new Exception("Email is already in use.");
-
-            shopper.NewPassword = BCrypt.Net.BCrypt.HashPassword(shopper.NewPassword);
             shopper.CnfPassword = shopper.NewPassword;
             shopper.IsEmailVerified = false;
 
             _context.ShopperRegisters.Add(shopper);
             await _context.SaveChangesAsync();
-
-            await GenerateEmailVerification(shopper.Email);
 
             return shopper;
         }
@@ -80,6 +76,18 @@ namespace mytown.DataAccess
             return true;
         }
 
-       
+        public async Task<ShopperVerification> FindVerificationByToken(string token)
+        {
+            return await _context.ShopperVerification.FirstOrDefaultAsync(v => v.VerificationToken == token);
+        }
+
+        public async Task RemoveVerification(ShopperVerification verification)
+        {
+            _context.ShopperVerification.Remove(verification);
+            await _context.SaveChangesAsync();
+        }
+
+
+
     }
 }
