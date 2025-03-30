@@ -17,12 +17,12 @@ namespace mytown.DataAccess
             _context = context;
         }
 
-        public async Task<shopperregister> RegisterShopper(shopperregister shopper)
+        public async Task<ShopperRegister> RegisterShopper(ShopperRegister shopper)
         {
             if (await IsEmailTaken(shopper.Email))
                 return null;
             //throw new Exception("Email is already in use.");
-            shopper.CnfPassword = shopper.NewPassword;
+            shopper.ConfirmPassword = shopper.Password;
             shopper.IsEmailVerified = false;
 
             _context.ShopperRegisters.Add(shopper);

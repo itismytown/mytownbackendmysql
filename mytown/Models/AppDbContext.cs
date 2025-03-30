@@ -20,7 +20,7 @@ namespace mytown.Models
             public DbSet<services_sub_categories> services_sub_categories { get; set; }
             public DbSet<products> products { get; set; }
             public DbSet<services> services { get; set; }
-            public DbSet<shopperregister> ShopperRegisters { get; set; }
+            public DbSet<ShopperRegister> ShopperRegisters { get; set; }
             public DbSet<ShopperVerification> ShopperVerification { get; set; }
             public DbSet<subcategoryimages_busregid> Subcategoryimages_Busregids { get; set; }
             public IEnumerable<object> businessprofile { get; internal set; }
@@ -60,6 +60,12 @@ namespace mytown.Models
                           .HasPrecision(18, 2); // Define precision for service_cost
                 });
                 modelBuilder.Entity<subcategoryimages_busregid>().ToTable("subcategoryimages_Busregids");
+
+                // Seed data for businesscategoriescs: inserting "products" and "services"
+                modelBuilder.Entity<businesscategoriescs>().HasData(
+                    new businesscategoriescs { BuscatId = 1, Businesscategory_name = "products" },
+                    new businesscategoriescs { BuscatId = 2, Businesscategory_name = "services" }
+                );
             }
         }
             

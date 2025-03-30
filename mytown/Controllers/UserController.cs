@@ -492,7 +492,7 @@ namespace mytown.Controllers
         #region Shopper Registration
 
         [HttpPost("shopperregister")]
-        public async Task<IActionResult> RegisterShopper([FromBody] shopperregister shopperDetails)
+        public async Task<IActionResult> RegisterShopper([FromBody] ShopperRegister shopperDetails)
         {
             if (shopperDetails == null)
             {
@@ -506,7 +506,7 @@ namespace mytown.Controllers
             }
 
             // Ensure passwords match
-            if (shopperDetails.NewPassword != shopperDetails.CnfPassword)
+            if (shopperDetails.Password != shopperDetails.ConfirmPassword)
             {
                 return BadRequest("Passwords do not match.");
             }
@@ -579,46 +579,6 @@ namespace mytown.Controllers
         #endregion
 
         #region Shopper emailverifivation
-        [HttpPost("shopregister")]
-        public async Task<IActionResult> Register([FromBody] shopperRegisterDto model)
-        {
-            try
-            {
-                if (model.Password != model.ConfirmPassword)
-                    return BadRequest("Passwords do not match.");
-
-                var shopper = new shopperregister
-                {
-                    Username = model.Username,
-                    Email = model.Email,
-                    NewPassword = BCrypt.Net.BCrypt.HashPassword(model.Password),
-                    CnfPassword = BCrypt.Net.BCrypt.HashPassword(model.ConfirmPassword),
-                    Address = model.Address,
-                    Town = model.Town,
-                    City = model.City,
-                    State = model.State,
-                    Country = model.Country,
-                    Postalcode = model.Postalcode,
-                    PhoneNo = model.PhoneNo,
-                    Photoname = model.Photoname,
-                    IsEmailVerified = false
-                };
-
-                var registeredUser = await _userRepository.RegisterShopper(shopper);
-
-                var verification = await _userRepository.GenerateEmailVerification(model.Email);
-                var verificationLink = $"{Request.Scheme}://{Request.Host}/api/shopper/verify-email?token={verification.VerificationToken}";
-
-                await _emailService.SendVerificationEmail(model.Email, verificationLink);
-
-                return Ok(new { message = "Registration successful! Please check your email for verification." });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
-        }
-
         [HttpGet("verify-email")]
         public async Task<IActionResult> VerifyEmail([FromQuery] string token)
         {

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using MySqlConnector;
 using mytown.DataAccess;
 using mytown.Services;
+using mytown.Services.Validation;
 
 
 void TestMySQLConnection()
@@ -43,6 +44,9 @@ builder.Configuration
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IShopperRepository, ShopperRepository>();
+
+builder.Services.AddScoped<IShopperRegistrationValidator, ShopperRegistrationValidator>();
+builder.Services.AddScoped<IVerificationLinkBuilder, VerificationLinkBuilder>();
 
 builder.Services.AddCors(options =>
 {
