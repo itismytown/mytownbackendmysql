@@ -64,7 +64,6 @@ namespace mytown.Controllers
                     Username = shopperRegisterDto.Username,
                     Email = shopperRegisterDto.Email,
                     Password = hashedPassword,
-                    ConfirmPassword = hashedPassword,
                     Address = shopperRegisterDto.Address,
                     Town = shopperRegisterDto.Town,
                     City = shopperRegisterDto.City,

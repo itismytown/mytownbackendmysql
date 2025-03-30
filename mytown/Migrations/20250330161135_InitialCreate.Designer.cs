@@ -12,7 +12,7 @@ using mytown.Models.mytown.DataAccess;
 namespace mytown.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250330152559_InitialCreate")]
+    [Migration("20250330161135_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -232,11 +232,6 @@ namespace mytown.Migrations
                         .HasColumnType("varchar(300)");
 
                     b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<string>("ConfirmPassword")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");

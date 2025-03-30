@@ -24,11 +24,6 @@ namespace mytown.Models
         public required string Password { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
-        [StringLength(100, MinimumLength = 6)]
-        public required string ConfirmPassword { get; set; }
-
-        [Required]
         [StringLength(300)]
         public required string Address { get; set; }
 

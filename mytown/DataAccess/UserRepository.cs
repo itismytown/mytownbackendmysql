@@ -510,7 +510,6 @@ namespace mytown.DataAccess
             //    throw new Exception("Email is already in use.");
 
             shopper.Password = BCrypt.Net.BCrypt.HashPassword(shopper.Password);
-            shopper.ConfirmPassword = shopper.Password;
             shopper.IsEmailVerified = false;
 
             _context.ShopperRegisters.Add(shopper);

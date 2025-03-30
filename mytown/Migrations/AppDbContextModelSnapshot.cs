@@ -233,11 +233,6 @@ namespace mytown.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasMaxLength(100)

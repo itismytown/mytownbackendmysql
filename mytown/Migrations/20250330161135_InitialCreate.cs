@@ -346,8 +346,6 @@ namespace mytown.Migrations
                     IsEmailVerified = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     Password = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ConfirmPassword = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Address = table.Column<string>(type: "varchar(300)", maxLength: 300, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Town = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)

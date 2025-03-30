@@ -491,38 +491,38 @@ namespace mytown.Controllers
 
         #region Shopper Registration
 
-        [HttpPost("shopperregister")]
-        public async Task<IActionResult> RegisterShopper([FromBody] ShopperRegister shopperDetails)
-        {
-            if (shopperDetails == null)
-            {
-                return BadRequest("Shopper registration details cannot be null.");
-            }
+        //[HttpPost("shopperregister")]
+        //public async Task<IActionResult> RegisterShopper([FromBody] ShopperRegister shopperDetails)
+        //{
+        //    if (shopperDetails == null)
+        //    {
+        //        return BadRequest("Shopper registration details cannot be null.");
+        //    }
 
-            // Validate model state
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    // Validate model state
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            // Ensure passwords match
-            if (shopperDetails.Password != shopperDetails.ConfirmPassword)
-            {
-                return BadRequest("Passwords do not match.");
-            }
+        //    // Ensure passwords match
+        //    if (shopperDetails.Password != shopperDetails.ConfirmPassword)
+        //    {
+        //        return BadRequest("Passwords do not match.");
+        //    }
 
-            // Check if email already exists
-            var existingShopper = await _userRepository.GetShopperByEmailAsync(shopperDetails.Email);
-            if (existingShopper != null)
-            {
-                return Conflict("Shopper with this email already exists.");
-            }
+        //    // Check if email already exists
+        //    var existingShopper = await _userRepository.GetShopperByEmailAsync(shopperDetails.Email);
+        //    if (existingShopper != null)
+        //    {
+        //        return Conflict("Shopper with this email already exists.");
+        //    }
 
-            // Add the new shopper registration
-            var addedShopper = await _userRepository.AddShopperRegisterAsync(shopperDetails);
+        //    // Add the new shopper registration
+        //    var addedShopper = await _userRepository.AddShopperRegisterAsync(shopperDetails);
 
-            return CreatedAtAction(nameof(RegisterShopper), new { id = addedShopper.ShopperRegId }, addedShopper);
-        }
+        //    return CreatedAtAction(nameof(RegisterShopper), new { id = addedShopper.ShopperRegId }, addedShopper);
+        //}
 
 
         [HttpGet("getShoppersRegisterCount")]
