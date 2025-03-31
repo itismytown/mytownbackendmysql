@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using mytown.DataAccess;
 using mytown.Models.mytown.DataAccess;
 using mytown.Services;
-using Pomelo.EntityFrameworkCore.MySql;
+using mytown.Services.Validation;
 
 public class Startup
 {
@@ -17,38 +14,51 @@ public class Startup
 
     public IConfiguration Configuration { get; }
 
+    // Main entry for service registration; this method calls several private helpers.
     public void ConfigureServices(IServiceCollection services)
+    {
+        RegisterDatabase(services);
+        RegisterApplicationServices(services);
+        RegisterControllersAndSwagger(services);
+        RegisterCors(services);
+        RegisterAuthentication(services);
+    }
+
+    // Registers the database (EF Core with MySQL).
+    private void RegisterDatabase(IServiceCollection services)
     {
         var connectionString = Configuration.GetConnectionString("mysqlConnection");
         Console.WriteLine($"EF Core Connection String: {connectionString}");
-
-        // Configure MySQL connection
         services.AddDbContext<AppDbContext>(options =>
-             options.UseMySql(Configuration.GetConnectionString("mysqlConnection"),
-                         ServerVersion.Parse("8.0.33-mysql"))); // Change to your actual MySQL version
+            options.UseMySql(connectionString, ServerVersion.Parse("8.0.33-mysql")));
+    }
 
-
-
-        // Add repositories or other services
+    // Consolidates all AddScoped registrations.
+    private void RegisterApplicationServices(IServiceCollection services)
+    {
         services.AddScoped<UserRepository>();
-        services.AddScoped<IShopperRepository, ShopperRepository>();      
+        services.AddScoped<IShopperRepository, ShopperRepository>();
         services.AddScoped<IEmailService, EmailService>();
-     
+        services.AddScoped<IShopperRegistrationValidator, ShopperRegistrationValidator>();
+        services.AddScoped<IVerificationLinkBuilder, VerificationLinkBuilder>();
+    }
 
-        // Add controllers
+    // Registers controllers and Swagger (for API documentation).
+    private void RegisterControllersAndSwagger(IServiceCollection services)
+    {
         services.AddControllers();
-
-        // Swagger support
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+    }
 
-        var allowedOrigins = new List<string>
+    // Configures the CORS policy.
+    private void RegisterCors(IServiceCollection services)
     {
-        "http://localhost:3000", // Local frontend
-        "https://mytown-wa-d8gmezfjg7d7hhdy.canadacentral-01.azurewebsites.net" 
-        // Production frontend
-    };
-
+        var allowedOrigins = new List<string>
+        {
+            "http://localhost:3000", // Local frontend
+            "https://mytown-wa-d8gmezfjg7d7hhdy.canadacentral-01.azurewebsites.net" // Production frontend
+        };
         services.AddCors(options =>
         {
             options.AddPolicy("AllowFrontend", policy =>
@@ -58,62 +68,106 @@ public class Startup
                       .AllowAnyHeader();
             });
         });
-
-        services.AddControllers();
-
-        // Enable CORS policy
-        services.AddCors(options =>
-        {
-            options.AddPolicy("AllowFrontend", policy =>
-            {
-                policy.WithOrigins("http://localhost:3000")  // Allow the frontend origin (change to your frontend's URL)
-                      .AllowAnyMethod()                      // Allow all HTTP methods (GET, POST, etc.)
-                      .AllowAnyHeader();                     // Allow all headers (e.g., Content-Type)
-            });
-        });
     }
 
+    // Configures JWT Bearer authentication.
+    private void RegisterAuthentication(IServiceCollection services)
+    {
+        services.AddAuthentication("Bearer")
+            .AddJwtBearer(options =>
+            {
+                // Configure JWT token validation parameters here.
+            });
+    }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    // Main pipeline configuration method; this also calls several helper methods.
+    public void Configure(IApplicationBuilder app, IHostEnvironment env, ILogger<Startup> logger)
+    {
+        ConfigureExceptionHandling(app, env, logger);
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+
+        ConfigureSwagger(app, env, logger);
+        ApplyMigrations(app, logger);
+
+        app.UseRouting();
+        app.UseCors("AllowFrontend");
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+        });
+
+        LogServerAddresses(app, logger);
+        logger.LogInformation("API is ready and running.");
+        Console.WriteLine("API is ready and running.");
+    }
+
+    // Sets up error handling based on the environment.
+    private void ConfigureExceptionHandling(IApplicationBuilder app, IHostEnvironment env, ILogger logger)
     {
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
         }
-        app.UseStaticFiles();
-
-
-        // Enable Swagger middleware
-        app.UseSwagger();
-        app.UseSwaggerUI(c =>
+        else
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            c.RoutePrefix = "swagger";  // Serve Swagger UI at the app's root
-        });
-
-        // Enable HTTPS redirection
-        app.UseHttpsRedirection();
-
-        //// Apply any pending migrations to the database on startup
-        using (var scope = app.ApplicationServices.CreateScope())
-        {
-            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            dbContext.Database.Migrate();  // Apply migrations automatically
+            logger.LogInformation("Running in production mode.");
+            Console.WriteLine("API is running in production mode. Swagger UI is disabled.");
         }
-
-        // **CORS Middleware should be applied before Routing**
-        app.UseRouting();
-
-        // Apply CORS policy
-        app.UseCors("AllowFrontend");
-
-        // Map controllers to API endpoints
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
-        });
     }
 
+    // Enables Swagger only in development.
+    private void ConfigureSwagger(IApplicationBuilder app, IHostEnvironment env, ILogger logger)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = "swagger";
+            });
+            logger.LogInformation("Swagger UI is enabled.");
+        }
+    }
 
+    // Applies pending EF Core migrations.
+    private void ApplyMigrations(IApplicationBuilder app, ILogger logger)
+    {
+        using (var scope = app.ApplicationServices.CreateScope())
+        {
+            try
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                dbContext.Database.Migrate();
+                logger.LogInformation("Database migrations applied successfully.");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while applying database migrations.");
+                throw;
+            }
+        }
+    }
 
+    // Logs the addresses where the server is listening.
+    private void LogServerAddresses(IApplicationBuilder app, ILogger logger)
+    {
+        var addresses = app.ServerFeatures.Get<IServerAddressesFeature>()?.Addresses;
+        if (addresses != null)
+        {
+            foreach (var address in addresses)
+            {
+                logger.LogInformation($"Listening on: {address}");
+                Console.WriteLine($"Listening on: {address}");
+            }
+        }
+        else
+        {
+            logger.LogWarning("Unable to log server addresses. IServerAddressesFeature not available.");
+        }
+    }
 }

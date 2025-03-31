@@ -1,90 +1,76 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
-using MySqlConnector;
-using mytown.DataAccess;
-using mytown.Services;
-using mytown.Services.Validation;
+﻿using MySqlConnector;
+using Serilog;
 
-
-void TestMySQLConnection()
+try
 {
-      string connStr = "Server=mytown-mysql-db.mysql.database.azure.com;Port=3306;Database=mytown_db;User Id=dbadmin;Password=admin4321$;SslMode=REQUIRED;TlsVersion=TLSv1.2;";
-  //  string connStr = "Server=mytown-mysql-db.mysql.database.azure.com;Port=3306;Database=mytown_db;User Id=dbadmin@mytown-mysql-db;Password=admin4321$;SslMode=VerifyCA;TlsVersion=TLSv1.2;SslCa=C:\\certs\\DigiCertGlobalRootCA.crt.pem;";
+    // Configure Serilog for both console and file logging.
+    Log.Logger = new LoggerConfiguration()
+        .MinimumLevel.Information()
+        .WriteTo.Console() // Requires Serilog.Sinks.Console package
+        .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day) // Requires Serilog.Sinks.File package
+        .CreateLogger();
 
+    // Create the WebApplication builder.
+    var builder = WebApplication.CreateBuilder(args);
+
+    // Replace the default logging provider with Serilog.
+    builder.Host.UseSerilog(); // Requires using Serilog.Extensions.Hosting
+
+    // Load configuration files.
+    builder.Configuration
+        .SetBasePath(Directory.GetCurrentDirectory())
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+        .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+        .AddEnvironmentVariables();
+
+    // Initialize Startup and register all services.
+    var startup = new Startup(builder.Configuration);
+    startup.ConfigureServices(builder.Services);
+
+    // Build the application.
+    var app = builder.Build();
+
+    // Obtain a logger instance (using Microsoft.Extensions.Logging).
+    Microsoft.Extensions.Logging.ILogger logger = app.Services.GetRequiredService<ILogger<Program>>();
+
+    // Test the MySQL connection before starting the app.
+    TestMySQLConnection(builder.Configuration, logger);
+
+    // Configure the HTTP request pipeline via Startup.Configure.
+    startup.Configure(app, builder.Environment, app.Services.GetRequiredService<ILogger<Startup>>());
+
+    // Run the application.
+    app.Run();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Application startup error: {ex.Message}");
+    Log.Fatal(ex, "Application startup error");
+    throw;
+}
+finally
+{
+    Log.CloseAndFlush();
+}
+
+/// <summary>
+/// Tests the MySQL connection using the connection string from configuration.
+/// </summary>
+static void TestMySQLConnection(IConfiguration configuration, Microsoft.Extensions.Logging.ILogger logger)
+{
+    var connStr = configuration.GetConnectionString("mysqlConnection");
     using (var conn = new MySqlConnection(connStr))
     {
         try
         {
             conn.Open();
-            Console.WriteLine(" Connection successful now!");
+            logger.LogInformation("MySQL connection successful.");
+            Console.WriteLine("Connection successful now!");
         }
         catch (Exception ex)
         {
-            Console.WriteLine(" Connection failed: " + ex.Message);
+            logger.LogError(ex, "MySQL connection failed.");
+            Console.WriteLine("Connection failed: " + ex.Message);
         }
     }
-}
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-var startup = new Startup(builder.Configuration);
-startup.ConfigureServices(builder.Services); // Ensure services are configured
-
-
-TestMySQLConnection();
-builder.Configuration
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true);
-
-// Add services to the container
-builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddScoped<IShopperRepository, ShopperRepository>();
-
-builder.Services.AddScoped<IShopperRegistrationValidator, ShopperRegistrationValidator>();
-builder.Services.AddScoped<IVerificationLinkBuilder, VerificationLinkBuilder>();
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins(
-            "http://localhost:3000",  // Local React frontend
-            "https://mytown-wa-d8gmezfjg7d7hhdy.canadacentral-01.azurewebsites.net" // Deployed frontend
-        )
-        .AllowAnyMethod()
-        .AllowAnyHeader();
-    });
-});
-
-
-builder.Services.AddAuthentication();
-try { 
-var app = builder.Build();
-
-// **Apply CORS Middleware Before Routing**
-app.UseCors("AllowFrontend");  // Enable CORS with the "AllowFrontend" policy
-
-// Configure the HTTP request pipeline.
-startup.Configure(app, builder.Environment);
-
-// Enable Routing and Map Controllers (If you have API controllers)
-app.UseRouting();
-    app.UseStaticFiles();
-
-
-app.UseAuthentication();
-app.UseAuthorization();
-app.MapControllers();
-
-app.Run();
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Application startup error: {ex.Message}");
-throw;
 }

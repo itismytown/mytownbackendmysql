@@ -12,7 +12,7 @@ using mytown.Models.mytown.DataAccess;
 namespace mytown.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250330161135_InitialCreate")]
+    [Migration("20250331111420_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
