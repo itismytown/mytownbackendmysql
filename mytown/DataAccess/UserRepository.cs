@@ -51,38 +51,57 @@ namespace mytown.DataAccess
 
         public async Task<object> LoginAsync(string email, string password)
         {
-            // 🔹 Check BusinessRegister first
-            var user = await _context.BusinessRegisters
-                .FirstOrDefaultAsync(r => r.BusEmail == email && r.CnfPassword == password);
+            // 🔹 First, check the BusinessRegisters table for a business user.
+            var businessUser = await _context.BusinessRegisters
+                .FirstOrDefaultAsync(r => r.BusEmail == email);
 
-            if (user != null)
+            if (businessUser != null)
             {
+                // Verify the password using BCrypt.
+                // If the stored hash is in the CnfPassword field, verify against it.
+                if (!BCrypt.Net.BCrypt.Verify(password, businessUser.CnfPassword))
+                {
+                    // Incorrect password.
+                    return null;
+                }
+
+                // Load the corresponding business profile.
                 var businessProfile = await _context.BusinessProfiles
-                    .FirstOrDefaultAsync(bp => bp.BusRegId == user.BusRegId);
+                    .FirstOrDefaultAsync(bp => bp.BusRegId == businessUser.BusRegId);
 
                 return new
                 {
-                    user,
-                    businessProfile
+                    user = businessUser,
+                    businessProfile = businessProfile
                 };
             }
 
-            // 🔹 If no business user found, check shopperregister
+            // 🔹 If no business user is found, check the ShopperRegisters table.
             var shopper = await _context.ShopperRegisters
                 .FirstOrDefaultAsync(s => s.Email == email);
 
             if (shopper != null)
             {
+                // Verify the password using BCrypt.
+                // In your registration code for shopper, the hashed password is stored in the NewPassword field.
+                if (!BCrypt.Net.BCrypt.Verify(password, shopper.Password))
+                {
+                    // Incorrect password.
+                    return null;
+                }
+
                 return new
                 {
                     user = (object)null,
                     businessProfile = (object)null,
-                    shopper  // Shopper object
-                }; // Return shopper object directly
+                    shopper = shopper
+                };
             }
 
-            return null; // No user found
+            // If no matching user is found, return null.
+            return null;
         }
+
 
 
         public async Task<bool> UserExists(Registration regDetails)
@@ -446,15 +465,15 @@ namespace mytown.DataAccess
 
         #region Shopper Registration
 
-        public async Task<shopperregister> AddShopperRegisterAsync(shopperregister shopperDetails)
+        public async Task<ShopperRegister> AddShopperRegisterAsync(ShopperRegister shopperDetails)
         {
-            _context.Set<shopperregister>().Add(shopperDetails);
+            _context.Set<ShopperRegister>().Add(shopperDetails);
             await _context.SaveChangesAsync();
             return shopperDetails;
         }
-        public async Task<shopperregister> GetShopperByEmailAsync(string email)
+        public async Task<ShopperRegister> GetShopperByEmailAsync(string email)
         {
-            return await _context.Set<shopperregister>().FirstOrDefaultAsync(s => s.Email == email);
+            return await _context.Set<ShopperRegister>().FirstOrDefaultAsync(s => s.Email == email);
         }
         public async Task<int> GetShoppersRegisterCountAsync()
         {
@@ -468,7 +487,7 @@ namespace mytown.DataAccess
         //    // Retrieve all rows from the ShopperRegisters table asynchronously
         //    return await _context.ShopperRegisters.ToListAsync();
         //}
-        public async Task<(IEnumerable<shopperregister> records, int totalRecords)> GetShopperRegistersPaginatedAsync(int page, int pageSize)
+        public async Task<(IEnumerable<ShopperRegister> records, int totalRecords)> GetShopperRegistersPaginatedAsync(int page, int pageSize)
         {
             var totalRecords = await _context.ShopperRegisters.CountAsync();
             var records = await _context.ShopperRegisters
@@ -478,20 +497,19 @@ namespace mytown.DataAccess
 
             return (records, totalRecords);
         }
-        public async Task<shopperregister> GetShopperDetails(int shopperRegId)
+        public async Task<ShopperRegister> GetShopperDetails(int shopperRegId)
         {
             return await _context.ShopperRegisters.FindAsync(shopperRegId);
         }
         #endregion
 
         #region shopper emailverificatiom
-        public async Task<shopperregister> RegisterShopper(shopperregister shopper)
+        public async Task<ShopperRegister> RegisterShopper(ShopperRegister shopper)
         {
             //if (await IsEmailTaken(shopper.Email))
             //    throw new Exception("Email is already in use.");
 
-            shopper.NewPassword = BCrypt.Net.BCrypt.HashPassword(shopper.NewPassword);
-            shopper.CnfPassword = shopper.NewPassword;
+            shopper.Password = BCrypt.Net.BCrypt.HashPassword(shopper.Password);
             shopper.IsEmailVerified = false;
 
             _context.ShopperRegisters.Add(shopper);
