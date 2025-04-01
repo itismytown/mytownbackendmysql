@@ -142,7 +142,7 @@ public class Startup
             try
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                dbContext.Database.Migrate();
+               // dbContext.Database.Migrate();
                 logger.LogInformation("Database migrations applied successfully.");
             }
             catch (Exception ex)
