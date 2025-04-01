@@ -41,6 +41,7 @@ public class Startup
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IShopperRegistrationValidator, ShopperRegistrationValidator>();
         services.AddScoped<IVerificationLinkBuilder, VerificationLinkBuilder>();
+        services.AddScoped<IBusinessRepository, BusinessRepository>();
     }
 
     // Registers controllers and Swagger (for API documentation).
