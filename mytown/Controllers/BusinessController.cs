@@ -65,7 +65,7 @@ namespace mytown.Controllers
                     businessCity = businessRegisterDto.businessCity,
                     businessState = businessRegisterDto.businessState,
                     businessCountry = businessRegisterDto.businessCountry,
-                    NewPassword = hashedPassword,
+                    Password = hashedPassword,
                     IsEmailVerified = false
                 };
 
