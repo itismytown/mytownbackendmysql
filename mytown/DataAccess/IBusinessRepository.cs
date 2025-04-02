@@ -8,7 +8,11 @@ namespace mytown.DataAccess
     public interface IBusinessRepository
     {
         Task<BusinessRegister> AddBusinessRegisterAsync(BusinessRegister newBusiness);
-        Task<BusinessRegister> GetBusinessByEmailAsync(string email);
+        Task<bool> IsEmailTaken(string email);
+        Task<businessverification> GenerateEmailVerification(string email);
+        Task<bool> VerifyEmail(string token);
+        Task<businessverification> FindVerificationByToken(string token);
+        Task RemoveVerification(businessverification verification);
         Task<ActionResult<IEnumerable<businesscategoriescs>>> GetBusinessCategories();
         Task<ActionResult<IEnumerable<businessservices>>> GetBusinessServices();
         Task<IEnumerable<product_sub_categories>> GetSubCategoriesByBuscatIdAsync(int buscatId);

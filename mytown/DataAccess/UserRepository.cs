@@ -59,7 +59,7 @@ namespace mytown.DataAccess
             {
                 // Verify the password using BCrypt.
                 // If the stored hash is in the CnfPassword field, verify against it.
-                if (!BCrypt.Net.BCrypt.Verify(password, businessUser.CnfPassword))
+                if (!BCrypt.Net.BCrypt.Verify(password, businessUser.Password))
                 {
                     // Incorrect password.
                     return null;

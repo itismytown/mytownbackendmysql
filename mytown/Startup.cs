@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.EntityFrameworkCore;
+using mytown.Controllers;
 using mytown.DataAccess;
+using mytown.Models;
 using mytown.Models.mytown.DataAccess;
 using mytown.Services;
 using mytown.Services.Validation;
@@ -42,6 +44,7 @@ public class Startup
         services.AddScoped<IShopperRegistrationValidator, ShopperRegistrationValidator>();
         services.AddScoped<IVerificationLinkBuilder, VerificationLinkBuilder>();
         services.AddScoped<IBusinessRepository, BusinessRepository>();
+        services.AddScoped<IBusinessRegistrationValidator, BusinessRegistrationValidator>();
     }
 
     // Registers controllers and Swagger (for API documentation).

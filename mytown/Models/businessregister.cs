@@ -9,8 +9,8 @@ namespace mytown.Models
         [Key]
         public int BusRegId { get; set; } // Primary key
 
-        [Required]
-        public int RegId { get; set; } // Foreign key to the Registration table
+        //[Required]
+        //public int RegId { get; set; } // Foreign key to the Registration table
 
         [Required]
         [StringLength(100)]
@@ -46,6 +46,9 @@ namespace mytown.Models
         [StringLength(100)]
         public string BusEmail { get; set; }// Adjusted casing for clarity
 
+
+        public bool IsEmailVerified { get; set; } = false;
+
         [Required]
         [StringLength(200)]
         public string Address1 { get; set; }
@@ -67,12 +70,12 @@ namespace mytown.Models
         [Required]
         [DataType(DataType.Password)]
         [StringLength(100, MinimumLength = 6)] // Password must be at least 6 characters
-        public string NewPassword { get; set; }
+        public string Password { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [StringLength(100, MinimumLength = 6)] // Password must be at least 6 characters
-        public string CnfPassword { get; set; }
+        //[Required]
+        //[DataType(DataType.Password)]
+        //[StringLength(100, MinimumLength = 6)] // Password must be at least 6 characters
+        //public string CnfPassword { get; set; }
     }
 }
 

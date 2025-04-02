@@ -13,6 +13,7 @@ namespace mytown.Models
             public DbSet<User> Users { get; set; }
             public DbSet<Registration> Registrations { get; set; } // Pluralized name
             public DbSet<BusinessRegister> BusinessRegisters { get; set; } // Pluralized name
+            public DbSet<businessverification> BusinessVerification { get; set; }
             public DbSet<businessprofile> BusinessProfiles { get; set; }
             public DbSet<businessservices> BusinessServices { get; set; }
             public DbSet<businesscategoriescs> BusinessCategories { get; set; }

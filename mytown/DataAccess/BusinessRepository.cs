@@ -17,18 +17,87 @@ namespace mytown.DataAccess
             _context = context;
         }
 
+        public async Task<BusinessRegister> AddBusinessRegisterAsync(BusinessRegister business)
+        {
+            if (await IsEmailTaken(business.BusEmail))
+                return null;
 
-        public async Task<BusinessRegister> AddBusinessRegisterAsync(BusinessRegister newBusiness)
-        {
-            await _context.BusinessRegisters.AddAsync(newBusiness);
+            business.IsEmailVerified = false;
+
+            _context.BusinessRegisters.Add(business);
             await _context.SaveChangesAsync();
-            return newBusiness;
+
+            return business;
         }
-        public async Task<BusinessRegister> GetBusinessByEmailAsync(string email)
+
+        public async Task<bool> IsEmailTaken(string email)
         {
-            return await _context.BusinessRegisters
-                .FirstOrDefaultAsync(b => b.BusEmail == email);
+            return await _context.BusinessRegisters.AnyAsync(b => b.BusEmail == email);
         }
+
+        public async Task<businessverification> GenerateEmailVerification(string email)
+        {
+            var business = await _context.BusinessRegisters.FirstOrDefaultAsync(b => b.BusEmail == email);
+            if (business == null) throw new Exception("Business not found.");
+
+            var token = Guid.NewGuid().ToString();
+            var expiryDate = DateTime.UtcNow.AddHours(24);
+
+            var verification = new businessverification
+            {
+                Email = email,
+                VerificationToken = token,
+                ExpiryDate = expiryDate,
+                IsVerified = false
+            };
+
+            _context.BusinessVerification.Add(verification);
+            await _context.SaveChangesAsync();
+
+            return verification;
+        }
+
+        public async Task<bool> VerifyEmail(string token)
+        {
+            var verification = await _context.BusinessVerification.FirstOrDefaultAsync(v => v.VerificationToken == token);
+
+            if (verification == null || verification.ExpiryDate < DateTime.UtcNow)
+                return false;
+
+            var business = await _context.BusinessRegisters.FirstOrDefaultAsync(b => b.BusEmail == verification.Email);
+            if (business == null) return false;
+
+            business.IsEmailVerified = true;
+            _context.BusinessRegisters.Update(business);
+            _context.BusinessVerification.Remove(verification);
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<businessverification> FindVerificationByToken(string token)
+        {
+            return await _context.BusinessVerification.FirstOrDefaultAsync(v => v.VerificationToken == token);
+        }
+
+        public async Task RemoveVerification(businessverification verification)
+        {
+            _context.BusinessVerification.Remove(verification);
+            await _context.SaveChangesAsync();
+        }
+    
+
+    //public async Task<BusinessRegister> AddBusinessRegisterAsync(BusinessRegister newBusiness)
+    //    {
+    //        await _context.BusinessRegisters.AddAsync(newBusiness);
+    //        await _context.SaveChangesAsync();
+    //        return newBusiness;
+    //    }
+    //    public async Task<BusinessRegister> GetBusinessByEmailAsync(string email)
+    //    {
+    //        return await _context.BusinessRegisters
+    //            .FirstOrDefaultAsync(b => b.BusEmail == email);
+    //    }
 
         //get business store types
         public async Task<ActionResult<IEnumerable<businesscategoriescs>>> GetBusinessCategories()
