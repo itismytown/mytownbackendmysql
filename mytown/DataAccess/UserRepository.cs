@@ -51,57 +51,48 @@ namespace mytown.DataAccess
 
         public async Task<object> LoginAsync(string email, string password)
         {
-            // 🔹 First, check the BusinessRegisters table for a business user.
+            // 🔹 Check BusinessRegisters first.
             var businessUser = await _context.BusinessRegisters
                 .FirstOrDefaultAsync(r => r.BusEmail == email);
 
             if (businessUser != null)
             {
-                // Verify the password using BCrypt.
-                // If the stored hash is in the CnfPassword field, verify against it.
-                if (!BCrypt.Net.BCrypt.Verify(password, businessUser.Password))
+                // If password matches, return business user
+                if (BCrypt.Net.BCrypt.Verify(password, businessUser.Password))
                 {
-                    // Incorrect password.
-                    return null;
+                    var businessProfile = await _context.BusinessProfiles
+                        .FirstOrDefaultAsync(bp => bp.BusRegId == businessUser.BusRegId);
+
+                    return new
+                    {
+                        user = businessUser,
+                        businessProfile = businessProfile
+                    };
                 }
-
-                // Load the corresponding business profile.
-                var businessProfile = await _context.BusinessProfiles
-                    .FirstOrDefaultAsync(bp => bp.BusRegId == businessUser.BusRegId);
-
-                return new
-                {
-                    user = businessUser,
-                    businessProfile = businessProfile
-                };
+               
             }
 
-            // 🔹 If no business user is found, check the ShopperRegisters table.
+            // Check ShopperRegisters if email exists there.
             var shopper = await _context.ShopperRegisters
                 .FirstOrDefaultAsync(s => s.Email == email);
 
             if (shopper != null)
             {
-                // Verify the password using BCrypt.
-                // In your registration code for shopper, the hashed password is stored in the NewPassword field.
-                if (!BCrypt.Net.BCrypt.Verify(password, shopper.Password))
+                // If password matches, return shopper user
+                if (BCrypt.Net.BCrypt.Verify(password, shopper.Password))
                 {
-                    // Incorrect password.
-                    return null;
+                    return new
+                    {
+                        user = (object)null,
+                        businessProfile = (object)null,
+                        shopper = shopper
+                    };
                 }
-
-                return new
-                {
-                    user = (object)null,
-                    businessProfile = (object)null,
-                    shopper = shopper
-                };
             }
 
-            // If no matching user is found, return null.
+            // 🔹 If no user matched OR passwords were incorrect, return null.
             return null;
         }
-
 
 
         public async Task<bool> UserExists(Registration regDetails)
