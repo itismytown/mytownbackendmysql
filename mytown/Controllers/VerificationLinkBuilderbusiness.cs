@@ -2,7 +2,7 @@
 
 namespace mytown.Services
 {
-    public class VerificationLinkBuilderbusiness : IVerificationLinkBuilder
+    public class VerificationLinkBuilderbusiness : IVerificationLinkBuilderbusiness
     {
         public string BuildLink(string frontendBaseUrl, string token)
         {

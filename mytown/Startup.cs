@@ -43,7 +43,7 @@ public class Startup
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<IShopperRegistrationValidator, ShopperRegistrationValidator>();
         services.AddScoped<IVerificationLinkBuilder, VerificationLinkBuilder>();
-        services.AddScoped<IVerificationLinkBuilder, VerificationLinkBuilderbusiness>();
+        services.AddScoped<IVerificationLinkBuilderbusiness,VerificationLinkBuilderbusiness>();
         services.AddScoped<IBusinessRepository, BusinessRepository>();
         services.AddScoped<IBusinessRegistrationValidator, BusinessRegistrationValidator>();
     }
