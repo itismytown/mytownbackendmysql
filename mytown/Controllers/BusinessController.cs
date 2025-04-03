@@ -94,7 +94,12 @@ namespace mytown.Controllers
                 await _emailService.SendVerificationEmail(businessRegisterDto.BusEmail, verificationLink);
                 _logger.LogInformation("Registration successful for {Email}. Verification email sent.", businessRegisterDto.BusEmail);
 
-                return Ok(new { message = "Registration successful! Please check your email for the verification link." });
+                return Ok(new
+                {
+                    message = "Registration successful! Please check your email for the verification link.",
+                    registeredBusiness
+                });
+
             }
             catch (Exception ex)
             {
@@ -181,6 +186,28 @@ namespace mytown.Controllers
             {
                 _logger.LogError(ex, "Exception during resend verification for token: {Token}", token);
                 return BadRequest(new { error = ex.Message });
+            }
+        }
+
+        //get business owner home page with busregid
+        [HttpGet("businessregister/{busRegId}")]
+        public async Task<IActionResult> GetBusinessById(int busRegId)
+        {
+            try
+            {
+                var business = await _businessRepository.GetBusinessByIdAsync(busRegId);
+
+                if (business == null)
+                {
+                    return NotFound(new { error = "Business not found with the given BusRegId." });
+                }
+
+                return Ok(business);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving business with BusRegId {BusRegId}", busRegId);
+                return StatusCode(500, new { error = "An error occurred while retrieving the business details." });
             }
         }
 

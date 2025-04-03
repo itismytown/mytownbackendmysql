@@ -85,19 +85,27 @@ namespace mytown.DataAccess
             _context.BusinessVerification.Remove(verification);
             await _context.SaveChangesAsync();
         }
-    
 
-    //public async Task<BusinessRegister> AddBusinessRegisterAsync(BusinessRegister newBusiness)
-    //    {
-    //        await _context.BusinessRegisters.AddAsync(newBusiness);
-    //        await _context.SaveChangesAsync();
-    //        return newBusiness;
-    //    }
-    //    public async Task<BusinessRegister> GetBusinessByEmailAsync(string email)
-    //    {
-    //        return await _context.BusinessRegisters
-    //            .FirstOrDefaultAsync(b => b.BusEmail == email);
-    //    }
+
+        //public async Task<BusinessRegister> AddBusinessRegisterAsync(BusinessRegister newBusiness)
+        //    {
+        //        await _context.BusinessRegisters.AddAsync(newBusiness);
+        //        await _context.SaveChangesAsync();
+        //        return newBusiness;
+        //    }
+        //    public async Task<BusinessRegister> GetBusinessByEmailAsync(string email)
+        //    {
+        //        return await _context.BusinessRegisters
+        //            .FirstOrDefaultAsync(b => b.BusEmail == email);
+        //    }
+
+        //get business owner home page with busregid
+        public async Task<BusinessRegister> GetBusinessByIdAsync(int busRegId)
+        {
+            return await _context.BusinessRegisters
+                                .FirstOrDefaultAsync(b => b.BusRegId == busRegId);
+        }
+
 
         //get business store types
         public async Task<ActionResult<IEnumerable<businesscategoriescs>>> GetBusinessCategories()
