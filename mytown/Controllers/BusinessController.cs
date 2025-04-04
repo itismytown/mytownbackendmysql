@@ -15,21 +15,21 @@ namespace mytown.Controllers
         private readonly IConfiguration _configuration;
         private readonly ILogger<BusinessController> _logger;
         private readonly IBusinessRegistrationValidator _registrationValidator;
-        private readonly IVerificationLinkBuilder _verificationLinkBuilder;
+        private readonly IVerificationLinkBuilderbusiness _verificationLinkBuilderbusiness;
 
         public BusinessController(IBusinessRepository businessRepository, 
             IEmailService emailService,
           IConfiguration configuration,
           ILogger<BusinessController> logger,
           IBusinessRegistrationValidator registrationValidator,
-          IVerificationLinkBuilder verificationLinkBuilder)
+          IVerificationLinkBuilderbusiness verificationLinkBuilderbusiness)
         {
             _businessRepository = businessRepository;
             _emailService = emailService;
             _configuration = configuration;
             _logger = logger;
             _registrationValidator = registrationValidator;
-            _verificationLinkBuilder = verificationLinkBuilder;
+            _verificationLinkBuilderbusiness = verificationLinkBuilderbusiness;
         }
       
         [HttpPost("businessregister")]
@@ -87,7 +87,7 @@ namespace mytown.Controllers
                 }
 
                 // Build verification link
-                string verificationLink = _verificationLinkBuilder.BuildLink(frontendBaseUrl, verificationRecord.VerificationToken);
+                string verificationLink = _verificationLinkBuilderbusiness.BuildLink(frontendBaseUrl, verificationRecord.VerificationToken);
                 _logger.LogInformation("Generated verification link for {Email}: {VerificationLink}", businessRegisterDto.BusEmail, verificationLink);
 
                 // Send verification email
@@ -176,7 +176,7 @@ namespace mytown.Controllers
                 }
 
                 // Build and send new verification link
-                string verificationLink = _verificationLinkBuilder.BuildLink(frontendBaseUrl, newVerification.VerificationToken);
+                string verificationLink = _verificationLinkBuilderbusiness.BuildLink(frontendBaseUrl, newVerification.VerificationToken);
                 _logger.LogInformation("New verification link generated for {Email}: {VerificationLink}", email, verificationLink);
 
                 await _emailService.SendVerificationEmail(email, verificationLink);
