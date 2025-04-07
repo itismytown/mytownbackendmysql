@@ -71,6 +71,17 @@ public class EmailService : IEmailService
 
         <!-- Footer -->
         <p style='font-size: 10px; color: #777;'>© 2025 MyTown. All rights reserved.</p>
+
+ <!-- Additional Success Button -->
+        <hr style='margin: 30px 0;' />
+        <a href='{{successUrl}}' 
+           style='display: inline-block; background-color: #28a745; color: white; padding: 12px 24px;
+                  text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold;'>
+            Go to My Account
+        </a>
+
+        <p style='font-size: 10px; color: #777; margin-top: 20px;'>If you've already verified, click the button above to continue.</p>
+  
     </div>
 </div>",
                     IsBodyHtml = true
