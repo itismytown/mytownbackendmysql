@@ -17,74 +17,39 @@ namespace mytown.DataAccess
             _context = context;
         }
 
-        public async Task<BusinessRegister> AddBusinessRegisterAsync(BusinessRegister business)
-        {
-            if (await IsEmailTaken(business.BusEmail))
-                return null;
-
-            business.IsEmailVerified = false;
-
-            _context.BusinessRegisters.Add(business);
-            await _context.SaveChangesAsync();
-
-            return business;
-        }
-
         public async Task<bool> IsEmailTaken(string email)
         {
             return await _context.BusinessRegisters.AnyAsync(b => b.BusEmail == email);
         }
 
-        public async Task<businessverification> GenerateEmailVerification(string email)
+
+        public async Task SavePendingVerification(PendingBusinessVerification pending)
         {
-            var business = await _context.BusinessRegisters.FirstOrDefaultAsync(b => b.BusEmail == email);
-            if (business == null) throw new Exception("Business not found.");
+            _context.PendingBusinessVerifications.Add(pending);
+            await _context.SaveChangesAsync();
+        }
 
-            var token = Guid.NewGuid().ToString();
-            var expiryDate = DateTime.UtcNow.AddHours(24);
+        public async Task<PendingBusinessVerification> FindPendingVerificationByToken(string token)
+        {
+            return await _context.PendingBusinessVerifications.FirstOrDefaultAsync(p => p.Token == token);
+        }
 
-            var verification = new businessverification
+        public async Task DeletePendingVerification(string token)
+        {
+            var record = await _context.PendingBusinessVerifications.FirstOrDefaultAsync(p => p.Token == token);
+            if (record != null)
             {
-                Email = email,
-                VerificationToken = token,
-                ExpiryDate = expiryDate,
-                IsVerified = false
-            };
-
-            _context.BusinessVerification.Add(verification);
-            await _context.SaveChangesAsync();
-
-            return verification;
+                _context.PendingBusinessVerifications.Remove(record);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public async Task<bool> VerifyEmail(string token)
+        public async Task RegisterBusiness(BusinessRegister business)
         {
-            var verification = await _context.BusinessVerification.FirstOrDefaultAsync(v => v.VerificationToken == token);
-
-            if (verification == null || verification.ExpiryDate < DateTime.UtcNow)
-                return false;
-
-            var business = await _context.BusinessRegisters.FirstOrDefaultAsync(b => b.BusEmail == verification.Email);
-            if (business == null) return false;
-
-            business.IsEmailVerified = true;
-            _context.BusinessRegisters.Update(business);
-            _context.BusinessVerification.Remove(verification);
-
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<businessverification> FindVerificationByToken(string token)
-        {
-            return await _context.BusinessVerification.FirstOrDefaultAsync(v => v.VerificationToken == token);
-        }
-
-        public async Task RemoveVerification(businessverification verification)
-        {
-            _context.BusinessVerification.Remove(verification);
+            _context.BusinessRegisters.Add(business);
             await _context.SaveChangesAsync();
         }
+
 
 
         //public async Task<BusinessRegister> AddBusinessRegisterAsync(BusinessRegister newBusiness)

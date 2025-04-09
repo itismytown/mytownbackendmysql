@@ -3,6 +3,8 @@ using mytown.DataAccess;
 using mytown.Models;
 using mytown.Services.Validation;
 using mytown.Services;
+using System.Text.Json;
+
 
 namespace mytown.Controllers
 {
@@ -31,80 +33,49 @@ namespace mytown.Controllers
             _registrationValidator = registrationValidator;
             _verificationLinkBuilderbusiness = verificationLinkBuilderbusiness;
         }
-      
+
         [HttpPost("businessregister")]
         public async Task<IActionResult> RegisterBusiness([FromBody] BusinessRegisterDto businessRegisterDto)
         {
-            // Validate the registration model
             List<string> validationErrors = _registrationValidator.Validate(businessRegisterDto);
             if (validationErrors.Count > 0)
             {
-                _logger.LogWarning("Registration validation errors for {Email}: {Errors}", businessRegisterDto.BusEmail, validationErrors);
+                _logger.LogWarning("Validation failed for {Email}: {Errors}", businessRegisterDto.BusEmail, validationErrors);
                 return BadRequest(new { errors = validationErrors });
             }
 
             try
             {
-                // Hash the password
-                var hashedPassword = BCrypt.Net.BCrypt.HashPassword(businessRegisterDto.Password);
-
-                // Create new business registration instance
-                var newBusiness = new BusinessRegister
+                if (await _businessRepository.IsEmailTaken(businessRegisterDto.BusEmail))
                 {
-                    BusinessUsername = businessRegisterDto.BusinessUsername,
-                    Businessname = businessRegisterDto.Businessname,
-                    LicenseType = businessRegisterDto.LicenseType,
-                    Gstin = businessRegisterDto.Gstin,
-                    BusservId = businessRegisterDto.BusservId,
-                    BuscatId = businessRegisterDto.BuscatId,
-                    Town = businessRegisterDto.Town,
-                    BusMobileNo = businessRegisterDto.BusMobileNo,
-                    BusEmail = businessRegisterDto.BusEmail,
-                    Address1 = businessRegisterDto.Address1,
-                    Address2 = businessRegisterDto.Address2,
-                    businessCity = businessRegisterDto.businessCity,
-                    businessState = businessRegisterDto.businessState,
-                    businessCountry = businessRegisterDto.businessCountry,
-                    Password = hashedPassword,
-                    IsEmailVerified = false
+                    return Conflict(new { error = "This email is already registered. Try logging in instead." });
+                }
+
+                string token = Guid.NewGuid().ToString();
+                DateTime expiry = DateTime.UtcNow.AddHours(24);
+                string frontendBaseUrl = _configuration["FrontendBaseUrl"];
+                string verificationLink = _verificationLinkBuilderbusiness.BuildLink(frontendBaseUrl, token);
+
+                string jsonPayload = JsonSerializer.Serialize(businessRegisterDto);
+
+                var pending = new PendingBusinessVerification
+                {
+                    Email = businessRegisterDto.BusEmail,
+                    Token = token,
+                    ExpiryDate = expiry,
+                    JsonPayload = jsonPayload
                 };
 
-                // Attempt to register the business
-                var registeredBusiness = await _businessRepository.AddBusinessRegisterAsync(newBusiness);
-                if (registeredBusiness == null)
-                {
-                    _logger.LogWarning("Registration failed: Email {Email} is already in use.", businessRegisterDto.BusEmail);
-                    return Conflict(new { error = "This email address is already registered. Please try logging in or use a different email." });
-                }
-
-                // Generate an email verification token
-                var verificationRecord = await _businessRepository.GenerateEmailVerification(businessRegisterDto.BusEmail);
-                string frontendBaseUrl = _configuration["FrontendBaseUrl"];
-                if (string.IsNullOrWhiteSpace(frontendBaseUrl))
-                {
-                    _logger.LogError("Frontend base URL is not configured.");
-                    return StatusCode(500, new { message = "Frontend base URL is missing. Please contact support." });
-                }
-
-                // Build verification link
-                string verificationLink = _verificationLinkBuilderbusiness.BuildLink(frontendBaseUrl, verificationRecord.VerificationToken);
-                _logger.LogInformation("Generated verification link for {Email}: {VerificationLink}", businessRegisterDto.BusEmail, verificationLink);
-
-                // Send verification email
+                await _businessRepository.SavePendingVerification(pending);
                 await _emailService.SendVerificationEmail(businessRegisterDto.BusEmail, verificationLink);
-                _logger.LogInformation("Registration successful for {Email}. Verification email sent.", businessRegisterDto.BusEmail);
 
-                return Ok(new
-                {
-                    message = "Registration successful! Please check your email for the verification link.",
-                    registeredBusiness
-                });
-
+                _logger.LogInformation("Verification email sent to {Email}", businessRegisterDto.BusEmail);
+                return Ok(new { message = "Verification email sent! Please check your inbox." });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Exception during registration for {Email}", businessRegisterDto.BusEmail);
-                return BadRequest(new { error = "An unexpected error occurred during registration. Please try again later." });
+                _logger.LogError(ex, "Error during registration for {Email}", businessRegisterDto.BusEmail);
+                return StatusCode(500, new { error = "Something went wrong. Please try again later." });
             }
         }
 
@@ -113,81 +84,94 @@ namespace mytown.Controllers
         {
             try
             {
-                var verificationRecord = await _businessRepository.FindVerificationByToken(token);
-                if (verificationRecord == null)
+                var pending = await _businessRepository.FindPendingVerificationByToken(token);
+                if (pending == null || pending.ExpiryDate < DateTime.UtcNow)
                 {
-                    _logger.LogWarning("Verification token not found: {Token}", token);
-                    return BadRequest(new { error = "Invalid verification link." });
+                    return BadRequest(new { error = "Invalid or expired verification link." });
                 }
 
-                if (verificationRecord.ExpiryDate < DateTime.UtcNow)
-                {
-                    _logger.LogWarning("Verification token expired: {Token}", token);
-                    return BadRequest(new { error = "Verification token has expired. Please request a new one." });
-                }
+                var businessDto = JsonSerializer.Deserialize<BusinessRegisterDto>(pending.JsonPayload);
+                var hashedPassword = BCrypt.Net.BCrypt.HashPassword(businessDto.Password);
 
-                bool verified = await _businessRepository.VerifyEmail(token);
-                if (!verified)
+                var newBusiness = new BusinessRegister
                 {
-                    _logger.LogWarning("Email verification failed for token: {Token}", token);
-                    return BadRequest(new { error = "Email verification failed. Please try again later." });
-                }
+                    BusinessUsername = businessDto.BusinessUsername,
+                    Businessname = businessDto.Businessname,
+                    LicenseType = businessDto.LicenseType,
+                    Gstin = businessDto.Gstin,
+                    BusservId = businessDto.BusservId,
+                    BuscatId = businessDto.BuscatId,
+                    Town = businessDto.Town,
+                    BusMobileNo = businessDto.BusMobileNo,
+                    BusEmail = businessDto.BusEmail,
+                    Address1 = businessDto.Address1,
+                    Address2 = businessDto.Address2,
+                    businessCity = businessDto.businessCity,
+                    businessState = businessDto.businessState,
+                    businessCountry = businessDto.businessCountry,
+                    Password = hashedPassword,
+                    IsEmailVerified = true
+                };
 
-                _logger.LogInformation("Email verified successfully for token: {Token}", token);
-                return Ok(new { message = "Your email has been successfully verified!" });
+                await _businessRepository.RegisterBusiness(newBusiness);
+                await _businessRepository.DeletePendingVerification(token);
+
+                _logger.LogInformation("Email verified and business registered for {Email}", newBusiness.BusEmail);
+                return Ok(new { message = "Your email is verified and your business account is created!" });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Exception during email verification for token: {Token}", token);
-                return BadRequest(new { error = "An error occurred during email verification. Please try again later." });
+                _logger.LogError(ex, "Error verifying token: {Token}", token);
+                return StatusCode(500, new { error = "Could not verify email. Please try again later." });
             }
         }
 
-        [HttpPost("resend-business-verification")]
-        public async Task<IActionResult> ResendVerificationEmail([FromQuery] string token)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(token))
-                {
-                    _logger.LogWarning("Resend verification requested without a token.");
-                    return BadRequest(new { error = "Verification token is missing." });
-                }
 
-                var existingVerification = await _businessRepository.FindVerificationByToken(token);
-                if (existingVerification == null)
-                {
-                    _logger.LogWarning("Resend verification requested: token {Token} not found.", token);
-                    return BadRequest(new { error = "Verification token not found. Please register again." });
-                }
+        //[HttpPost("resend-business-verification")]
+        //public async Task<IActionResult> ResendVerificationEmail([FromQuery] string token)
+        //{
+        //    try
+        //    {
+        //        if (string.IsNullOrWhiteSpace(token))
+        //        {
+        //            _logger.LogWarning("Resend verification requested without a token.");
+        //            return BadRequest(new { error = "Verification token is missing." });
+        //        }
 
-                string email = existingVerification.Email;
-                _logger.LogInformation("Resend verification requested for {Email} (old token: {Token})", email, token);
+        //        var existingVerification = await _businessRepository.FindVerificationByToken(token);
+        //        if (existingVerification == null)
+        //        {
+        //            _logger.LogWarning("Resend verification requested: token {Token} not found.", token);
+        //            return BadRequest(new { error = "Verification token not found. Please register again." });
+        //        }
 
-                // Remove old verification record and generate a new one
-                await _businessRepository.RemoveVerification(existingVerification);
-                var newVerification = await _businessRepository.GenerateEmailVerification(email);
+        //        string email = existingVerification.Email;
+        //        _logger.LogInformation("Resend verification requested for {Email} (old token: {Token})", email, token);
 
-                string frontendBaseUrl = _configuration["FrontendBaseUrl"];
-                if (string.IsNullOrWhiteSpace(frontendBaseUrl))
-                {
-                    _logger.LogError("Frontend base URL is not configured properly.");
-                    return StatusCode(500, new { message = "Frontend base URL is missing. Please contact support." });
-                }
+        //        // Remove old verification record and generate a new one
+        //        await _businessRepository.RemoveVerification(existingVerification);
+        //        var newVerification = await _businessRepository.GenerateEmailVerification(email);
 
-                // Build and send new verification link
-                string verificationLink = _verificationLinkBuilderbusiness.BuildLink(frontendBaseUrl, newVerification.VerificationToken);
-                _logger.LogInformation("New verification link generated for {Email}: {VerificationLink}", email, verificationLink);
+        //        string frontendBaseUrl = _configuration["FrontendBaseUrl"];
+        //        if (string.IsNullOrWhiteSpace(frontendBaseUrl))
+        //        {
+        //            _logger.LogError("Frontend base URL is not configured properly.");
+        //            return StatusCode(500, new { message = "Frontend base URL is missing. Please contact support." });
+        //        }
 
-                await _emailService.SendVerificationEmail(email, verificationLink);
-                return Ok(new { message = $"A new verification email has been sent to {email}." });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Exception during resend verification for token: {Token}", token);
-                return BadRequest(new { error = ex.Message });
-            }
-        }
+        //        // Build and send new verification link
+        //        string verificationLink = _verificationLinkBuilderbusiness.BuildLink(frontendBaseUrl, newVerification.VerificationToken);
+        //        _logger.LogInformation("New verification link generated for {Email}: {VerificationLink}", email, verificationLink);
+
+        //        await _emailService.SendVerificationEmail(email, verificationLink);
+        //        return Ok(new { message = $"A new verification email has been sent to {email}." });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Exception during resend verification for token: {Token}", token);
+        //        return BadRequest(new { error = ex.Message });
+        //    }
+        //}
 
         //get business owner home page with busregid
         [HttpGet("businessregister/{busRegId}")]

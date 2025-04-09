@@ -578,36 +578,7 @@ namespace mytown.Controllers
 
         #endregion
 
-        #region Shopper emailverifivation
-        [HttpGet("verify-email")]
-        public async Task<IActionResult> VerifyEmail([FromQuery] string token)
-        {
-            bool isVerified = await _userRepository.VerifyEmail(token);
-
-            if (!isVerified)
-                return BadRequest("Invalid or expired token.");
-
-            return Ok("Email successfully verified! You can now log in.");
-        }
-
-        [HttpPost("resend-verification")]
-        public async Task<IActionResult> ResendVerificationEmail([FromBody] string email)
-        {
-            try
-            {
-                var verification = await _userRepository.GenerateEmailVerification(email);
-                var verificationLink = $"{Request.Scheme}://{Request.Host}/api/shopper/verify-email?token={verification.VerificationToken}";
-
-                await _emailService.SendVerificationEmail(email, verificationLink);
-
-                return Ok("Verification email resent. Please check your inbox.");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
-        }
-        #endregion
+       
 
         #region services
         [HttpPost("AddService")]

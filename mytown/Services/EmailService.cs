@@ -1,9 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using mytown.Services;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using System.Linq;
+using DnsClient;
 
 public class EmailService : IEmailService
 {
@@ -25,6 +28,10 @@ public class EmailService : IEmailService
 
     public async Task SendVerificationEmail(string email, string verificationLink)
     {
+        if (!await DomainHasMX(email))
+            throw new Exception("The email domain is not valid (no MX records found).");
+
+
         try
         {
             using (var smtpClient = new SmtpClient(_smtpServer))
@@ -58,7 +65,7 @@ public class EmailService : IEmailService
         <a href='{verificationLink}' 
            style='display: inline-block; background-color: #004481; color: white; padding: 12px 24px; 
                   text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold; margin: 20px 0;'>
-            Verify my email
+            Verify email
         </a>
 
         <!-- Alternative Text Link -->
@@ -87,8 +94,7 @@ public class EmailService : IEmailService
                     IsBodyHtml = true
                 };
                 mailMessage.To.Add(email);
-
-                await smtpClient.SendMailAsync(mailMessage);
+                                await smtpClient.SendMailAsync(mailMessage);
             }
         }
         catch (Exception ex)
@@ -97,4 +103,21 @@ public class EmailService : IEmailService
             throw new Exception("Failed to send verification email.");
         }
     }
+
+
+    private async Task<bool> DomainHasMX(string email)
+    {
+        try
+        {
+            var domain = email.Split('@')[1];
+            var lookup = new LookupClient();
+            var result = await lookup.QueryAsync(domain, QueryType.MX);
+            return result.Answers.MxRecords().Any();
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
 }

@@ -13,7 +13,7 @@ namespace mytown.Models
             public DbSet<User> Users { get; set; }
             public DbSet<Registration> Registrations { get; set; } // Pluralized name
             public DbSet<BusinessRegister> BusinessRegisters { get; set; } // Pluralized name
-            public DbSet<businessverification> BusinessVerification { get; set; }
+           public DbSet<businessverification> BusinessVerification { get; set; }
             public DbSet<businessprofile> BusinessProfiles { get; set; }
             public DbSet<businessservices> BusinessServices { get; set; }
             public DbSet<businesscategoriescs> BusinessCategories { get; set; }
@@ -22,7 +22,7 @@ namespace mytown.Models
             public DbSet<products> products { get; set; }
             public DbSet<services> services { get; set; }
             public DbSet<ShopperRegister> ShopperRegisters { get; set; }
-            public DbSet<ShopperVerification> ShopperVerification { get; set; }
+           public DbSet<ShopperVerification> ShopperVerification { get; set; }
             public DbSet<subcategoryimages_busregid> Subcategoryimages_Busregids { get; set; }
             public IEnumerable<object> businessprofile { get; internal set; }
 
@@ -31,6 +31,9 @@ namespace mytown.Models
 
             public DbSet<orderdetails> OrderDetails { get; set; }
             public DbSet<Payments> Payments { get; set; }
+            public DbSet<PendingVerification> PendingVerifications{ get; set; }
+            public DbSet<PendingBusinessVerification> PendingBusinessVerifications { get; set; }
+
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 base.OnModelCreating(modelBuilder);
