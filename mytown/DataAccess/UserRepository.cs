@@ -7,6 +7,9 @@ using Stripe.Climate;
 using System.Threading.Tasks;
 using static mytown.Models.busprofilepreview;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Security.Cryptography;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
 
 namespace mytown.DataAccess
 {
@@ -17,6 +20,16 @@ namespace mytown.DataAccess
     public class UserRepository
     {
         private readonly AppDbContext _context;
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(password);
+                byte[] hash = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
+            }
+        }
+
 
         public UserRepository(AppDbContext context)
         {
@@ -109,9 +122,41 @@ namespace mytown.DataAccess
             return newUser;
         }
 
+        #region Forgotpassword
+        public bool EmailExists(string email)
+        {
+            return _context.ShopperRegisters.Any(u => u.Email == email) ||
+                   _context.BusinessRegisters.Any(u => u.BusEmail == email);
+        }
 
+        public bool ResetPassword(string email, string newPassword)
+        {
+            try
+            {
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                var shopper = _context.ShopperRegisters.FirstOrDefault(u => u.Email == email);
+                var business = _context.BusinessRegisters.FirstOrDefault(u => u.BusEmail == email);
 
-        public async Task<BusinessRegister> AddBusinessRegisterAsync(BusinessRegister newBusiness)
+                if (shopper == null && business == null)
+                    return false;
+
+                if (shopper != null) shopper.Password = hashedPassword;
+                if (business != null) business.Password = hashedPassword;
+
+                _context.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+       
+
+            #endregion
+
+            public async Task<BusinessRegister> AddBusinessRegisterAsync(BusinessRegister newBusiness)
         {
             await _context.BusinessRegisters.AddAsync(newBusiness);
             await _context.SaveChangesAsync();

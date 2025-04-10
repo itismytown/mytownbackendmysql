@@ -54,51 +54,79 @@ namespace mytown.Controllers
             return Ok(result); // Return the object directly
         }
 
+        #region Forgotpassword
 
-
-
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] Registration regDetails)
+        [HttpPost("CheckEmail")]
+        public IActionResult CheckEmail([FromBody] string email)
         {
-            if (regDetails == null)
-            {
-                return BadRequest("Registration details cannot be null.");
-            }
+            if (string.IsNullOrWhiteSpace(email))
+                return BadRequest("Email is required.");
 
-            // Check if the username or email already exists in the Registrations table
-            if (await _userRepository.UserExists(regDetails))
-            {
-                return Conflict("Username or email already exists.");
-            }
+            if (_userRepository.EmailExists(email))
+                return Ok(new { success = true });
 
-            // Add the new user to the database
-            var addedUser = await _userRepository.AddUserAsync(regDetails);
-
-            return CreatedAtAction(nameof(Register), new { id = addedUser.RegId }, addedUser);
+            return NotFound("Email not registered.");
         }
 
-        [HttpPost("businessregister")]
-        public async Task<IActionResult> RegisterBusiness([FromBody] BusinessRegister businessDetails)
+        [HttpPost("ResetPassword")]
+        public IActionResult ResetPassword([FromForm] string email, [FromForm] string newPassword, [FromForm] string confirmPassword)
         {
-            if (businessDetails == null)
-            {
-                return BadRequest("Business registration details cannot be null.");
-            }
+            if (newPassword != confirmPassword)
+                return BadRequest("Passwords do not match.");
 
+            bool result = _userRepository.ResetPassword(email, newPassword);
+            if (result)
+                return Ok("Password has been updated successfully.");
 
-            // Check if the email already exists
-            var existingBusiness = await _userRepository.GetBusinessByEmailAsync(businessDetails.BusEmail);
-            if (existingBusiness != null)
-            {
-                return Conflict("A business with this email already exists.");
-            }
-            // Here, you might want to validate the businessDetails object further.
-
-            // Add the new business registration with the associated RegId
-            var addedBusiness = await _userRepository.AddBusinessRegisterAsync(businessDetails);
-
-            return CreatedAtAction(nameof(RegisterBusiness), new { id = addedBusiness.BusRegId }, addedBusiness);
+            return StatusCode(500, "Failed to reset password.");
         }
+
+        #endregion
+
+
+
+        //[HttpPost("register")]
+        //public async Task<IActionResult> Register([FromBody] Registration regDetails)
+        //{
+        //    if (regDetails == null)
+        //    {
+        //        return BadRequest("Registration details cannot be null.");
+        //    }
+
+        //    // Check if the username or email already exists in the Registrations table
+        //    if (await _userRepository.UserExists(regDetails))
+        //    {
+        //        return Conflict("Username or email already exists.");
+        //    }
+
+        //    // Add the new user to the database
+        //    var addedUser = await _userRepository.AddUserAsync(regDetails);
+
+        //    return CreatedAtAction(nameof(Register), new { id = addedUser.RegId }, addedUser);
+        //}
+
+        //[HttpPost("businessregister")]
+        //public async Task<IActionResult> RegisterBusiness([FromBody] BusinessRegister businessDetails)
+        //{
+        //    if (businessDetails == null)
+        //    {
+        //        return BadRequest("Business registration details cannot be null.");
+        //    }
+
+
+        //    // Check if the email already exists
+        //    var existingBusiness = await _userRepository.GetBusinessByEmailAsync(businessDetails.BusEmail);
+        //    if (existingBusiness != null)
+        //    {
+        //        return Conflict("A business with this email already exists.");
+        //    }
+        //    // Here, you might want to validate the businessDetails object further.
+
+        //    // Add the new business registration with the associated RegId
+        //    var addedBusiness = await _userRepository.AddBusinessRegisterAsync(businessDetails);
+
+        //    return CreatedAtAction(nameof(RegisterBusiness), new { id = addedBusiness.BusRegId }, addedBusiness);
+        //}
 
 
         #region business Profile

@@ -3,7 +3,7 @@
 
 namespace mytown.Models
     {
-        public class businessverification
+        public class BusinessVerification
         {
             [Key]
             public int Id { get; set; }
