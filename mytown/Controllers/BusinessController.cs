@@ -51,23 +51,47 @@ namespace mytown.Controllers
                     return Conflict(new { error = "This email is already registered. Try logging in instead." });
                 }
 
-                string token = Guid.NewGuid().ToString();
-                DateTime expiry = DateTime.UtcNow.AddHours(24);
-                string frontendBaseUrl = _configuration["FrontendBaseUrl"];
-                string verificationLink = _verificationLinkBuilderbusiness.BuildLink(frontendBaseUrl, token);
+                //string token = Guid.NewGuid().ToString();
+                //DateTime expiry = DateTime.UtcNow.AddHours(24);
+                //string frontendBaseUrl = _configuration["FrontendBaseUrl"];
+                //string verificationLink = _verificationLinkBuilderbusiness.BuildLink(frontendBaseUrl, token);
 
-                string jsonPayload = JsonSerializer.Serialize(businessRegisterDto);
+                //string jsonPayload = JsonSerializer.Serialize(businessRegisterDto);
 
-                var pending = new PendingBusinessVerification
+                //var pending = new PendingBusinessVerification
+                //{
+                //    Email = businessRegisterDto.BusEmail,
+                //    Token = token,
+                //    ExpiryDate = expiry,
+                //    JsonPayload = jsonPayload
+                //};
+
+                //await _businessRepository.SavePendingVerification(pending);
+                //await _emailService.SendVerificationEmail(businessRegisterDto.BusEmail, verificationLink);
+
+                var hashedPassword = BCrypt.Net.BCrypt.HashPassword(businessRegisterDto.Password);
+
+                var newBusiness = new BusinessRegister
                 {
-                    Email = businessRegisterDto.BusEmail,
-                    Token = token,
-                    ExpiryDate = expiry,
-                    JsonPayload = jsonPayload
+                    BusinessUsername = businessRegisterDto.BusinessUsername,
+                    Businessname = businessRegisterDto.Businessname,
+                    LicenseType = businessRegisterDto.LicenseType,
+                    Gstin = businessRegisterDto.Gstin,
+                    BusservId = businessRegisterDto.BusservId,
+                    BuscatId = businessRegisterDto.BuscatId,
+                    Town = businessRegisterDto.Town,
+                    BusMobileNo = businessRegisterDto.BusMobileNo,
+                    BusEmail = businessRegisterDto.BusEmail,
+                    Address1 = businessRegisterDto.Address1,
+                    Address2 = businessRegisterDto.Address2,
+                    businessCity = businessRegisterDto.businessCity,
+                    businessState = businessRegisterDto.businessState,
+                    businessCountry = businessRegisterDto.businessCountry,
+                    Password = hashedPassword,
+                    IsEmailVerified = true
                 };
 
-                await _businessRepository.SavePendingVerification(pending);
-                await _emailService.SendVerificationEmail(businessRegisterDto.BusEmail, verificationLink);
+                await _businessRepository.RegisterBusiness(newBusiness);
 
                 _logger.LogInformation("Verification email sent to {Email}", businessRegisterDto.BusEmail);
                 return Ok(new { message = "Verification email sent! Please check your inbox." });

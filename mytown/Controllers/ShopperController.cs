@@ -123,29 +123,49 @@ namespace mytown.Controllers
                         return Conflict(new { error = "This email is already registered. Try logging in instead." });
                     }
 
-                    // ✅ Generate verification token and save to pending table
-                    string verificationToken = Guid.NewGuid().ToString();
-                    DateTime expiry = DateTime.UtcNow.AddHours(24);
-                    string frontendBaseUrl = _configuration["FrontendBaseUrl"];
-                    string verificationLink = _verificationLinkBuilder.BuildLink(frontendBaseUrl, verificationToken);
+                // ✅ Generate verification token and save to pending table
+                //string verificationToken = Guid.NewGuid().ToString();
+                //DateTime expiry = DateTime.UtcNow.AddHours(24);
+                //string frontendBaseUrl = _configuration["FrontendBaseUrl"];
+                //string verificationLink = _verificationLinkBuilder.BuildLink(frontendBaseUrl, verificationToken);
 
-                    // Serialize the registration DTO
-                    string jsonPayload = JsonSerializer.Serialize(shopperRegisterDto);
+                //// Serialize the registration DTO
+                //string jsonPayload = JsonSerializer.Serialize(shopperRegisterDto);
 
-                    // Save to PendingVerification table
-                    var pending = new PendingVerification
-                    {
-                        Email = shopperRegisterDto.Email,
-                        Token = verificationToken,
-                        ExpiryDate = expiry,
-                        JsonPayload = jsonPayload
-                    };
-                    await _shopperRepository.SavePendingVerification(pending);
+                //// Save to PendingVerification table
+                //var pending = new PendingVerification
+                //{
+                //    Email = shopperRegisterDto.Email,
+                //    Token = verificationToken,
+                //    ExpiryDate = expiry,
+                //    JsonPayload = jsonPayload
+                //};
+                //await _shopperRepository.SavePendingVerification(pending);
 
-                    // Send verification email
-                    await _emailService.SendVerificationEmail(shopperRegisterDto.Email, verificationLink);
+                //// Send verification email
+                //await _emailService.SendVerificationEmail(shopperRegisterDto.Email, verificationLink);
 
-                    _logger.LogInformation("Verification email sent to {Email}", shopperRegisterDto.Email);
+                var hashedPassword = BCrypt.Net.BCrypt.HashPassword(shopperRegisterDto.Password);
+
+                var newShopper = new ShopperRegister
+                {
+                    Username = shopperRegisterDto.Username,
+                    Email = shopperRegisterDto.Email,
+                    Password = hashedPassword,
+                    Address = shopperRegisterDto.Address,
+                    Town = shopperRegisterDto.Town,
+                    City = shopperRegisterDto.City,
+                    State = shopperRegisterDto.State,
+                    Country = shopperRegisterDto.Country,
+                    PostalCode = shopperRegisterDto.PostalCode,
+                    PhoneNumber = shopperRegisterDto.PhoneNumber,
+                    PhotoName = shopperRegisterDto.PhotoName,
+                    IsEmailVerified = true
+                };
+
+                await _shopperRepository.RegisterShopper(newShopper);
+
+                _logger.LogInformation("Verification email sent to {Email}", shopperRegisterDto.Email);
                     return Ok(new { message = "Verification email sent! Please check your inbox to complete registration." });
                 }
                 catch (Exception ex)
