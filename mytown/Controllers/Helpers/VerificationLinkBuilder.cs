@@ -1,6 +1,7 @@
 ﻿using System;
+using mytown.DataAccess.Interfaces;
 
-namespace mytown.Services
+namespace mytown.Controllers.Helpers
 {
     public class VerificationLinkBuilder : IVerificationLinkBuilder
     {

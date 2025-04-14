@@ -4,12 +4,11 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using mytown.DataAccess;
 using mytown.Models;
 using mytown.Services;
-using mytown.Services.Validation;
 using BCrypt.Net;
 using System.Text.Json;
+using mytown.DataAccess.Interfaces;
 
 
 namespace mytown.Controllers

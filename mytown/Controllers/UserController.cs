@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using mytown.Models;
-using mytown.DataAccess;
-using static mytown.DataAccess.UserRepository;
+using static mytown.DataAccess.Repositories.UserRepository;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
@@ -11,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using System.Buffers.Text;
 using Stripe;
 using mytown.Services;
+using mytown.DataAccess.Repositories;
 
 namespace mytown.Controllers
 {

@@ -1,5 +1,4 @@
-﻿
-namespace mytown.Services
+﻿namespace mytown.DataAccess.Interfaces
 {
     public interface IVerificationLinkBuilderbusiness
     {

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using mytown.DataAccess.Interfaces;
 using mytown.Models;
 
-namespace mytown.Services.Validation
+namespace mytown.Controllers.Helpers
 {
     public class ShopperRegistrationValidator : IShopperRegistrationValidator
     {

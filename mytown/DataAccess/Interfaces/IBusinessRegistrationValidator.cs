@@ -1,6 +1,6 @@
 ﻿using mytown.Models;
 
-namespace mytown.Services.Validation
+namespace mytown.DataAccess.Interfaces
 {
     public interface IBusinessRegistrationValidator
     {

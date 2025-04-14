@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mytown.DataAccess;
 using mytown.Models;
-using mytown.Services.Validation;
 using mytown.Services;
 using System.Text.Json;
+using mytown.DataAccess.Interfaces;
 
 
 namespace mytown.Controllers
