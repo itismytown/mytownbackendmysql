@@ -68,5 +68,44 @@ namespace MyTown.Controllers
 
             return Ok(new { message = "Product updated successfully" });
         }
+
+        // GET: api/products/{id}
+        [HttpGet("GetProductById/{productId}")]
+        public async Task<ActionResult<products>> GetProductById(int productId)
+        {
+            var product = await _productRepo.GetProductById(productId);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(product);
+        }
+
+        // GET: api/User/GetAllProducts
+        [HttpGet("GetAllProducts/{BusRegId}")]
+        public async Task<ActionResult<products>> GetAllProducts(int BusRegId)
+        {
+            try
+            {
+                // Fetch all products from the repository
+                var products = await _productRepo.GetAllProductsAsync(BusRegId);
+
+                // Check if no products were found
+                if (products == null || !products.Any())
+                {
+                    return NotFound("No products found.");
+                }
+
+                // Return the list of products with a 200 OK status
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors and return a 500 Internal Server Error
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

@@ -45,8 +45,16 @@ public class Startup
         services.AddScoped<IShopperRegistrationValidator, ShopperRegistrationValidator>();
         services.AddScoped<IVerificationLinkBuilder, VerificationLinkBuilder>();
         services.AddScoped<IVerificationLinkBuilderbusiness,VerificationLinkBuilderbusiness>();
-        services.AddScoped<mytown.DataAccess.IBusinessRepository, mytown.DataAccess.BusinessRepository>();
+        services.AddScoped<mytown.DataAccess.IBusinessRepository, BusinessRepository>();
         services.AddScoped<IBusinessRegistrationValidator, BusinessRegistrationValidator>();
+       // services.AddScoped<ISearchRepository, SearchRepository>();
+        services.AddScoped<ICartRepository, CartRepository>();
+        services.AddScoped<IAdminRepository, AdminRepository>();
+        services.AddScoped<IAuthRepository, AuthRepository>();
+        services.AddScoped<IPaymentRepository, PaymentRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IBusinessProfileRepository, BusinessProfileRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
     }
 
     // Registers controllers and Swagger (for API documentation).

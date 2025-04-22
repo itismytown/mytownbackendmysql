@@ -3,10 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using mytown.Models;
 using mytown.Models.mytown.DataAccess;
 using static mytown.Models.busprofilepreview;
-using mytown.DataAccess;
 
 
-namespace mytown.DataAccess
+namespace mytown.DataAccess.Repositories
 {
     public class BusinessRepository : IBusinessRepository
     {
@@ -237,8 +236,8 @@ namespace mytown.DataAccess
                           join subCategory in _context.product_sub_categories
                           on product.prod_subcat_id equals subCategory.prod_subcat_id
                           join subCatImage in _context.Subcategoryimages_Busregids
-                          on new { BusRegId = product.BusRegId, ProdSubCatId = subCategory.prod_subcat_id }
-                          equals new { BusRegId = subCatImage.BusRegId, ProdSubCatId = subCatImage.Prod_subcat_id }
+                          on new { product.BusRegId, ProdSubCatId = subCategory.prod_subcat_id }
+                          equals new { subCatImage.BusRegId, ProdSubCatId = subCatImage.Prod_subcat_id }
                           into subCatImageGroup
                           from subCatImage in subCatImageGroup.DefaultIfEmpty()
                           where product.BusRegId == busRegId
