@@ -1051,7 +1051,7 @@ namespace mytown.DataAccess.Repositories
             }
 
             // Create new order
-            var newOrder = new order
+            var newOrder = new mytown.Models.Order
             {
                 ShopperRegId = shopperRegId,
                 TotalAmount = totalAmount,

@@ -2,7 +2,7 @@
 
 namespace mytown.Models
 {
-    public class order
+    public class Order
     {
         [Key]
         public int OrderId { get; set; } // Primary Key
@@ -19,6 +19,11 @@ namespace mytown.Models
         public string OrderStatus { get; set; } // Pending, Shipped, Delivered, etc.
 
         public DateTime OrderDate { get; set; } // Order Creation Date
+
+        public virtual ICollection<orderdetails> OrderDetails { get; set; }
+        public virtual ICollection<Payments> Payments { get; set; }
+
+        public virtual ICollection<ShippingDetails> ShippingDetails { get; set; }
     }
 
 }

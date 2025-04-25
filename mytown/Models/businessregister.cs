@@ -67,6 +67,9 @@ namespace mytown.Models
         [Required]
         [StringLength(100)]
         public string businessCountry { get; set; }
+        
+        [StringLength(10)]
+        public string postalCode { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [StringLength(100, MinimumLength = 6)] // Password must be at least 6 characters

@@ -87,6 +87,7 @@ namespace mytown.Controllers
                     businessCity = businessRegisterDto.businessCity,
                     businessState = businessRegisterDto.businessState,
                     businessCountry = businessRegisterDto.businessCountry,
+                    postalCode = businessRegisterDto.postalCode,
                     Password = hashedPassword,
                     IsEmailVerified = true
                 };
@@ -133,6 +134,7 @@ namespace mytown.Controllers
                     businessCity = businessDto.businessCity,
                     businessState = businessDto.businessState,
                     businessCountry = businessDto.businessCountry,
+                    postalCode = businessDto.postalCode,
                     Password = hashedPassword,
                     IsEmailVerified = true
                 };

@@ -56,6 +56,7 @@ namespace mytown.Models
         [Required]
         [StringLength(100)]
         public string businessCountry { get; set; }
+        public string postalCode { get; set; } = string.Empty;
 
         [Required]
         [DataType(DataType.Password)]

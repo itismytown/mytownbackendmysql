@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mytown.Models;
-using Stripe.Climate;
+
 
 namespace mytown.Models
 {
@@ -27,14 +27,14 @@ namespace mytown.Models
             public IEnumerable<object> businessprofile { get; internal set; }
 
             public DbSet<addtocart> addtocart { get; set; }
-            public DbSet<order> Orders { get; set; }
+            public DbSet<Order> Orders { get; set; }
 
             public DbSet<orderdetails> OrderDetails { get; set; }
             public DbSet<Payments> Payments { get; set; }
             public DbSet<PendingVerification> PendingVerifications{ get; set; }
             public DbSet<PendingBusinessVerification> PendingBusinessVerifications { get; set; }
             public DbSet<PasswordResetRequest> PasswordResetRequests { get; set; }
-
+            public DbSet<ShippingDetails> ShippingDetails { get; set; }
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {

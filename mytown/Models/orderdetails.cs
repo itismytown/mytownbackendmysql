@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace mytown.Models
 {
@@ -10,11 +12,18 @@ namespace mytown.Models
         [Required]
         public int OrderId { get; set; } // Foreign Key - Orders
 
+        [ForeignKey("OrderId")]
+        public virtual Order Order { get; set; }
+
         [Required]
         public int ProductId { get; set; } // Foreign Key - Products
 
+        public products Product { get; set; }
+
         [Required]
         public int StoreId { get; set; } // Foreign Key - Store
+
+        public BusinessRegister Store { get; set; }
 
         [Required]
         public int Quantity { get; set; } // Quantity Ordered

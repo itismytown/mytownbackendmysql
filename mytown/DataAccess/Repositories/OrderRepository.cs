@@ -27,7 +27,7 @@ namespace mytown.DataAccess.Repositories
             }
 
             // Create new order
-            var newOrder = new order
+            var newOrder = new Order
             {
                 ShopperRegId = shopperRegId,
                 TotalAmount = totalAmount,

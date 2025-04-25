@@ -55,6 +55,7 @@ public class Startup
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IBusinessProfileRepository, BusinessProfileRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IBusinessDashboardRepository, BusinessDashboardRepository>();
     }
 
     // Registers controllers and Swagger (for API documentation).
