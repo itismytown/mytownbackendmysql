@@ -66,15 +66,26 @@ namespace mytown.DataAccess.Repositories
         {
             // 🔹 Check BusinessRegisters first.
             var businessUser = await _context.BusinessRegisters
-                .FirstOrDefaultAsync(r => r.BusEmail == email);
+     .Where(r => r.BusEmail != null && r.BusEmail == email)
+     .FirstOrDefaultAsync();
+
 
             if (businessUser != null)
             {
                 // If password matches, return business user
                 if (BCrypt.Net.BCrypt.Verify(password, businessUser.Password))
                 {
+                    //var businessProfile = await _context.BusinessProfiles
+                    //    .FirstOrDefaultAsync(bp => bp.BusRegId == businessUser.BusRegId);
+
                     var businessProfile = await _context.BusinessProfiles
-                        .FirstOrDefaultAsync(bp => bp.BusRegId == businessUser.BusRegId);
+                        .Where(bp => bp.BusRegId == businessUser.BusRegId)
+                        .Select(bp => new
+                        {
+                            bp,
+                            businessUser.BusinessUsername // pulling from BusinessRegister
+                        })
+                        .FirstOrDefaultAsync();
 
                     return new
                     {

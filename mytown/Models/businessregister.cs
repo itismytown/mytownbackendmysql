@@ -44,7 +44,7 @@ namespace mytown.Models
         public string BusMobileNo { get; set; }
         [Required]
         [StringLength(100)]
-        public string BusEmail { get; set; }// Adjusted casing for clarity
+        public string? BusEmail { get; set; }// Adjusted casing for clarity
 
 
         public bool IsEmailVerified { get; set; } = false;
@@ -73,7 +73,7 @@ namespace mytown.Models
         [Required]
         [DataType(DataType.Password)]
         [StringLength(100, MinimumLength = 6)] // Password must be at least 6 characters
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         //[Required]
         //[DataType(DataType.Password)]
