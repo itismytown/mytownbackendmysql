@@ -11,11 +11,13 @@ namespace mytown.DataAccess.Repositories
     {
         private readonly AppDbContext _context;
         private readonly IEmailService _emailService;
+        private readonly IConfiguration _configuration;
 
-        public AuthRepository(AppDbContext context, IEmailService emailService)
+        public AuthRepository(AppDbContext context, IEmailService emailService,IConfiguration configuration)
         {
             _context = context;
             _emailService = emailService;
+            _configuration = configuration;
         }
 
         public bool EmailExists(string email)
@@ -49,7 +51,9 @@ namespace mytown.DataAccess.Repositories
                 throw new Exception("Email not found.");
 
             var token = CreatePasswordResetToken(email);
-            var resetLink = $"https://yourfrontend.com/reset-password?token={token}";
+            string frontendBaseUrl = _configuration["FrontendBaseUrl"];
+            var resetLink = $"{frontendBaseUrl}/reset-password?token={token}";
+           // var resetLink = $"https://mytown-wa-d8gmezfjg7d7hhdy.canadacentral-01.azurewebsites.net/reset-password?token={token}";
 
             await _emailService.SendPasswordResetEmail(email, resetLink);
         }

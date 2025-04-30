@@ -126,27 +126,46 @@ public class EmailService : IEmailService
     <div style='max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 10px; 
                 box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); border: 2px solid #004481;'>
         
+        <!-- Itismytown Logo -->
         <img src='https://mytown-wa-d8gmezfjg7d7hhdy.canadacentral-01.azurewebsites.net/images/mainlogoblue.png' 
-             alt='MyTown Logo' width='120' style='margin-bottom: 20px;' />
+             alt='Google Logo' width='120' style='margin-bottom: 20px;' />
 
-        <h2 style='color: #004481;'>Reset Your Password</h2>
+        <!-- Email Header -->
+        <h2 style='color: #004481; margin-bottom: 10px;'>Verify your email address</h2>
 
-        <p style='color: #333; font-size: 14px;'>Click the button below to set a new password:</p>
+        <p style='color: #333; font-size: 14px;'>
+            Please confirm that you want to use this as your MyTown account email address. 
+            Once it's done, you will be able to access your account.
+        </p>
 
+        <!-- Verification Button -->
         <a href='{resetLink}' 
-           style='display: inline-block; background-color: #004481; color: white; padding: 12px 24px;
+           style='display: inline-block; background-color: #004481; color: white; padding: 12px 24px; 
                   text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold; margin: 20px 0;'>
-            Reset Password
+            Verify email
         </a>
 
+        <!-- Alternative Text Link -->
         <p style='color: #333; font-size: 12px;'>Or paste this link into your browser:</p>
         <p style='word-break: break-word; font-size: 12px;'>
             <a href='{resetLink}' style='color: #004481;'>{resetLink}</a>
         </p>
 
         <hr style='border: 0.5px solid #ddd; margin: 20px 0;' />
-        <p style='font-size: 10px; color: #777;'>If you didn’t request this, you can safely ignore it.</p>
+
+        <!-- Footer -->
         <p style='font-size: 10px; color: #777;'>© 2025 MyTown. All rights reserved.</p>
+
+ <!-- Additional Success Button -->
+        <hr style='margin: 30px 0;' />
+        <a href='{{successUrl}}' 
+           style='display: inline-block; background-color: #28a745; color: white; padding: 12px 24px;
+                  text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold;'>
+            Go to My Account
+        </a>
+
+        <p style='font-size: 10px; color: #777; margin-top: 20px;'>If you've already verified, click the button above to continue.</p>
+  
     </div>
 </div>",
                     IsBodyHtml = true
