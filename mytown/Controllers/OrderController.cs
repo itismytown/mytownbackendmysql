@@ -20,14 +20,20 @@ namespace mytown.Controllers
         [HttpPost("CreateOrder")]
         public async Task<IActionResult> CreateOrder([FromQuery] int shopperRegId, [FromQuery] string shippingType)
         {
-            var orderId = await _orderRepo.CreateOrderAsync(shopperRegId, shippingType);
+            var result = await _orderRepo.CreateOrderAsync(shopperRegId, shippingType);
 
-            if (orderId == 0)
+            if (result.OrderId == 0)
             {
                 return BadRequest("No items in cart to place an order.");
             }
 
-            return Ok(new { Message = "Order placed successfully", OrderId = orderId });
+            return Ok(new
+            {
+                Message = "Order placed successfully",
+                OrderId = result.OrderId,
+                TrackingId = result.TrackingId
+            });
         }
+
     }
 }

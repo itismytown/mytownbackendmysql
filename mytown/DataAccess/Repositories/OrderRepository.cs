@@ -14,7 +14,8 @@ namespace mytown.DataAccess.Repositories
             _context = context;
         }
 
-        public async Task<int> CreateOrderAsync(int shopperRegId, string shippingType)
+        public async Task<(int OrderId, string TrackingId)> CreateOrderAsync(int shopperRegId, string shippingType)
+
         {
             // Calculate total amount from cart
             var totalAmount = await _context.addtocart
@@ -44,6 +45,8 @@ namespace mytown.DataAccess.Repositories
                 .Where(c => c.ShopperRegId == shopperRegId && c.orderstatus == "Cart")
                 .ToListAsync();
 
+            List<orderdetails> orderDetailsList = new List<orderdetails>();
+
             foreach (var item in cartItems)
             {
                 var orderDetail = new orderdetails
@@ -54,16 +57,37 @@ namespace mytown.DataAccess.Repositories
                     Quantity = item.prod_qty,
                     Price = item.product_price
                 };
-                _context.OrderDetails.Add(orderDetail);
+                orderDetailsList.Add(orderDetail);
+            }
+
+            _context.OrderDetails.AddRange(orderDetailsList);
+            await _context.SaveChangesAsync();
+
+            var trackingId = Guid.NewGuid().ToString();
+
+
+            // Add ShippingDetails for each OrderDetail
+            foreach (var orderDetail in orderDetailsList)
+            {
+                var shipping = new ShippingDetails
+                {
+                    OrderDetailId = orderDetail.OrderDetailId,
+                    Shipping_type = shippingType,
+                    EstimatedDays = 5, // Example: static or calculated
+                    Cost = 50,         // Example: fixed or logic-based
+                    TrackingId = trackingId
+                };
+                _context.ShippingDetails.Add(shipping);
             }
 
             await _context.SaveChangesAsync();
 
-            //// Remove items from cart after placing order
+            //// Optionally clear the cart
             //_context.addtocart.RemoveRange(cartItems);
             //await _context.SaveChangesAsync();
 
-            return newOrder.OrderId; // Return the created OrderId
+            return (newOrder.OrderId, trackingId);
         }
+
     }
 }

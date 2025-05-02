@@ -188,5 +188,10 @@ namespace mytown.DataAccess.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<ShopperRegister> GetShopperDetails(int shopperRegId)
+        {
+            return await _context.ShopperRegisters.FindAsync(shopperRegId);
+        }
     }
 }

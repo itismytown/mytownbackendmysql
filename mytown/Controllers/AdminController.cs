@@ -19,7 +19,7 @@ namespace mytown.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [HttpGet("GetBusinessRegistersPaginated")]
+        [HttpGet("getBusinessRegistersPaginated")]
         public async Task<IActionResult> GetBusinessRegistersPaginated([FromQuery] int page = 1, [FromQuery] int pageSize = 2)
         {
             if (page < 1 || pageSize < 1)

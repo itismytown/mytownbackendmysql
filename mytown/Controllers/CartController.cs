@@ -128,5 +128,18 @@ namespace mytown.Controllers
             return Ok(new { message = "Cart status updated successfully." });
         }
 
+        [HttpGet("GetShopperDetails/{shopperRegId}")]
+        public async Task<IActionResult> GetShopperDetails(int shopperRegId)
+        {
+            var shopper = await _cartRepo.GetShopperDetails(shopperRegId);
+
+            if (shopper == null)
+            {
+                return Ok(new { message = "No Data" }); // Return message instead of 404
+            }
+
+            return Ok(shopper);
+        }
+
     }
 }

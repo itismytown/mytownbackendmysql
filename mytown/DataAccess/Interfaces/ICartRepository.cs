@@ -1,4 +1,5 @@
-﻿using mytown.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using mytown.Models;
 
 namespace mytown.DataAccess.Interfaces
 {
@@ -21,6 +22,8 @@ namespace mytown.DataAccess.Interfaces
         Task<bool> UpdateCartStatusAsync(int orderId);
 
         Task<bool> UpdateCartStatusByShopperAsync(int shopperRegId);
+        Task<ShopperRegister> GetShopperDetails(int shopperRegId);
+        
 
     }
 }
