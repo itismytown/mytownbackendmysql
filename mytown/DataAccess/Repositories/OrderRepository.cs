@@ -15,7 +15,6 @@ namespace mytown.DataAccess.Repositories
         }
 
         public async Task<(int OrderId, string TrackingId)> CreateOrderAsync(int shopperRegId, string shippingType)
-
         {
             // Calculate total amount from cart
             var totalAmount = await _context.addtocart
@@ -24,7 +23,7 @@ namespace mytown.DataAccess.Repositories
 
             if (totalAmount == 0)
             {
-                return 0; // No items in cart
+                return (0, "N"); // No items in cart
             }
 
             // Create new order
@@ -60,18 +59,18 @@ namespace mytown.DataAccess.Repositories
                 orderDetailsList.Add(orderDetail);
             }
 
+            // Add OrderDetails to the context
             _context.OrderDetails.AddRange(orderDetailsList);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); // Save so that the OrderDetailId is populated
 
             var trackingId = Guid.NewGuid().ToString();
-
 
             // Add ShippingDetails for each OrderDetail
             foreach (var orderDetail in orderDetailsList)
             {
                 var shipping = new ShippingDetails
                 {
-                    OrderDetailId = orderDetail.OrderDetailId,
+                    OrderDetailId = orderDetail.OrderDetailId, // Use OrderDetailId as the FK
                     Shipping_type = shippingType,
                     EstimatedDays = 5, // Example: static or calculated
                     Cost = 50,         // Example: fixed or logic-based
@@ -80,14 +79,15 @@ namespace mytown.DataAccess.Repositories
                 _context.ShippingDetails.Add(shipping);
             }
 
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync(); // Save shipping details
 
-            //// Optionally clear the cart
+            // Optionally clear the cart
             //_context.addtocart.RemoveRange(cartItems);
             //await _context.SaveChangesAsync();
 
             return (newOrder.OrderId, trackingId);
         }
+
 
     }
 }

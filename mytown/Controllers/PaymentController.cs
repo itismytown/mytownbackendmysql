@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mytown.DataAccess.Interfaces;
 using mytown.Models;
+using Stripe;
 
 namespace mytown.Controllers
 {
@@ -30,6 +31,61 @@ namespace mytown.Controllers
 
             return Ok(new { message = "Payment successful!", paymentId = payment.PaymentId });
         }
+        private string GetCurrencyFromCountry(string countryName)
+        {
+            // Example: Map country name to currency code
+            var countryCurrencyMapping = new Dictionary<string, string>
+    {
+        { "United States", "usd" },  // Country -> Currency code
+        { "India", "inr" },
+        { "United Kingdom", "gbp" },
+        { "European Union", "eur" },
+        { "Japan", "jpy" },
+        // Add other countries and currencies as needed
+    };
 
+            // Return the currency code if found, otherwise return null
+            if (countryCurrencyMapping.ContainsKey(countryName))
+            {
+                return countryCurrencyMapping[countryName];
+            }
+
+            return null;  // Return null if no valid currency is found
+        }
+        [HttpPost("create-payment-intent")]
+        public ActionResult CreatePaymentIntent([FromBody] PaymentRequest paymentRequest)
+        {
+            try
+            {
+                // Get the currency code based on the country name
+                string currency = GetCurrencyFromCountry(paymentRequest.CountryName);
+
+                // If no valid currency is found, default to USD
+                if (currency == null)
+                {
+                    currency = "usd";
+                }
+
+                // Create the PaymentIntent options
+                var options = new PaymentIntentCreateOptions
+                {
+                    Amount = paymentRequest.Amount,  // Amount in cents (e.g., $10 = 1000)
+                    Currency = currency,             // Currency based on country name
+                    PaymentMethodTypes = new List<string> { "card" },
+                };
+
+                // Create the payment intent using Stripe's service
+                var service = new PaymentIntentService();
+                PaymentIntent intent = service.Create(options);
+
+                // Return the client secret to the frontend for confirming payment
+                return Ok(new { clientSecret = intent.ClientSecret });
+            }
+            catch (StripeException e)
+            {
+                // Return error if Stripe API call fails
+                return BadRequest(new { error = e.Message });
+            }
+        }
     }
 }

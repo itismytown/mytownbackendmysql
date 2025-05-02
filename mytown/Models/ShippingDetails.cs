@@ -11,8 +11,8 @@ namespace mytown.Models
         [Required]
         public int OrderDetailId { get; set; } // Foreign Key - OrderDetails
 
-        [ForeignKey("OrderDetailId")]
-        public virtual orderdetails OrderDetail { get; set; }
+        //[ForeignKey("OrderDetailId")]
+        //public virtual orderdetails OrderDetail { get; set; }
 
         [Required]
         public string Shipping_type { get; set; } // Shipping Courier (e.g., Courier A, Courier B)
