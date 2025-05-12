@@ -13,5 +13,7 @@
         public string PostalCode { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;
         public string PhotoName { get; set; } = string.Empty;
+        public DateTime ShopperRegDate { get; set; }
+
     }
 }

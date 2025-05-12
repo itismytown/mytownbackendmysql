@@ -53,5 +53,8 @@ namespace mytown.Models
 
         [StringLength(200)]
         public string PhotoName { get; set; } = string.Empty;
+        [Required]
+        public DateTime ShopperRegDate { get; set; } = DateTime.UtcNow;
+
     }
 }

@@ -89,7 +89,8 @@ namespace mytown.Controllers
                     businessCountry = businessRegisterDto.businessCountry,
                     postalCode = businessRegisterDto.postalCode,
                     Password = hashedPassword,
-                    IsEmailVerified = true
+                    IsEmailVerified = true,
+                    BusinessRegDate = DateTime.UtcNow
                 };
 
                 await _businessRepository.RegisterBusiness(newBusiness);

@@ -142,7 +142,7 @@ public class EmailService : IEmailService
         <a href='{resetLink}' 
            style='display: inline-block; background-color: #004481; color: white; padding: 12px 24px; 
                   text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold; margin: 20px 0;'>
-            Verify email
+            Reset Password
         </a>
 
         <!-- Alternative Text Link -->

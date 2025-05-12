@@ -63,6 +63,8 @@ namespace mytown.Models
         [StringLength(100)]
         public string Password { get; set; }
 
-       
+        public DateTime BusinessRegDate { get; set; }
+
+
     }
 }

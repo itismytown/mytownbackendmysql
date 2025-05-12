@@ -75,6 +75,7 @@ namespace mytown.Models
         [StringLength(100, MinimumLength = 6)] // Password must be at least 6 characters
         public string? Password { get; set; }
 
+        public DateTime BusinessRegDate { get; set; } = DateTime.UtcNow;
         //[Required]
         //[DataType(DataType.Password)]
         //[StringLength(100, MinimumLength = 6)] // Password must be at least 6 characters

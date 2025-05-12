@@ -31,10 +31,12 @@ namespace mytown.Controllers
         [HttpPost("forgot-password")]
         public IActionResult ForgotPassword([FromBody] string email)
         {
-            if (!_authRepo.EmailExists(email)) return NotFound("Email not found");
+            if (!_authRepo.EmailExists(email))
+                return NotFound(new { success = false, message = "Email not found" });
 
             _authRepo.SendResetEmail(email);
-            return Ok("Reset link sent.");
+
+            return Ok(new { success = true, message = "Reset link sent." });
         }
 
         [HttpPost("reset-password")]

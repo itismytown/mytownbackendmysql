@@ -159,7 +159,8 @@ namespace mytown.Controllers
                     PostalCode = shopperRegisterDto.PostalCode,
                     PhoneNumber = shopperRegisterDto.PhoneNumber,
                     PhotoName = shopperRegisterDto.PhotoName,
-                    IsEmailVerified = true
+                    IsEmailVerified = true,
+                     ShopperRegDate = DateTime.UtcNow
                 };
 
                 await _shopperRepository.RegisterShopper(newShopper);
