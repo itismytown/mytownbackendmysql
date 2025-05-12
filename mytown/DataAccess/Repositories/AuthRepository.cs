@@ -60,16 +60,15 @@ namespace mytown.DataAccess.Repositories
         }
 
 
-        public bool ResetPassword(string token, string newPassword)
+        public bool ResetPassword(string email, string newPassword)
         {
-            var request = _context.PasswordResetRequests
-                .FirstOrDefault(r => r.Token == token && r.Expiry > DateTime.UtcNow);
+            //var request = _context.PasswordResetRequests
+            //    .FirstOrDefault(r => r.Token == token && r.Expiry > DateTime.UtcNow);
 
-            if (request == null) return false;
+            //if (request == null) return false;
 
-            // You already have a method like this in your repo:
-            var shopper = _context.ShopperRegisters.FirstOrDefault(s => s.Email == request.Email);
-            var business = _context.BusinessRegisters.FirstOrDefault(b => b.BusEmail == request.Email);
+            var shopper = _context.ShopperRegisters.FirstOrDefault(s => s.Email == email);
+            var business = _context.BusinessRegisters.FirstOrDefault(b => b.BusEmail == email);
 
             if (shopper != null)
             {
@@ -84,7 +83,7 @@ namespace mytown.DataAccess.Repositories
                 return false;
             }
 
-            _context.PasswordResetRequests.Remove(request);
+          //  _context.PasswordResetRequests.Remove(email);
             _context.SaveChanges();
 
             return true;
@@ -92,8 +91,9 @@ namespace mytown.DataAccess.Repositories
 
         private string HashPassword(string password)
         {
-            // Use your preferred hashing method
-            return password; // Placeholder
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+            
+            return hashedPassword; 
         }
     }
 
