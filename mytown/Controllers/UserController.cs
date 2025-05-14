@@ -167,9 +167,10 @@ namespace mytown.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            var publicUrl = $"{Request.Scheme}://{Request.Host}/UploadedFiles/{newFileName}";
+            return Ok(new { FileName = newFileName, Url = publicUrl });
             // Return the file path or any other necessary data
-            return Ok(new { FileName = newFileName, FilePath = filePath });
+           // return Ok(new { FileName = newFileName, FilePath = filePath });
 
         }
 

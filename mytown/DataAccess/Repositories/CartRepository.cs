@@ -154,7 +154,7 @@ namespace mytown.DataAccess.Repositories
 
             // Get cart items for the shopper related to the order
             var cartItems = await _context.addtocart
-                .Where(c => c.ShopperRegId == order.ShopperRegId && c.orderstatus == "In Cart")
+                .Where(c => c.ShopperRegId == order.ShopperRegId && c.orderstatus == "cart")
                 .ToListAsync();
 
             if (!cartItems.Any()) return false; // No cart items to update
