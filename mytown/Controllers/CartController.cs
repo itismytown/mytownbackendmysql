@@ -38,17 +38,26 @@ namespace mytown.Controllers
         }
 
 
+        //[HttpGet("GetCartItems/{shopperRegId}")]
+        //public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems(int shopperRegId)
+        //{
+        //    var cartItems = await _cartRepo.GetCartItems(shopperRegId);
+
+        //    if (cartItems == null || !cartItems.Any())
+        //    {
+        //        return NotFound("No items found in the cart.");
+        //    }
+
+        //    return Ok(cartItems);
+        //}
+
         [HttpGet("GetCartItems/{shopperRegId}")]
         public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems(int shopperRegId)
         {
             var cartItems = await _cartRepo.GetCartItems(shopperRegId);
 
-            if (cartItems == null || !cartItems.Any())
-            {
-                return NotFound("No items found in the cart.");
-            }
-
-            return Ok(cartItems);
+            // ✅ Always return 200 OK, even if no items found
+            return Ok(cartItems ?? new List<CartItemDto>());
         }
 
         [HttpPut("IncreaseCartQty/{cartId}")]

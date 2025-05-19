@@ -182,6 +182,63 @@ public class EmailService : IEmailService
         }
     }
 
+    public async Task SendBusinessnotification(string email, string businessname, int orderId)
+    {
+        if (!await DomainHasMX(email))
+            throw new Exception("The email domain is not valid (no MX records found).");
+
+        try
+        {
+            using (var smtpClient = new SmtpClient(_smtpServer))
+            {
+                smtpClient.Port = _smtpPort;
+                smtpClient.Credentials = new NetworkCredential(_smtpUser, _smtpPass);
+                smtpClient.EnableSsl = true;
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(_senderEmail),
+                    Subject = "Purchase Notiifcation",
+                    Body = $@"
+<html>
+  <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
+    <h3 style='color: #000;'>Notification to business owner – Email content</h3>
+    <p>Dear <strong>{businessname}</strong>,</p>
+
+    <p>
+      We are writing to confirm that payment has been successfully completed for an order placed through our online platform.
+      Kindly proceed with processing and shipping the product for the order ID <strong>{orderId}</strong>.
+      Check for the order details in your business portal.
+    </p>
+
+    <p>
+      Please update the shipping status on the platform once the order has been dispatched.
+      If you encounter any issues or need further assistance, feel free to contact us.
+    </p>
+
+    <p>Thank you for your prompt attention to this order.</p>
+
+    <p style='margin-top: 30px;'>
+      Best regards,<br />
+      <strong style='color: #004481;'>ItIsMyTown</strong><br />
+      <em>[Contact Details]</em>
+    </p>
+  </body>
+</html>",
+                    IsBodyHtml = true
+                };
+
+                mailMessage.To.Add(email);
+                await smtpClient.SendMailAsync(mailMessage);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error sending business notifcation email: {ex.Message}");
+            throw new Exception("Failed to send business notifcation email.");
+        }
+    }
+
 
     private async Task<bool> DomainHasMX(string email)
     {

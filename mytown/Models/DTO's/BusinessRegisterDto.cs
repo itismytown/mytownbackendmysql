@@ -4,6 +4,7 @@ namespace mytown.Models
 {
     public class BusinessRegisterDto
     {
+        public int BusRegId { get; set; }
         [Required]
         [StringLength(100)]
         public string BusinessUsername { get; set; }

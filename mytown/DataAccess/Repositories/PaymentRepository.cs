@@ -2,16 +2,19 @@
 using mytown.DataAccess.Interfaces;
 using mytown.Models;
 using mytown.Models.mytown.DataAccess;
+using mytown.Services;
 
 namespace mytown.DataAccess.Repositories
 {
     public class PaymentRepository : IPaymentRepository
     {
         private readonly AppDbContext _context;
+       
 
         public PaymentRepository(AppDbContext context)
         {
             _context = context;
+           
         }
 
         public Payments AddPayment(int orderId, decimal amountPaid, string paymentMethod)
@@ -29,7 +32,7 @@ namespace mytown.DataAccess.Repositories
                 OrderId = orderId,
                 AmountPaid = amountPaid,
                 PaymentMethod = paymentMethod,
-                PaymentStatus = "Completed", // Assuming successful payment
+                PaymentStatus = "Completed", 
                 PaymentDate = DateTime.UtcNow
             };
 
@@ -41,10 +44,29 @@ namespace mytown.DataAccess.Repositories
             _context.Orders.Update(order);
             _context.SaveChanges();
 
-
+           
 
             return payment;
         }
+
+        public List<BusinessRegisterDto> GetStoreDetailsByOrderId(int orderId)
+        {
+            var storeDetails = _context.OrderDetails
+                                       .Where(od => od.OrderId == orderId)
+                                       .Select(od => new BusinessRegisterDto
+                                       {
+                                           BusRegId = od.Store.BusRegId,
+                                           Businessname = od.Store.Businessname,
+                                           BusinessUsername = od.Store.BusinessUsername,
+                                           BusEmail = od.Store.BusEmail,
+                                           BusMobileNo = od.Store.BusMobileNo
+                                       })
+                                       .Distinct()
+                                       .ToList();
+
+            return storeDetails;
+        }
+
 
     }
 }

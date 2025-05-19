@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mytown.DataAccess.Interfaces;
+using mytown.DataAccess.Repositories;
 using mytown.Models;
+using mytown.Services;
 using Stripe;
 
 namespace mytown.Controllers
@@ -12,15 +14,17 @@ namespace mytown.Controllers
         private readonly IPaymentRepository _paymentRepo;
 
         private readonly ILogger<OrderController> _logger;
+        private readonly IEmailService _emailService;
 
         public PaymentController(IPaymentRepository paymentRepo,
-                                ILogger<OrderController> logger)
+                                ILogger<OrderController> logger, IEmailService emailService)
         {
             _paymentRepo = paymentRepo ?? throw new ArgumentNullException(nameof(paymentRepo));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _emailService = emailService ?? throw new ArgumentNullException(nameof(_emailService));
         }
         [HttpPost("AddPayment")]
-        public IActionResult AddPayment([FromBody] PaymentRequestModel model)
+        public async Task<IActionResult> AddPayment([FromBody] PaymentRequestModel model)
         {
             if (model == null || model.OrderId <= 0 || model.AmountPaid <= 0 || string.IsNullOrEmpty(model.PaymentMethod))
             {
@@ -28,6 +32,18 @@ namespace mytown.Controllers
             }
 
             var payment = _paymentRepo.AddPayment(model.OrderId, model.AmountPaid, model.PaymentMethod);
+
+            var storeDetails = _paymentRepo.GetStoreDetailsByOrderId(model.OrderId);
+
+            // Send email to each store
+            foreach (var store in storeDetails)
+            {
+                if (!string.IsNullOrEmpty(store.BusEmail))
+                {
+                    await _emailService.SendBusinessnotification(store.BusEmail, store.Businessname,model.OrderId);
+                }
+            }
+
 
             return Ok(new { message = "Payment successful!", paymentId = payment.PaymentId });
         }
