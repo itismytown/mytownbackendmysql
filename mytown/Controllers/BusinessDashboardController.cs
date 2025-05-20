@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mytown.DataAccess.Interfaces;
 using mytown.Models;
+using mytown.Models.DTO_s;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,30 +18,37 @@ namespace mytown.Controllers
             _dashboardRepository = dashboardRepository;
         }
 
-        // GET: api/BusinessDashboard/orders/{storeId}
-        [HttpGet("orderhistory/{storeId}")]
-        public async Task<ActionResult<List<Order>>> GetOrdersForStore(int storeId)
+        [HttpGet("orders/{storeId}")]
+        public async Task<ActionResult<List<BusinessDashboardDto>>> GetStoreOrdersReport(int storeId)
         {
-            var orders = await _dashboardRepository.GetAllOrdersForStoreAsync(storeId);
+            var result = await _dashboardRepository.GetStoreOrdersReport(storeId);
+            if (result == null || result.Count == 0)
+                return NotFound("No orders found for this store.");
 
-            if (orders == null || orders.Count == 0)
-            {
-                return NotFound("No orders found for the given store.");
-            }
-
-            return Ok(orders);
+            return Ok(result);
         }
 
-        //[HttpGet("salesreport/{storeId}")]
-        //public async Task<IActionResult> GetSalesReport(int storeId)
-        //{
-        //    var salesReport = await GetSalesReportByStoreId(storeId);
-        //    if (salesReport == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET api/businessdashboard/locationcounts/{storeId}
+        [HttpGet("locationcounts/{storeId}")]
+        public async Task<ActionResult<LocationStatsDto>> GetLocationCountsByStoreId(int storeId)
+        {
+            var result = await _dashboardRepository.GetLocationCountsByStoreIdAsync(storeId);
+            if (result == null)
+                return NotFound("No shoppers found for this store.");
 
-        //    return Ok(salesReport);
-        //}
+            return Ok(result);
+        }
+
+        [HttpGet("salesreport/{storeId}")]
+        public async Task<IActionResult> GetSalesReport(int storeId)
+        {
+            var salesReport = await _dashboardRepository.GetSalesReportByStoreId(storeId);
+            if (salesReport == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(salesReport);
+        }
     }
 }
