@@ -29,6 +29,7 @@ public class BusinessDashboardRepository : IBusinessDashboardRepository
                     select new BusinessDashboardDto
                     {
                         OrderId = o.OrderId,
+                        OrderDetailId = od.OrderDetailId,
                         OrderDate = o.OrderDate,
                         CustomerName = s.Username,
                         ProductName = p.product_name,
