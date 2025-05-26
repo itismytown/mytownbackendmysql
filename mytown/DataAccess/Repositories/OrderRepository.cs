@@ -77,7 +77,8 @@ namespace mytown.DataAccess.Repositories
                     EstimatedDays = 5,
                     Cost = 50,
                     TrackingId = trackingId,
-                    ShippingStatus = "Not Shipped"
+                    ShippingStatus = "Not Shipped",
+                    OrderId = newOrder.OrderId
                 };
 
                 shippingList.Add(shipping);

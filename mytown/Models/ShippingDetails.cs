@@ -8,6 +8,11 @@ namespace mytown.Models
         [Key]
         public int ShippingDetailId { get; set; } // Primary Key
 
+        public int OrderId { get; set; }
+
+        [ForeignKey("OrderId")]
+        public Order Order { get; set; }
+
         [Required]
         public int OrderDetailId { get; set; } // Foreign Key - OrderDetails
 
