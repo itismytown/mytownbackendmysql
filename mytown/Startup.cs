@@ -137,8 +137,8 @@ public class Startup
     // Enables Swagger only in development.
     private void ConfigureSwagger(IApplicationBuilder app, IHostEnvironment env, ILogger logger)
     {
-        if (env.IsDevelopment())
-        {
+        //if (env.IsDevelopment())
+        //{
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -146,7 +146,7 @@ public class Startup
                 c.RoutePrefix = "swagger";
             });
             logger.LogInformation("Swagger UI is enabled.");
-        }
+        //}
     }
 
     // Applies pending EF Core migrations.

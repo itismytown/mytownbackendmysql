@@ -13,8 +13,43 @@ public class BusinessDashboardRepository : IBusinessDashboardRepository
         _context = context;
     }
 
-  
+
     // get sales history
+    //public async Task<List<BusinessDashboardDto>> GetStoreOrdersReport(int storeId)
+    //{
+    //    var query = from od in _context.OrderDetails
+    //                join o in _context.Orders on od.OrderId equals o.OrderId
+    //                join s in _context.ShopperRegisters on o.ShopperRegId equals s.ShopperRegId
+    //                join p in _context.products on od.ProductId equals p.product_id
+    //                join pay in _context.Payments on o.OrderId equals pay.OrderId into payJoin
+    //                from payment in payJoin.DefaultIfEmpty() // LEFT JOIN
+    //                join sd in _context.ShippingDetails on od.OrderDetailId equals sd.OrderDetailId into sdJoin
+    //                from shipping in sdJoin.DefaultIfEmpty() // LEFT JOIN
+    //                where od.StoreId == storeId
+    //                select new BusinessDashboardDto
+    //                {
+    //                    OrderId = o.OrderId,
+    //                    OrderDetailId = od.OrderDetailId,
+    //                    OrderDate = o.OrderDate,
+    //                    CustomerName = s.Username,
+    //                    ProductName = p.product_name,
+    //                    Quantity = od.Quantity,
+    //                    Amount = od.Quantity * od.Price,
+    //                    PaymentStatus = payment != null ? payment.PaymentStatus : "Unpaid",
+    //                    Address = s.Address,
+    //                    Town = s.Town,
+    //                    City = s.City,
+    //                    State = s.State,
+    //                    Country = s.Country,
+    //                    DeliveryType = shipping != null ? shipping.Shipping_type : "Not Shipped",
+    //                    DeliveryStatus = o.OrderStatus
+    //                };
+
+    //    return await query.ToListAsync();
+    //}
+
+
+
     public async Task<List<BusinessDashboardDto>> GetStoreOrdersReport(int storeId)
     {
         var query = from od in _context.OrderDetails
@@ -22,32 +57,48 @@ public class BusinessDashboardRepository : IBusinessDashboardRepository
                     join s in _context.ShopperRegisters on o.ShopperRegId equals s.ShopperRegId
                     join p in _context.products on od.ProductId equals p.product_id
                     join pay in _context.Payments on o.OrderId equals pay.OrderId into payJoin
-                    from payment in payJoin.DefaultIfEmpty() // LEFT JOIN
+                    from payment in payJoin.DefaultIfEmpty()
                     join sd in _context.ShippingDetails on od.OrderDetailId equals sd.OrderDetailId into sdJoin
-                    from shipping in sdJoin.DefaultIfEmpty() // LEFT JOIN
-                    where od.StoreId == storeId
+                    from shipping in sdJoin.DefaultIfEmpty()
+                    where od.StoreId == storeId && o.OrderStatus == "Paid"
                     select new BusinessDashboardDto
                     {
                         OrderId = o.OrderId,
                         OrderDetailId = od.OrderDetailId,
                         OrderDate = o.OrderDate,
                         CustomerName = s.Username,
+                        ShopperId = s.ShopperRegId,
+                        ProductId = p.product_id,
                         ProductName = p.product_name,
                         Quantity = od.Quantity,
                         Amount = od.Quantity * od.Price,
                         PaymentStatus = payment != null ? payment.PaymentStatus : "Unpaid",
+                        TransactionId = payment.PaymentId,
                         Address = s.Address,
                         Town = s.Town,
                         City = s.City,
                         State = s.State,
                         Country = s.Country,
-                        DeliveryType = shipping != null ? shipping.Shipping_type : "Not Shipped",
-                        DeliveryStatus = o.OrderStatus
+                        DeliveryType = shipping != null ? shipping.Shipping_type : "Standard",
+                        ShippingStatus = shipping != null ? shipping.ShippingStatus : "Not Shipped"
                     };
 
-        return await query.ToListAsync();
+        var result = await query.ToListAsync();
+
+        // Categorize paid orders based on shipping status and date
+        foreach (var order in result)
+        {
+            order.OrderCategory =
+                (order.OrderDate >= DateTime.UtcNow.AddDays(-2) && order.ShippingStatus == "Not Shipped") ? "New" :
+                (order.ShippingStatus == "Not Shipped") ? "Pending" :
+                (order.ShippingStatus == "In Transit") ? "In Progress" :
+                (order.ShippingStatus == "Delivered") ? "Completed" :
+                "Other";
+        }
+
+        return result;
     }
-    
+
     // get order, sales, product, customer count
     public async Task<SalesReportDTO> GetSalesReportByStoreId(int storeId)
     {

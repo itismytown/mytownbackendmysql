@@ -25,5 +25,7 @@ namespace mytown.Models
 
         [Required]
         public string TrackingId { get; set; } // Unique Tracking ID for the product's shipment
+
+        public string ShippingStatus { get; set; } = "Not Shipped";
     }
 }

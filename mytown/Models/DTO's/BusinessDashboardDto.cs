@@ -17,6 +17,15 @@
         public string Country { get; set; }
         public string DeliveryType { get; set; }
         public string DeliveryStatus { get; set; }
+
+
+        public int ShopperId { get; set; }
+        public int ProductId { get; set; }
+        public int TransactionId { get; set; }
+     
+        public string ShippingStatus { get; set; }    // e.g. Not Shipped, In Transit, Delivered
+
+        public string OrderCategory { get; set; }
     }
 }
 

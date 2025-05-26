@@ -2,6 +2,7 @@
 using mytown.DataAccess.Interfaces;
 using mytown.Models;
 using mytown.Models.mytown.DataAccess;
+using Stripe;
 
 namespace mytown.DataAccess.Repositories
 {
@@ -65,21 +66,26 @@ namespace mytown.DataAccess.Repositories
 
             var trackingId = Guid.NewGuid().ToString();
 
-            // Add ShippingDetails for each OrderDetail
+            var shippingList = new List<ShippingDetails>();
+
             foreach (var orderDetail in orderDetailsList)
             {
                 var shipping = new ShippingDetails
                 {
-                    OrderDetailId = orderDetail.OrderDetailId, // Use OrderDetailId as the FK
+                    OrderDetailId = orderDetail.OrderDetailId,
                     Shipping_type = shippingType,
-                    EstimatedDays = 5, // Example: static or calculated
-                    Cost = 50,         // Example: fixed or logic-based
-                    TrackingId = trackingId
+                    EstimatedDays = 5,
+                    Cost = 50,
+                    TrackingId = trackingId,
+                    ShippingStatus = "Not Shipped"
                 };
-                _context.ShippingDetails.Add(shipping);
+
+                shippingList.Add(shipping);
             }
 
-            //await _context.SaveChangesAsync(); // Save shipping details
+            // Add all shipping records at once
+            _context.ShippingDetails.AddRange(shippingList);
+            await _context.SaveChangesAsync();
 
             // Optionally clear the cart
             //_context.addtocart.RemoveRange(cartItems);
