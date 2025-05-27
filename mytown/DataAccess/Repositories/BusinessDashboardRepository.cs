@@ -155,6 +155,119 @@ public class BusinessDashboardRepository : IBusinessDashboardRepository
         return result;
     }
 
+
+    // show products tab data
+    public async Task<List<ProductDto>> GetProductsWithPurchasedCountAsync(int busRegId, string searchText = null, string sortBy = "id", string sortDirection = "asc", int page = 1, int pageSize = 10)
+    {
+        var query = from p in _context.products
+                    where p.BusRegId == busRegId
+                    // Left join orderdetails on product id and store id
+                    join od in _context.OrderDetails.Where(od => od.StoreId == busRegId)
+                        on p.product_id equals od.ProductId into odGroup
+                    select new
+                    {
+                        Product = p,
+                        PurchasedCount = odGroup.Sum(x => (int?)x.Quantity) ?? 0
+                    };
+
+        // Apply search filter
+        if (!string.IsNullOrEmpty(searchText))
+        {
+            query = query.Where(x =>
+                x.Product.product_name.Contains(searchText) ||
+                x.Product.product_subject.Contains(searchText) ||
+                x.Product.product_id.ToString().Contains(searchText)
+            );
+        }
+
+        // Sorting
+        bool isAsc = sortDirection.ToLower() == "asc";
+        query = sortBy?.ToLower() switch
+        {
+            "price" => isAsc ? query.OrderBy(x => x.Product.product_cost) : query.OrderByDescending(x => x.Product.product_cost),
+            "quantity" => isAsc ? query.OrderBy(x => x.Product.product_quantity) : query.OrderByDescending(x => x.Product.product_quantity),
+            "purchasedcount" => isAsc ? query.OrderBy(x => x.PurchasedCount) : query.OrderByDescending(x => x.PurchasedCount),
+            "name" => isAsc ? query.OrderBy(x => x.Product.product_name) : query.OrderByDescending(x => x.Product.product_name),
+            "id" => isAsc ? query.OrderBy(x => x.Product.product_id) : query.OrderByDescending(x => x.Product.product_id),
+            _ => query.OrderBy(x => x.Product.product_id)
+        };
+
+        // Pagination
+        int skip = (page - 1) * pageSize;
+        query = query.Skip(skip).Take(pageSize);
+
+        // Project to DTO
+        var result = await query.Select(x => new ProductDto
+        {
+            ProductId = x.Product.product_id,
+            ProductType = x.Product.prod_subcat_id,
+            ProductName = x.Product.product_name,
+            ProductAmount = x.Product.product_cost,
+            Quantity = x.Product.product_quantity,
+            PurchasedCount = x.PurchasedCount,
+            ProductImage = x.Product.product_image,
+            // You can add Rating & Review here if you have that data
+        }).ToListAsync();
+
+        return result;
+    }
+
+    //Show customer data analtics
+
+    public async Task<CustomerAnalyticsDto> GetCustomerAnalyticsAsync(int storeId)
+    {
+        // Visited and Purchased
+        var purchasedCustomers = await _context.OrderDetails
+            .Where(od => od.StoreId == storeId &&
+                         (od.Order.Payments.Any() || od.Order.ShippingDetails.Any()))
+            .Select(od => od.Order.ShopperRegId)
+            .Distinct()
+            .ToListAsync();
+
+        // Visited but Not Purchased
+        var notPurchasedCustomers = await _context.OrderDetails
+            .Where(od => od.StoreId == storeId &&
+                         !od.Order.Payments.Any() &&
+                         !od.Order.ShippingDetails.Any())
+            .Select(od => od.Order.ShopperRegId)
+            .Distinct()
+            .ToListAsync();
+
+        // Frequent Customers (Purchased more than once)
+        var frequentCustomers = await _context.OrderDetails
+            .Where(od => od.StoreId == storeId && od.Order.Payments.Any())
+            .GroupBy(od => new { od.Order.ShopperRegId, od.Order.ShopperRegister })
+            .Where(g => g.Count() > 1)
+            .Select(g => new FrequentCustomerDto
+            {
+                Name = g.Key.ShopperRegister.Username,
+                PhoneNumber = g.Key.ShopperRegister.PhoneNumber,
+                PurchaseCount = g.Count()
+            })
+            .ToListAsync();
+
+        // Customers Who Purchased (Names and Phones)
+        var customersWhoPurchased = await _context.OrderDetails
+            .Where(od => od.StoreId == storeId &&
+                         (od.Order.Payments.Any() || od.Order.ShippingDetails.Any()))
+            .Select(od => new CustomerDto
+            {
+                Name = od.Order.ShopperRegister.Username,
+                PhoneNumber = od.Order.ShopperRegister.PhoneNumber
+            })
+            .Distinct()
+            .ToListAsync();
+
+        return new CustomerAnalyticsDto
+        {
+            CustomersVisitedAndPurchased = purchasedCustomers.Count,
+            CustomersVisitedButNotPurchased = notPurchasedCustomers.Count,
+            FrequentCustomers = frequentCustomers,
+            CustomersWhoPurchased = customersWhoPurchased
+        };
+    }
+
+
 }
 
 
