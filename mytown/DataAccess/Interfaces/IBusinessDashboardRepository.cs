@@ -17,7 +17,11 @@ namespace mytown.DataAccess.Interfaces
          int page = 1,
          int pageSize = 10);
 
-        Task<CustomerAnalyticsDto> GetCustomerAnalyticsAsync(int storeId);
+        Task<CustomerAnalyticsDto> GetCustomerAnalyticsAsync(
+         int storeId,
+         string? search = null,
+         string? sortBy = null,
+         bool descending = false);
 
     }
 }

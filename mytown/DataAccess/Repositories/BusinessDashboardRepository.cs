@@ -214,9 +214,13 @@ public class BusinessDashboardRepository : IBusinessDashboardRepository
 
     //Show customer data analtics
 
-    public async Task<CustomerAnalyticsDto> GetCustomerAnalyticsAsync(int storeId)
+    public async Task<CustomerAnalyticsDto> GetCustomerAnalyticsAsync(
+    int storeId,
+    string? search = null,
+    string? sortBy = null,
+    bool descending = false)
     {
-        // Visited and Purchased
+        // 1. Visited and Purchased
         var purchasedCustomers = await _context.OrderDetails
             .Where(od => od.StoreId == storeId &&
                          (od.Order.Payments.Any() || od.Order.ShippingDetails.Any()))
@@ -224,7 +228,7 @@ public class BusinessDashboardRepository : IBusinessDashboardRepository
             .Distinct()
             .ToListAsync();
 
-        // Visited but Not Purchased
+        // 2. Visited but Not Purchased
         var notPurchasedCustomers = await _context.OrderDetails
             .Where(od => od.StoreId == storeId &&
                          !od.Order.Payments.Any() &&
@@ -233,39 +237,95 @@ public class BusinessDashboardRepository : IBusinessDashboardRepository
             .Distinct()
             .ToListAsync();
 
-        // Frequent Customers (Purchased more than once)
-        var frequentCustomers = await _context.OrderDetails
+        // 3. Frequent Customers - Get ShopperRegId + count
+        var frequentCustomersRaw = await _context.OrderDetails
             .Where(od => od.StoreId == storeId && od.Order.Payments.Any())
-            .GroupBy(od => new { od.Order.ShopperRegId, od.Order.ShopperRegister })
+            .GroupBy(od => od.Order.ShopperRegId)
             .Where(g => g.Count() > 1)
-            .Select(g => new FrequentCustomerDto
-            {
-                Name = g.Key.ShopperRegister.Username,
-                PhoneNumber = g.Key.ShopperRegister.PhoneNumber,
-                PurchaseCount = g.Count()
-            })
+            .Select(g => new { ShopperRegId = g.Key, PurchaseCount = g.Count() })
             .ToListAsync();
 
-        // Customers Who Purchased (Names and Phones)
-        var customersWhoPurchased = await _context.OrderDetails
+        // Join to get name/phone
+        var shopperIds = frequentCustomersRaw.Select(x => x.ShopperRegId).ToList();
+        var shopperDetails = await _context.ShopperRegisters
+            .Where(s => shopperIds.Contains(s.ShopperRegId))
+            .ToListAsync();
+
+        var frequentCustomers = frequentCustomersRaw
+            .Join(shopperDetails,
+                raw => raw.ShopperRegId,
+                shopper => shopper.ShopperRegId,
+                (raw, shopper) => new FrequentCustomerDto
+                {
+                    Name = shopper.Username,
+                    PhoneNumber = shopper.PhoneNumber,
+                    PurchaseCount = raw.PurchaseCount
+                })
+            .AsQueryable();
+
+        // Apply search and sort
+        if (!string.IsNullOrEmpty(search))
+            frequentCustomers = frequentCustomers.Where(fc => fc.Name.Contains(search));
+
+        if (!string.IsNullOrEmpty(sortBy))
+        {
+            frequentCustomers = sortBy.ToLower() switch
+            {
+                "name" => descending
+                    ? frequentCustomers.OrderByDescending(fc => fc.Name)
+                    : frequentCustomers.OrderBy(fc => fc.Name),
+                "count" => descending
+                    ? frequentCustomers.OrderByDescending(fc => fc.PurchaseCount)
+                    : frequentCustomers.OrderBy(fc => fc.PurchaseCount),
+                _ => frequentCustomers
+            };
+        }
+
+        var finalFrequentCustomers = frequentCustomers.ToList();
+
+        // 4. Customers Who Purchased (Names and Phones)
+        var customersWhoPurchasedQuery = _context.OrderDetails
             .Where(od => od.StoreId == storeId &&
                          (od.Order.Payments.Any() || od.Order.ShippingDetails.Any()))
-            .Select(od => new CustomerDto
+            .Select(od => new
             {
-                Name = od.Order.ShopperRegister.Username,
-                PhoneNumber = od.Order.ShopperRegister.PhoneNumber
+                od.Order.ShopperRegister.Username,
+                od.Order.ShopperRegister.PhoneNumber
             })
-            .Distinct()
+            .Distinct();
+
+        if (!string.IsNullOrEmpty(search))
+            customersWhoPurchasedQuery = customersWhoPurchasedQuery
+                .Where(c => c.Username.Contains(search));
+
+        if (!string.IsNullOrEmpty(sortBy))
+        {
+            customersWhoPurchasedQuery = sortBy.ToLower() switch
+            {
+                "name" => descending
+                    ? customersWhoPurchasedQuery.OrderByDescending(c => c.Username)
+                    : customersWhoPurchasedQuery.OrderBy(c => c.Username),
+                _ => customersWhoPurchasedQuery
+            };
+        }
+
+        var customersWhoPurchased = await customersWhoPurchasedQuery
+            .Select(c => new CustomerDto
+            {
+                Name = c.Username,
+                PhoneNumber = c.PhoneNumber
+            })
             .ToListAsync();
 
         return new CustomerAnalyticsDto
         {
             CustomersVisitedAndPurchased = purchasedCustomers.Count,
             CustomersVisitedButNotPurchased = notPurchasedCustomers.Count,
-            FrequentCustomers = frequentCustomers,
+            FrequentCustomers = finalFrequentCustomers,
             CustomersWhoPurchased = customersWhoPurchased
         };
     }
+
 
 
 }

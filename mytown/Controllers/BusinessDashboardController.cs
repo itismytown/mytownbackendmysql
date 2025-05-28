@@ -67,9 +67,13 @@ namespace mytown.Controllers
 
 
         [HttpGet("GetCustomerAnalytics")]
-        public async Task<IActionResult> GetCustomerAnalytics(int storeId)
+        public async Task<IActionResult> GetCustomerAnalytics(
+    int storeId,
+    string? search = null,
+    string? sortBy = null,
+    bool descending = false)
         {
-            var result = await _dashboardRepository.GetCustomerAnalyticsAsync(storeId);
+            var result = await _dashboardRepository.GetCustomerAnalyticsAsync(storeId, search, sortBy, descending);
             return Ok(result);
         }
     }
