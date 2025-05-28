@@ -220,7 +220,7 @@ public class BusinessDashboardRepository : IBusinessDashboardRepository
     string? sortBy = null,
     bool descending = false)
     {
-        // 1. Visited and Purchased
+        //  Visited and Purchased
         var purchasedCustomers = await _context.OrderDetails
             .Where(od => od.StoreId == storeId &&
                          (od.Order.Payments.Any() || od.Order.ShippingDetails.Any()))
@@ -228,7 +228,7 @@ public class BusinessDashboardRepository : IBusinessDashboardRepository
             .Distinct()
             .ToListAsync();
 
-        // 2. Visited but Not Purchased
+        //  Visited but Not Purchased
         var notPurchasedCustomers = await _context.OrderDetails
             .Where(od => od.StoreId == storeId &&
                          !od.Order.Payments.Any() &&
@@ -237,7 +237,7 @@ public class BusinessDashboardRepository : IBusinessDashboardRepository
             .Distinct()
             .ToListAsync();
 
-        // 3. Frequent Customers - Get ShopperRegId + count
+        // Frequent Customers - Get ShopperRegId + count
         var frequentCustomersRaw = await _context.OrderDetails
             .Where(od => od.StoreId == storeId && od.Order.Payments.Any())
             .GroupBy(od => od.Order.ShopperRegId)
@@ -283,7 +283,7 @@ public class BusinessDashboardRepository : IBusinessDashboardRepository
 
         var finalFrequentCustomers = frequentCustomers.ToList();
 
-        // 4. Customers Who Purchased (Names and Phones)
+        //Customers Who Purchased (Names and Phones)
         var customersWhoPurchasedQuery = _context.OrderDetails
             .Where(od => od.StoreId == storeId &&
                          (od.Order.Payments.Any() || od.Order.ShippingDetails.Any()))
