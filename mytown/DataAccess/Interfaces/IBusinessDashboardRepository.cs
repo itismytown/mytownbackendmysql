@@ -23,5 +23,12 @@ namespace mytown.DataAccess.Interfaces
          string? sortBy = null,
          bool descending = false);
 
+        // order sales history with search and sort
+        Task<List<BusinessDashboardDto>> GetStoreOrdersReportsortsearch(
+       int storeId,
+       string? search = null,
+       string? sortBy = null,
+       bool descending = false);
+
     }
 }

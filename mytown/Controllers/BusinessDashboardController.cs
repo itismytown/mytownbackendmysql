@@ -3,6 +3,7 @@ using mytown.DataAccess.Interfaces;
 using mytown.DataAccess.Repositories;
 using mytown.Models;
 using mytown.Models.DTO_s;
+using Stripe;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -28,6 +29,19 @@ namespace mytown.Controllers
 
             return Ok(result);
         }
+        //sales report with sort and search
+
+        [HttpGet("orders-report")]
+        public async Task<IActionResult> GetStoreOrdersReportsortsearch(
+    int storeId,
+    string? search = null,
+    string? sortBy = null,
+    bool descending = false)
+        {
+            var report = await _dashboardRepository.GetStoreOrdersReportsortsearch(storeId, search, sortBy, descending);
+            return Ok(report);
+        }
+
 
         // GET api/businessdashboard/locationcounts/{storeId}
         [HttpGet("locationcounts/{storeId}")]
