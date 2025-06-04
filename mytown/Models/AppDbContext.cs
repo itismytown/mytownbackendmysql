@@ -35,6 +35,7 @@ namespace mytown.Models
             public DbSet<PendingBusinessVerification> PendingBusinessVerifications { get; set; }
             public DbSet<PasswordResetRequest> PasswordResetRequests { get; set; }
             public DbSet<ShippingDetails> ShippingDetails { get; set; }
+            public DbSet<CourierService> CourierService { get; set; }
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {

@@ -101,7 +101,7 @@ namespace mytown.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error during registration for {Email}", businessRegisterDto.BusEmail);
-                return StatusCode(500, new { error = "Something went wrong. Please try again later." });
+                return StatusCode(500, new { error = "Something went wrong. Please try with new email." });
             }
         }
 

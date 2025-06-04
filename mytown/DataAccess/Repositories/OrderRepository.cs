@@ -76,8 +76,8 @@ namespace mytown.DataAccess.Repositories
                     Shipping_type = shippingType,
                     EstimatedDays = 5,
                     Cost = 50,
-                    TrackingId = trackingId,
-                    ShippingStatus = "Not Shipped",
+                    TrackingId = trackingId, // remove this, this should be enerated by courier person
+                    ShippingStatus = "Not Shipped", //put as ready to be shipped
                     OrderId = newOrder.OrderId
                 };
 
