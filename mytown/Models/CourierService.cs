@@ -44,6 +44,9 @@ namespace mytown.Models
         public string LicenseNumber { get; set; }
 
         public DateTime RegisteredDate { get; set; } = DateTime.UtcNow;
+        public string Password { get; set; }
+        public bool IsEmailVerified { get; set; } = false;
+
 
     }
 }
