@@ -73,20 +73,20 @@ public class CourierController : ControllerBase
             var courier = new CourierService
             {
                 CourierServiceName = courierDto.CourierServiceName,
-                CourierAddress = courierDto.CourierAddress,
-                CourierTown = courierDto.CourierTown,
-                CourierCity = courierDto.CourierCity,
-                CourierState = courierDto.CourierState,
-                CourierCountry = courierDto.CourierCountry,
-                PostalCode = courierDto.PostalCode,
+                CourierContactName = courierDto.CourierContactName,
                 CourierPhone = courierDto.CourierPhone,
                 CourierEmail = courierDto.CourierEmail,
-                AadharNumber = courierDto.AadharNumber,
-                LicenseNumber = courierDto.LicenseNumber,
                 Password = hashedPassword,
-                IsEmailVerified = true,   
-                RegisteredDate = DateTime.UtcNow
+                IsEmailVerified = true, // or false if verification email flow is enabled
+                RegisteredDate = DateTime.UtcNow,
+
+                // Service types (multi-selection checkboxes)
+                IsLocal = courierDto.IsLocal,
+                IsState = courierDto.IsState,
+                IsNational = courierDto.IsNational,
+                IsInternational = courierDto.IsInternational
             };
+
 
             var createdCourier = await _repository.RegisterCourier(courier);
             return Ok(new { message = "Verification link sent to email. Please verify and login.", courier = createdCourier });
@@ -115,20 +115,20 @@ public class CourierController : ControllerBase
             var courier = new CourierService
             {
                 CourierServiceName = courierDto.CourierServiceName,
-                CourierAddress = courierDto.CourierAddress,
-                CourierTown = courierDto.CourierTown,
-                CourierCity = courierDto.CourierCity,
-                CourierState = courierDto.CourierState,
-                CourierCountry = courierDto.CourierCountry,
-                PostalCode = courierDto.PostalCode,
+                CourierContactName = courierDto.CourierContactName,
                 CourierPhone = courierDto.CourierPhone,
                 CourierEmail = courierDto.CourierEmail,
-                AadharNumber = courierDto.AadharNumber,
-                LicenseNumber = courierDto.LicenseNumber,
                 Password = hashedPassword,
-                IsEmailVerified = true,
-                RegisteredDate = DateTime.UtcNow
+                IsEmailVerified = true, // or false if verification email flow is enabled
+                RegisteredDate = DateTime.UtcNow,
+
+                // Service types (multi-selection checkboxes)
+                IsLocal = courierDto.IsLocal,
+                IsState = courierDto.IsState,
+                IsNational = courierDto.IsNational,
+                IsInternational = courierDto.IsInternational
             };
+
             await _repository.RegisterCourier(courier);
             await _repository.DeletePendingCourierVerification(token);
 
