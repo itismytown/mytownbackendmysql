@@ -66,57 +66,66 @@ namespace mytown.DataAccess.Repositories
         {
             // 🔹 Check BusinessRegisters first.
             var businessUser = await _context.BusinessRegisters
-     .Where(r => r.BusEmail != null && r.BusEmail == email)
-     .FirstOrDefaultAsync();
+                .Where(r => r.BusEmail != null && r.BusEmail == email)
+                .FirstOrDefaultAsync();
 
-
-            if (businessUser != null)
+            if (businessUser != null && BCrypt.Net.BCrypt.Verify(password, businessUser.Password))
             {
-                // If password matches, return business user
-                if (BCrypt.Net.BCrypt.Verify(password, businessUser.Password))
-                {
-                    //var businessProfile = await _context.BusinessProfiles
-                    //    .FirstOrDefaultAsync(bp => bp.BusRegId == businessUser.BusRegId);
-
-                    var businessProfile = await _context.BusinessProfiles
-                        .Where(bp => bp.BusRegId == businessUser.BusRegId)
-                        .Select(bp => new
-                        {
-                            bp,
-                            businessUser.BusinessUsername // pulling from BusinessRegister
-                        })
-                        .FirstOrDefaultAsync();
-
-                    return new
+                var businessProfile = await _context.BusinessProfiles
+                    .Where(bp => bp.BusRegId == businessUser.BusRegId)
+                    .Select(bp => new
                     {
-                        user = businessUser,
-                        businessProfile
-                    };
-                }
+                        bp,
+                        businessUser.BusinessUsername
+                    })
+                    .FirstOrDefaultAsync();
 
+                return new
+                {
+                    userType = "Business",
+                    user = businessUser,
+                    businessProfile,
+                    shopper = (object)null,
+                    courier = (object)null
+                };
             }
 
-            // Check ShopperRegisters if email exists there.
+            // 🔹 Check ShopperRegisters
             var shopper = await _context.ShopperRegisters
                 .FirstOrDefaultAsync(s => s.Email == email);
 
-            if (shopper != null)
+            if (shopper != null && BCrypt.Net.BCrypt.Verify(password, shopper.Password))
             {
-                // If password matches, return shopper user
-                if (BCrypt.Net.BCrypt.Verify(password, shopper.Password))
+                return new
                 {
-                    return new
-                    {
-                        user = (object)null,
-                        businessProfile = (object)null,
-                        shopper
-                    };
-                }
+                    userType = "Shopper",
+                    user = (object)null,
+                    businessProfile = (object)null,
+                    shopper,
+                    courier = (object)null
+                };
             }
 
-            // 🔹 If no user matched OR passwords were incorrect, return null.
+            // 🔹 Check CourierServices
+            var courier = await _context.CourierService
+                .FirstOrDefaultAsync(c => c.CourierEmail == email); // adjust field name as per your model
+
+            if (courier != null && BCrypt.Net.BCrypt.Verify(password, courier.Password))
+            {
+                return new
+                {
+                    userType = "Courier",
+                    user = (object)null,
+                    businessProfile = (object)null,
+                    shopper = (object)null,
+                    courier
+                };
+            }
+
+            // 🔹 No match or password incorrect
             return null;
         }
+
 
 
         public async Task<bool> UserExists(Registration regDetails)
