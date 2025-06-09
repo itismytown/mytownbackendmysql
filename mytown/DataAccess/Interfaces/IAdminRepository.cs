@@ -14,6 +14,8 @@ namespace mytown.DataAccess.Interfaces
 
         Task<int> GetBusinessRegisterCountAsync();
         Task<int> GetShoppersRegisterCountAsync();
+        Task<int> GetCourierserviceCountAsync();
+        Task<(IEnumerable<CourierService> records, int totalRecords)> GetCourierRegistersPaginatedAsync(int page, int pageSize);
     }
 }
 

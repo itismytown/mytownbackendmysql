@@ -97,5 +97,22 @@ namespace mytown.DataAccess.Repositories
             return count;
         }
 
+        public async Task<int> GetCourierserviceCountAsync()
+        {
+            // Count the rows in the BusinessRegister table
+            int count = await _context.CourierService.CountAsync();
+            return count;
+        }
+
+        public async Task<(IEnumerable<CourierService> records, int totalRecords)> GetCourierRegistersPaginatedAsync(int page, int pageSize)
+        {
+            var totalRecords = await _context.CourierService.CountAsync();
+            var records = await _context.CourierService
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (records, totalRecords);
+        }
     }
 }

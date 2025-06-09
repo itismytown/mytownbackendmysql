@@ -82,7 +82,12 @@ namespace mytown.Controllers
             return Ok(new { count });
         }
 
-
+        [HttpGet("getCourierRegisterCount")]
+        public async Task<IActionResult> getCourierRegisterCount()
+        {
+            var count = await _adminRepo.GetCourierserviceCountAsync();
+            return Ok(new { count });
+        }
 
         [HttpGet("getShopperRegistersPaginated")]
         public async Task<IActionResult> GetShopperRegistersPaginated(int page = 1, int pageSize = 10)
@@ -106,6 +111,34 @@ namespace mytown.Controllers
             return Ok(new
             {
                 data = shopperRegisters,
+                totalRecords,
+                currentPage = page,
+                pageSize
+            });
+        }
+
+        [HttpGet("getCourierRegistersPaginated")]
+        public async Task<IActionResult> GetCourierRegistersPaginated(int page = 1, int pageSize = 10)
+        {
+            // Validate page and pageSize
+            if (page <= 0 || pageSize <= 0)
+            {
+                return BadRequest(new { message = "Page and page size must be greater than 0." });
+            }
+
+            // Call the repository method to fetch paginated shopper registers
+            var (courierRegisters, totalRecords) = await _adminRepo.GetCourierRegistersPaginatedAsync(page, pageSize);
+
+            // Check if there are any records
+            if (courierRegisters == null || !courierRegisters.Any())
+            {
+                return Ok(new { data = new List<object>(), message = "No courier registers found.", totalRecords = 0 });
+            }
+
+            // Return the paginated list of shoppers as JSON
+            return Ok(new
+            {
+                data = courierRegisters,
                 totalRecords,
                 currentPage = page,
                 pageSize

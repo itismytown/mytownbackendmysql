@@ -24,6 +24,7 @@ namespace mytown.Models
        
         public DateTime RegisteredDate { get; set; } = DateTime.UtcNow;
         public string Password { get; set; }
+       
         public bool IsEmailVerified { get; set; } = false;
 
         public bool IsLocal { get; set; } = false;
@@ -31,6 +32,7 @@ namespace mytown.Models
         public bool IsNational { get; set; } = false;
         public bool IsInternational { get; set; } = false;
 
+        public ICollection<CourierBranch> CourierBranches { get; set; }
 
     }
 }
