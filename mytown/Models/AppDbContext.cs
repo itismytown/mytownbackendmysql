@@ -37,7 +37,7 @@ namespace mytown.Models
             public DbSet<ShippingDetails> ShippingDetails { get; set; }
             public DbSet<CourierService> CourierService { get; set; }
             public DbSet<PendingCourierVerification> PendingCourierVerifications { get; set; }
-            public DbSet<CourierBranch> CourierBranchs { get; set; }
+            public DbSet<CourierBranch> CourierBranches { get; set; }
 
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)

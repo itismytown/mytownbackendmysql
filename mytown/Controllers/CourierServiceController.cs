@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using mytown.DataAccess;
 using mytown.DataAccess.Interfaces;
 using mytown.Models;
 using mytown.Models.DTO_s;
@@ -11,19 +12,25 @@ using System.Threading.Tasks;
 [Route("api/courier")]
 public class CourierController : ControllerBase
 {
-    private readonly ICourierServiceRepository _repository;
+    private readonly ICourierServiceRepository _courierrepo;
     private readonly IEmailService _emailService;
     private readonly IConfiguration _configuration;
     private readonly ILogger<CourierController> _logger;
     private readonly IVerificationLinkBuildercourier _verificationLinkBuilder;
+    private readonly IBusinessRepository _businessRepo;
+    private readonly IShopperRepository _shopperRepo;
 
-    public CourierController(ICourierServiceRepository repository,
+    public CourierController(ICourierServiceRepository courierrepo,
+         IBusinessRepository businessRepo,
+        IShopperRepository shopperRepo,
         IEmailService emailService,
         IConfiguration configuration,
         ILogger<CourierController> logger,
         IVerificationLinkBuildercourier verificationLinkBuilder)
     {
-        _repository = repository;
+        _courierrepo = courierrepo;
+        _businessRepo = businessRepo;
+        _shopperRepo = shopperRepo;
         _emailService = emailService;
         _configuration = configuration;
         _logger = logger;
@@ -40,7 +47,7 @@ public class CourierController : ControllerBase
 
         try
         {
-            if (await _repository.IsCourierEmailTaken(courierDto.CourierEmail))
+            if (await _courierrepo.IsCourierEmailTaken(courierDto.CourierEmail))
             {
                 return Conflict(new { error = "Email already registered. Try logging in." });
             }
@@ -88,7 +95,7 @@ public class CourierController : ControllerBase
             };
 
 
-            var createdCourier = await _repository.RegisterCourier(courier);
+            var createdCourier = await _courierrepo.RegisterCourier(courier);
             return Ok(new { message = "Verification link sent to email. Please verify and login.", courier = createdCourier });
         }
         catch (Exception ex)
@@ -103,7 +110,7 @@ public class CourierController : ControllerBase
     {
         try
         {
-            var pending = await _repository.FindPendingCourierVerificationByToken(token);
+            var pending = await _courierrepo.FindPendingCourierVerificationByToken(token);
             if (pending == null || pending.ExpiryDate < DateTime.UtcNow)
             {
                 return BadRequest(new { error = "Invalid or expired verification link." });
@@ -129,8 +136,8 @@ public class CourierController : ControllerBase
                 IsInternational = courierDto.IsInternational
             };
 
-            await _repository.RegisterCourier(courier);
-            await _repository.DeletePendingCourierVerification(token);
+            await _courierrepo.RegisterCourier(courier);
+            await _courierrepo.DeletePendingCourierVerification(token);
 
             return Ok(new { message = "Courier email verified and registration completed!" });
         }
@@ -140,5 +147,31 @@ public class CourierController : ControllerBase
             return StatusCode(500, new { error = "Could not verify email. Try again later." });
         }
     }
+
+    //[HttpGet("GetBestCouriers")]
+    //public async Task<IActionResult> GetBestCouriers(int busRegId, int shopperId, decimal productWeightKg)
+    //{
+    //    var business =  await _businessRepo.GetBusinessByIdAsync(busRegId);
+    //    var shopper =   await _shopperRepo.GetShopperByIdAsync(shopperId);
+
+    //    if (business == null || shopper == null)
+    //        return NotFound("Invalid Business or Shopper ID.");
+
+    //    var bestCouriers = _repository.GetBestCourierOptions(business, shopper, productWeightKg);
+    //    return Ok(bestCouriers);
+    //}
+
+   
+    [HttpGet("GetBestCourier")]
+    public async Task<IActionResult> GetBestCourier(string storeCity, string storeState, string storeCountry, string shopperCity, decimal productWeightKg)
+    {
+        var result = await _courierrepo.GetBestCourierOptions(storeCity, storeState, storeCountry, shopperCity, productWeightKg);
+
+        if (result == null || !result.Any())
+            return NotFound("No suitable courier options found.");
+
+        return Ok(result);
+    }
 }
+
 

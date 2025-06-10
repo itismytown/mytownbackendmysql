@@ -150,6 +150,13 @@ namespace mytown.DataAccess.Repositories
             await _context.SaveChangesAsync();
             return shopper;
         }
+
+        public async Task<ShopperRegister> GetShopperByIdAsync(int shopperRegId)
+        {
+            return await _context.ShopperRegisters
+                                .FirstOrDefaultAsync(b => b.ShopperRegId == shopperRegId);
+        }
+
     }
 
 

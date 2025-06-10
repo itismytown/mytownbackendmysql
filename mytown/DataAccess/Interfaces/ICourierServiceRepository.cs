@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using mytown.Models;
+using mytown.Models.DTO_s;
 
 public interface ICourierServiceRepository
 {
@@ -12,4 +13,7 @@ public interface ICourierServiceRepository
     Task DeletePendingCourierVerification(string token);
 
     Task<CourierService> RegisterCourier(CourierService courier);
+   // Task <List<BestcourierinfoDto>> GetBestCourierOptions(BusinessRegister business, ShopperRegister shopper, decimal productWeightKg);
+
+    Task<List<BestcourierinfoDto>> GetBestCourierOptions(string storeCity, string storeState, string storeCountry, string shopperCity, decimal productWeightKg);
 }

@@ -15,6 +15,7 @@ namespace mytown.DataAccess.Interfaces
         Task SavePendingVerification(PendingVerification pending);
         Task<PendingVerification> FindPendingVerificationByToken(string token);
         Task DeletePendingVerification(string token);
+        Task<ShopperRegister> GetShopperByIdAsync(int shopperRegId);
 
     }
 }
