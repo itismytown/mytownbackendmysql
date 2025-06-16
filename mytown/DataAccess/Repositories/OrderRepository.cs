@@ -2,6 +2,7 @@
 using mytown.DataAccess.Interfaces;
 using mytown.Models;
 using mytown.Models.mytown.DataAccess;
+using mytown.Services;
 using Stripe;
 
 namespace mytown.DataAccess.Repositories
@@ -9,13 +10,15 @@ namespace mytown.DataAccess.Repositories
     public class OrderRepository : IOrderRepository
     {
         private readonly AppDbContext _context;
+        private readonly IEmailService _emailService;
 
-        public OrderRepository(AppDbContext context)
+        public OrderRepository(AppDbContext context, IEmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
-        public async Task<(int OrderId, string TrackingId)> CreateOrderAsync(int shopperRegId, string shippingType)
+        public async Task<int> CreateOrderAsync(int shopperRegId, string shippingType, int branchid, decimal cost)
         {
             // Calculate total amount from cart
             var totalAmount = await _context.addtocart
@@ -24,7 +27,7 @@ namespace mytown.DataAccess.Repositories
 
             if (totalAmount == 0)
             {
-                return (0, "N"); // No items in cart
+                return 0; // No items in cart
             }
 
             // Create new order
@@ -64,7 +67,7 @@ namespace mytown.DataAccess.Repositories
             _context.OrderDetails.AddRange(orderDetailsList);
             await _context.SaveChangesAsync(); // Save so that the OrderDetailId is populated
 
-            var trackingId = Guid.NewGuid().ToString();
+           // var trackingId = Guid.NewGuid().ToString();
 
             var shippingList = new List<ShippingDetails>();
 
@@ -73,10 +76,11 @@ namespace mytown.DataAccess.Repositories
                 var shipping = new ShippingDetails
                 {
                     OrderDetailId = orderDetail.OrderDetailId,
+                    BranchId = branchid,
                     Shipping_type = shippingType,
                     EstimatedDays = 5,
-                    Cost = 50,
-                    TrackingId = trackingId, // remove this, this should be enerated by courier person
+                    Cost = cost,
+                    TrackingId = "", // remove this, this should be enerated by courier person
                     ShippingStatus = "Not Shipped", //put as ready to be shipped
                     OrderId = newOrder.OrderId
                 };
@@ -88,13 +92,28 @@ namespace mytown.DataAccess.Repositories
             _context.ShippingDetails.AddRange(shippingList);
             await _context.SaveChangesAsync();
 
-            // Optionally clear the cart
-            //_context.addtocart.RemoveRange(cartItems);
-            //await _context.SaveChangesAsync();
+            foreach (var shippingDetail in shippingList)
+            {
+                await SendEmailToCourier(shippingDetail.BranchId, shippingDetail.ShippingDetailId);
+            }
 
-            return (newOrder.OrderId, trackingId);
+            return (newOrder.OrderId);
         }
 
+        private async Task SendEmailToCourier(int branchId, int shippingDetailId)
+        {
+            var courierPerson = await _context.CourierBranches
+                .Where(cb => cb.BranchId == branchId)
+                .Select(cb => new { cb.BranchEmailId, cb.CourierName })
+                .FirstOrDefaultAsync();
+
+            if (courierPerson != null && !string.IsNullOrEmpty(courierPerson.BranchEmailId))
+            {
+               
+
+                await _emailService.SendEmailToCourierAsync(courierPerson.BranchEmailId,courierPerson.CourierName,shippingDetailId);
+            }
+        }
 
     }
 }

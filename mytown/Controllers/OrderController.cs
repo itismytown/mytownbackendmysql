@@ -17,12 +17,12 @@ namespace mytown.Controllers
             _orderRepo = orderRepo ?? throw new ArgumentNullException(nameof(orderRepo));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-        [HttpPost("CreateOrder")]
-        public async Task<IActionResult> CreateOrder([FromQuery] int shopperRegId, [FromQuery] string shippingType)
+       [HttpPost("CreateOrder")]
+       public async Task<IActionResult> CreateOrder([FromQuery] int shopperRegId, [FromQuery] string shippingType, [FromQuery] int branchid, [FromQuery] decimal cost)
         {
-            var result = await _orderRepo.CreateOrderAsync(shopperRegId, shippingType);
+            int orderId = await _orderRepo.CreateOrderAsync(shopperRegId, shippingType, branchid, cost);
 
-            if (result.OrderId == 0)
+            if (orderId == 0)
             {
                 return BadRequest("No items in cart to place an order.");
             }
@@ -30,8 +30,8 @@ namespace mytown.Controllers
             return Ok(new
             {
                 Message = "Order placed successfully",
-                OrderId = result.OrderId,
-                TrackingId = result.TrackingId
+                OrderId = orderId
+                // TrackingId = result.TrackingId
             });
         }
 

@@ -6,5 +6,7 @@
         Task SendPasswordResetEmail(string email, string resetLink);
         Task SendBusinessnotification(string email, string businessname, int orderId);
 
+        Task SendEmailToCourierAsync(string email, string courierName, int shippingDetailId);
+
     }
 }

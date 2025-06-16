@@ -2,7 +2,7 @@
 {
     public interface IOrderRepository
     {
-        Task<(int OrderId, string TrackingId)> CreateOrderAsync(int shopperRegId, string shippingType);
+        Task<int> CreateOrderAsync(int shopperRegId, string shippingType, int branchid, decimal cost);
     }
 }
 

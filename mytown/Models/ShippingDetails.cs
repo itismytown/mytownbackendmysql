@@ -16,6 +16,11 @@ namespace mytown.Models
         [Required]
         public int OrderDetailId { get; set; } // Foreign Key - OrderDetails
 
+        [ForeignKey("BranchId")]
+        public int BranchId { get; set; }
+        public CourierBranch CourierBranch { get; set; }
+
+
         //[ForeignKey("OrderDetailId")]
         //public virtual orderdetails OrderDetail { get; set; }
 

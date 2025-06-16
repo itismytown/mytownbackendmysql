@@ -7,6 +7,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Linq;
 using DnsClient;
+using Microsoft.EntityFrameworkCore;
 
 public class EmailService : IEmailService
 {
@@ -254,5 +255,66 @@ public class EmailService : IEmailService
             return false;
         }
     }
+
+    public async Task SendEmailToCourierAsync(string email, string courierName, int shippingDetailId)
+    {
+        if (!await DomainHasMX(email))
+            throw new Exception("The email domain is not valid (no MX records found).");
+
+        try
+        {
+            using (var smtpClient = new SmtpClient(_smtpServer))
+            {
+                smtpClient.Port = _smtpPort;
+                smtpClient.Credentials = new NetworkCredential(_smtpUser, _smtpPass);
+                smtpClient.EnableSsl = true;
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(_senderEmail),
+                    Subject = "New Shipment Notification",
+                    Body = $@"
+<html>
+  <body style='font-family: Arial, sans-serif; color: #333; line-height: 1.6;'>
+    <h3 style='color: #000;'>Shipping Notification – Assigned to Your Branch</h3>
+    <p>Hello <strong>{courierName}</strong>,</p>
+
+    <p>
+      A new shipment task has been assigned to your branch. Please prepare for dispatch using the information below.
+    </p>
+
+    <p>
+      <strong>Shipping ID:</strong> {shippingDetailId}<br />
+      <strong>Assigned Date:</strong> {DateTime.Now:dd-MMM-yyyy hh:mm tt}
+    </p>
+
+    <p>
+      Kindly login to your courier portal and update the status as soon as the parcel is dispatched.
+      Ensure timely pickup and delivery to meet our service standards.
+    </p>
+
+    <p>If you have any questions or face any issues, please contact the operations team.</p>
+
+    <p style='margin-top: 30px;'>
+      Best regards,<br />
+      <strong style='color: #004481;'>ItIsMyTown Logistics</strong><br />
+      <em>[Contact Details]</em>
+    </p>
+  </body>
+</html>",
+                    IsBodyHtml = true
+                };
+
+                mailMessage.To.Add(email);
+                await smtpClient.SendMailAsync(mailMessage);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error sending courier email: {ex.Message}");
+            throw new Exception("Failed to send courier shipping notification email.");
+        }
+    }
+
 
 }

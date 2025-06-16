@@ -172,6 +172,14 @@ public class CourierController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpGet("AssignedOrdersByCourier")]
+    public async Task<IActionResult> GetAssignedOrdersByCourier([FromQuery] int courierId)
+    {
+        var orders = await _courierrepo.GetAssignedOrdersByCourierIdAsync(courierId);
+        return Ok(orders);
+    }
+
 }
 
 
