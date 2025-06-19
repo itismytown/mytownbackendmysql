@@ -1,8 +1,10 @@
-﻿namespace mytown.DataAccess.Interfaces
+﻿using mytown.Models.DTO_s;
+
+namespace mytown.DataAccess.Interfaces
 {
     public interface IOrderRepository
     {
-        Task<int> CreateOrderAsync(int shopperRegId, string shippingType, int branchid, decimal cost);
+        Task<int> CreateOrderAsync(int shopperRegId, List<StoreShippingSelection> shippingSelections);
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mytown.DataAccess.Interfaces;
 using mytown.Models;
+using mytown.Models.DTO_s;
 using mytown.Models.mytown.DataAccess;
 using mytown.Services;
 using Stripe;
@@ -18,35 +19,28 @@ namespace mytown.DataAccess.Repositories
             _emailService = emailService;
         }
 
-        public async Task<int> CreateOrderAsync(int shopperRegId, string shippingType, int branchid, decimal cost)
+        public async Task<int> CreateOrderAsync(int shopperRegId, List<StoreShippingSelection> shippingSelections)
         {
-            // Calculate total amount from cart
-            var totalAmount = await _context.addtocart
+            var cartItems = await _context.addtocart
                 .Where(c => c.ShopperRegId == shopperRegId && c.orderstatus == "Cart")
-                .SumAsync(c => c.product_price * c.prod_qty);
+                .ToListAsync();
 
-            if (totalAmount == 0)
-            {
-                return 0; // No items in cart
-            }
+            if (!cartItems.Any())
+                return 0;
 
-            // Create new order
+            decimal totalAmount = cartItems.Sum(c => c.product_price * c.prod_qty);
+
             var newOrder = new Order
             {
                 ShopperRegId = shopperRegId,
                 TotalAmount = totalAmount,
-                ShippingType = shippingType,
+                ShippingType = "Multiple", // or leave blank or null
                 OrderStatus = "Pending",
                 OrderDate = DateTime.UtcNow
             };
 
             _context.Orders.Add(newOrder);
             await _context.SaveChangesAsync();
-
-            // Move cart items to OrderDetails table
-            var cartItems = await _context.addtocart
-                .Where(c => c.ShopperRegId == shopperRegId && c.orderstatus == "Cart")
-                .ToListAsync();
 
             List<orderdetails> orderDetailsList = new List<orderdetails>();
 
@@ -63,32 +57,34 @@ namespace mytown.DataAccess.Repositories
                 orderDetailsList.Add(orderDetail);
             }
 
-            // Add OrderDetails to the context
             _context.OrderDetails.AddRange(orderDetailsList);
-            await _context.SaveChangesAsync(); // Save so that the OrderDetailId is populated
+            await _context.SaveChangesAsync();
 
-           // var trackingId = Guid.NewGuid().ToString();
-
-            var shippingList = new List<ShippingDetails>();
+            List<ShippingDetails> shippingList = new List<ShippingDetails>();
 
             foreach (var orderDetail in orderDetailsList)
             {
+                var shippingSelection = shippingSelections
+                    .FirstOrDefault(s => s.StoreId == orderDetail.StoreId);
+
+                if (shippingSelection == null)
+                    throw new Exception($"No shipping selected for store {orderDetail.StoreId}");
+
                 var shipping = new ShippingDetails
                 {
+                    OrderId = newOrder.OrderId,
                     OrderDetailId = orderDetail.OrderDetailId,
-                    BranchId = branchid,
-                    Shipping_type = shippingType,
-                    EstimatedDays = 5,
-                    Cost = cost,
-                    TrackingId = "", // remove this, this should be enerated by courier person
-                    ShippingStatus = "Not Shipped", //put as ready to be shipped
-                    OrderId = newOrder.OrderId
+                    BranchId = shippingSelection.BranchId,
+                    Shipping_type = shippingSelection.ShippingType,
+                    EstimatedDays = 5, // can be dynamic later
+                    Cost = shippingSelection.Cost,
+                    TrackingId = "",
+                    ShippingStatus = "Ready to Ship"
                 };
 
                 shippingList.Add(shipping);
             }
 
-            // Add all shipping records at once
             _context.ShippingDetails.AddRange(shippingList);
             await _context.SaveChangesAsync();
 
@@ -97,8 +93,9 @@ namespace mytown.DataAccess.Repositories
                 await SendEmailToCourier(shippingDetail.BranchId, shippingDetail.ShippingDetailId);
             }
 
-            return (newOrder.OrderId);
+            return newOrder.OrderId;
         }
+
 
         private async Task SendEmailToCourier(int branchId, int shippingDetailId)
         {
