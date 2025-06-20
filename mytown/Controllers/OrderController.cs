@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using mytown.DataAccess.Interfaces;
+using mytown.DataAccess.Repositories;
 using mytown.Models.DTO_s;
 
 namespace mytown.Controllers
@@ -37,17 +38,34 @@ namespace mytown.Controllers
        // }
 
 
-        [HttpPost("CreateOrder")]
-        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
-        {
-            var orderId = await _orderRepo.CreateOrderAsync(request.ShopperRegId, request.ShippingSelections);
+        //[HttpPost("CreateOrder")]
+        //public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
+        //{
+        //    var orderId = await _orderRepo.CreateOrderAsync(request.ShopperRegId, request.ShippingSelections);
 
+        //    if (orderId == 0)
+        //        return BadRequest("No items in cart.");
+
+        //    return Ok(new { Message = "Order placed successfully", OrderId = orderId });
+        //}
+
+
+        [HttpPost("CreateOrder")]
+        public async Task<IActionResult> CreateOrder([FromQuery] int shopperRegId)
+        {
+            var orderId = await _orderRepo.CreateOrderAndOrderDetailsAsync(shopperRegId);
             if (orderId == 0)
                 return BadRequest("No items in cart.");
 
-            return Ok(new { Message = "Order placed successfully", OrderId = orderId });
+            return Ok(new { Message = "Order created successfully.", OrderId = orderId });
         }
 
+        [HttpPost("SaveShippingSelections")]
+        public async Task<IActionResult> SaveShippingSelections([FromQuery] int orderId, [FromBody] List<StoreShippingSelection> selections)
+        {
+            await _orderRepo.SaveShippingSelectionsAsync(orderId, selections);
+            return Ok(new { Message = "Shipping details saved successfully." });
+        }
 
     }
 }
