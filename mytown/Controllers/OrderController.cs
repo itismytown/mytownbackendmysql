@@ -19,35 +19,35 @@ namespace mytown.Controllers
             _orderRepo = orderRepo ?? throw new ArgumentNullException(nameof(orderRepo));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-       //[HttpPost("CreateOrder")]
-       //public async Task<IActionResult> CreateOrder([FromQuery] int shopperRegId, [FromQuery] string shippingType, [FromQuery] int branchid, [FromQuery] decimal cost)
-       // {
-       //     int orderId = await _orderRepo.CreateOrderAsync(shopperRegId, shippingType, branchid, cost);
-
-       //     if (orderId == 0)
-       //     {
-       //         return BadRequest("No items in cart to place an order.");
-       //     }
-
-       //     return Ok(new
-       //     {
-       //         Message = "Order placed successfully",
-       //         OrderId = orderId
-       //         // TrackingId = result.TrackingId
-       //     });
-       // }
-
-
         //[HttpPost("CreateOrder")]
-        //public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
-        //{
-        //    var orderId = await _orderRepo.CreateOrderAsync(request.ShopperRegId, request.ShippingSelections);
+        //public async Task<IActionResult> CreateOrder([FromQuery] int shopperRegId, [FromQuery] string shippingType, [FromQuery] int branchid, [FromQuery] decimal cost)
+        // {
+        //     int orderId = await _orderRepo.CreateOrderAsync(shopperRegId, shippingType, branchid, cost);
 
-        //    if (orderId == 0)
-        //        return BadRequest("No items in cart.");
+        //     if (orderId == 0)
+        //     {
+        //         return BadRequest("No items in cart to place an order.");
+        //     }
 
-        //    return Ok(new { Message = "Order placed successfully", OrderId = orderId });
-        //}
+        //     return Ok(new
+        //     {
+        //         Message = "Order placed successfully",
+        //         OrderId = orderId
+        //         // TrackingId = result.TrackingId
+        //     });
+        // }
+
+
+        [HttpPost("CreateOrders")]
+        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
+        {
+            var orderId = await _orderRepo.CreateOrderAsync(request.ShopperRegId, request.ShippingSelections);
+
+            if (orderId == 0)
+                return BadRequest("No items in cart.");
+
+            return Ok(new { Message = "Order placed successfully", OrderId = orderId });
+        }
 
 
         [HttpPost("CreateOrder")]
