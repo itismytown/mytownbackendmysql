@@ -146,10 +146,29 @@ namespace mytown.DataAccess.Repositories
 
         public async Task<ShopperRegister> RegisterShopper(ShopperRegister shopper)
         {
-            _context.ShopperRegisters.Add(shopper);
-            await _context.SaveChangesAsync();
-            return shopper;
+            try
+            {
+                _context.ShopperRegisters.Add(shopper);
+                await _context.SaveChangesAsync();
+                return shopper;
+            }
+            catch (DbUpdateException ex)
+            {
+                // Database update-related issues (e.g., constraint violations)
+                Console.WriteLine("Database Update Exception: " + ex.Message);
+                if (ex.InnerException != null)
+                    Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+
+                throw new Exception("There was an error saving the shopper registration to the database.");
+            }
+            catch (Exception ex)
+            {
+                // General fallback
+                Console.WriteLine("General Exception: " + ex.Message);
+                throw new Exception("An unexpected error occurred during shopper registration.");
+            }
         }
+
 
         public async Task<ShopperRegister> GetShopperByIdAsync(int shopperRegId)
         {
