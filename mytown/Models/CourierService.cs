@@ -34,5 +34,8 @@ namespace mytown.Models
 
         public ICollection<CourierBranch> CourierBranches { get; set; }
 
+       
+
+
     }
 }

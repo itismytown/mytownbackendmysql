@@ -68,8 +68,8 @@ namespace mytown.DataAccess.Repositories
                 var shippingSelection = shippingSelections
                     .FirstOrDefault(s => s.StoreId == orderDetail.StoreId);
 
-                if (shippingSelection == null)
-                    throw new Exception($"No shipping selected for store {orderDetail.StoreId}");
+                //if (shippingSelection == null)
+                //    throw new Exception($"No shipping selected for store {orderDetail.StoreId}");
 
                 var shipping = new ShippingDetails
                 {
@@ -182,18 +182,26 @@ namespace mytown.DataAccess.Repositories
 
         private async Task SendEmailToCourier(int branchId, int shippingDetailId)
         {
-            var courierPerson = await _context.CourierBranches
+            var courierInfo = await _context.CourierBranches
                 .Where(cb => cb.BranchId == branchId)
-                .Select(cb => new { cb.BranchEmailId, cb.CourierName })
+                .Select(cb => new
+                {
+                    cb.CourierName,
+                    cb.CourierId,
+                    CourierEmail = cb.CourierService.CourierEmail
+                })
                 .FirstOrDefaultAsync();
 
-            if (courierPerson != null && !string.IsNullOrEmpty(courierPerson.BranchEmailId))
+            if (courierInfo != null && !string.IsNullOrEmpty(courierInfo.CourierEmail))
             {
-               
-
-                await _emailService.SendEmailToCourierAsync(courierPerson.BranchEmailId,courierPerson.CourierName,shippingDetailId);
+                await _emailService.SendEmailToCourierAsync(
+                    courierInfo.CourierEmail,
+                    courierInfo.CourierName,
+                    shippingDetailId
+                );
             }
         }
+
 
     }
 }
