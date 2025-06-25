@@ -85,8 +85,7 @@ namespace mytown.Controllers
         {
             try
             {
-              //  StripeConfiguration.ApiKey = "sk_test_51RdmBv9QGOfKIHNoK0CLlOS4CM4oLpuPaLv8CpFyy1Thb2tb3SOfFDvFWsxock3znIofo1ypwLTryRGC5L02EQld00wWOdPqIG";
-
+               
                 // Get the currency code based on the country name
                 string currency = GetCurrencyFromCountry(paymentRequest.CountryName);
 
@@ -105,11 +104,12 @@ namespace mytown.Controllers
                 };
 
                 // Create the payment intent using Stripe's service
-                var service = new PaymentIntentService();
-                PaymentIntent intent = service.Create(options);
+                //var service = new PaymentIntentService();
+                //PaymentIntent intent = service.Create(options);
 
                 // Return the client secret to the frontend for confirming payment
-                return Ok(new { clientSecret = intent.ClientSecret });
+                //return Ok(new { clientSecret = intent.ClientSecret });
+                return Ok(new { clientSecret = "pi-secrect" });
             }
             catch (StripeException e)
             {
