@@ -1,24 +1,111 @@
 [
   {
-    "ContainingType": "ShopperController",
-    "Method": "Register",
-    "RelativePath": "api/shopper/register",
-    "HttpMethod": "POST",
+    "ContainingType": "mytown.Controllers.AdminController",
+    "Method": "GetBusinessRegisterCount",
+    "RelativePath": "api/admin/getBusinessRegisterCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.AdminController",
+    "Method": "GetBusinessRegistersPaginated",
+    "RelativePath": "api/admin/getBusinessRegistersPaginated",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "model",
-        "Type": "mytown.Models.shopperRegisterDto",
-        "IsRequired": true
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ShopperController",
-    "Method": "ResendVerificationEmail",
-    "RelativePath": "api/shopper/resend-verification",
+    "ContainingType": "mytown.Controllers.AdminController",
+    "Method": "getCourierRegisterCount",
+    "RelativePath": "api/admin/getCourierRegisterCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.AdminController",
+    "Method": "GetCourierRegistersPaginated",
+    "RelativePath": "api/admin/getCourierRegistersPaginated",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.AdminController",
+    "Method": "GetShopperRegistersPaginated",
+    "RelativePath": "api/admin/getShopperRegistersPaginated",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.AdminController",
+    "Method": "getShoppersRegisterCount",
+    "RelativePath": "api/admin/getShoppersRegisterCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.AdminController",
+    "Method": "GetUniqueCounts",
+    "RelativePath": "api/admin/GetUniqueCounts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.AuthController",
+    "Method": "CheckEmail",
+    "RelativePath": "api/auth/CheckEmail",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -32,9 +119,341 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "ShopperController",
+    "ContainingType": "mytown.Controllers.AuthController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/auth/forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.AuthController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/auth/reset-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "newPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "confirmPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessController",
+    "Method": "CreateProduct",
+    "RelativePath": "api/business/Add_Products",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "product",
+        "Type": "mytown.Models.products",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessController",
+    "Method": "GetBusinessCategories",
+    "RelativePath": "api/business/BusinessCategories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[mytown.Models.businesscategoriescs, mytown, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessController",
+    "Method": "RegisterBusiness",
+    "RelativePath": "api/business/businessregister",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "businessRegisterDto",
+        "Type": "mytown.Models.BusinessRegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessController",
+    "Method": "GetBusinessById",
+    "RelativePath": "api/business/businessregister/{busRegId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "busRegId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessController",
+    "Method": "DeleteProductAsync",
+    "RelativePath": "api/business/deleteProduct",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyTown.Controllers.ProductController",
+    "Method": "CreateProduct",
+    "RelativePath": "api/business/products/Add_Products",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "product",
+        "Type": "mytown.Models.products",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyTown.Controllers.ProductController",
+    "Method": "DeleteProductAsync",
+    "RelativePath": "api/business/products/deleteProduct",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MyTown.Controllers.ProductController",
+    "Method": "GetAllProducts",
+    "RelativePath": "api/business/products/GetAllProducts/{BusRegId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "BusRegId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "mytown.Models.products",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MyTown.Controllers.ProductController",
+    "Method": "GetProductById",
+    "RelativePath": "api/business/products/GetProductById/{productId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "mytown.Models.products",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MyTown.Controllers.ProductController",
+    "Method": "UpdateProduct",
+    "RelativePath": "api/business/products/updateProduct",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updatedProduct",
+        "Type": "mytown.Models.products",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessProfileController",
+    "Method": "AddBusinessProfile",
+    "RelativePath": "api/business/profile/addBusinessProfile",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "businessProfile",
+        "Type": "mytown.Models.businessprofile",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessProfileController",
+    "Method": "GetProductsByBusRegIdAndSubcatId",
+    "RelativePath": "api/business/profile/by-busreg-and-subcat",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "busRegId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "prodSubcatId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessProfileController",
+    "Method": "GetBusinessProfilesByBusRegId",
+    "RelativePath": "api/business/profile/getBusinessProfilesByBusRegId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "busRegId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessProfileController",
+    "Method": "GetProductSubCategories",
+    "RelativePath": "api/business/profile/GetProductSubCategories/{BusRegId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "busRegId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessProfileController",
+    "Method": "UpdateBannerPath",
+    "RelativePath": "api/business/profile/update-banner/{busRegId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "busRegId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "mytown.Models.UpdateBannerRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessController",
+    "Method": "UpdateProduct",
+    "RelativePath": "api/business/updateProduct",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updatedProduct",
+        "Type": "mytown.Models.products",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessController",
     "Method": "VerifyEmail",
-    "RelativePath": "api/shopper/verify-email",
+    "RelativePath": "api/business/verify-business-email",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -43,6 +462,548 @@
         "Name": "token",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessDashboardController",
+    "Method": "GetProductsByStore",
+    "RelativePath": "api/businessdashboard/dashboardproducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "busRegId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "searchText",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "sortBy",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "sortDirection",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessDashboardController",
+    "Method": "GetCustomerAnalytics",
+    "RelativePath": "api/businessdashboard/GetCustomerAnalytics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "storeId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "sortBy",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "descending",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessDashboardController",
+    "Method": "GetLocationCountsByStoreId",
+    "RelativePath": "api/businessdashboard/locationcounts/{storeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "storeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "mytown.Models.DTO_s.LocationStatsDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessDashboardController",
+    "Method": "GetStoreOrdersReportsortsearch",
+    "RelativePath": "api/businessdashboard/orders-report",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "storeId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "sortBy",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "descending",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessDashboardController",
+    "Method": "GetStoreOrdersReport",
+    "RelativePath": "api/businessdashboard/orders/{storeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "storeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[mytown.Models.DTO_s.BusinessDashboardDto, mytown, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "mytown.Controllers.BusinessDashboardController",
+    "Method": "GetSalesReport",
+    "RelativePath": "api/businessdashboard/salesreport/{storeId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "storeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CourierController",
+    "Method": "GetAssignedOrdersByCourier",
+    "RelativePath": "api/courier/AssignedOrdersByCourier",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courierId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CourierController",
+    "Method": "GetBestCourier",
+    "RelativePath": "api/courier/GetBestCourier",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "storeCity",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "storeState",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "storeCountry",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "shopperCity",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "productWeightKg",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CourierController",
+    "Method": "RegisterCourier",
+    "RelativePath": "api/courier/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courierDto",
+        "Type": "mytown.Models.DTO_s.CourierServiceDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CourierController",
+    "Method": "VerifyEmail",
+    "RelativePath": "api/courier/verify-courier-email",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.ShopperController",
+    "Method": "Register",
+    "RelativePath": "api/shoppers/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shopperRegisterDto",
+        "Type": "mytown.Models.ShopperRegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.ShopperController",
+    "Method": "VerifyEmail",
+    "RelativePath": "api/shoppers/verify-shopper-email",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "token",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.CartController",
+    "Method": "AddToCart",
+    "RelativePath": "api/shoppingcart/add-to-cart",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cartItem",
+        "Type": "mytown.Models.addtocart",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.CartController",
+    "Method": "DecreaseCartQty",
+    "RelativePath": "api/shoppingcart/DecreaseCartQty/{cartId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cartId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.CartController",
+    "Method": "GetCartItems",
+    "RelativePath": "api/shoppingcart/GetCartItems/{shopperRegId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shopperRegId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[CartItemDto, mytown, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "mytown.Controllers.CartController",
+    "Method": "GetShopperDetails",
+    "RelativePath": "api/shoppingcart/GetShopperDetails/{shopperRegId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shopperRegId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.CartController",
+    "Method": "IncreaseCartQty",
+    "RelativePath": "api/shoppingcart/IncreaseCartQty/{cartId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cartId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.CartController",
+    "Method": "MoveBackToCart",
+    "RelativePath": "api/shoppingcart/MoveBackToCart/{cartId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cartId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.CartController",
+    "Method": "MoveToWishlist",
+    "RelativePath": "api/shoppingcart/MoveToWishlist/{cartId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cartId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.OrderController",
+    "Method": "CreateOrder",
+    "RelativePath": "api/shoppingcart/orders/CreateOrder",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shopperRegId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.OrderController",
+    "Method": "CreateOrder",
+    "RelativePath": "api/shoppingcart/orders/CreateOrders",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "mytown.Models.DTO_s.CreateOrderRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.OrderController",
+    "Method": "SaveShippingSelections",
+    "RelativePath": "api/shoppingcart/orders/SaveShippingSelections",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "selections",
+        "Type": "System.Collections.Generic.List\u00601[[mytown.Models.DTO_s.StoreShippingSelection, mytown, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.PaymentController",
+    "Method": "AddPayment",
+    "RelativePath": "api/shoppingcart/payment/AddPayment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "mytown.Models.PaymentRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.PaymentController",
+    "Method": "CreatePaymentIntent",
+    "RelativePath": "api/shoppingcart/payment/create-payment-intent",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paymentRequest",
+        "Type": "mytown.Models.PaymentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.CartController",
+    "Method": "RemoveFromCart",
+    "RelativePath": "api/shoppingcart/RemoveFromCart/{cartId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cartId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.CartController",
+    "Method": "UpdateCartStatusByShopper",
+    "RelativePath": "api/shoppingcart/update-cart-status-by-shopper/{shopperRegId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shopperRegId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.CartController",
+    "Method": "UpdateCartStatus",
+    "RelativePath": "api/shoppingcart/update-cart-status/{orderId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -175,22 +1136,6 @@
   },
   {
     "ContainingType": "mytown.Controllers.UserController",
-    "Method": "RegisterBusiness",
-    "RelativePath": "api/User/businessregister",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "businessDetails",
-        "Type": "mytown.Models.BusinessRegister",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "mytown.Controllers.UserController",
     "Method": "GetBusinessServices",
     "RelativePath": "api/User/BusinessServices",
     "HttpMethod": "GET",
@@ -252,6 +1197,22 @@
         "Name": "prodSubcatId",
         "Type": "System.Int32",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.UserController",
+    "Method": "CheckEmail",
+    "RelativePath": "api/User/CheckEmail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -589,22 +1550,6 @@
   },
   {
     "ContainingType": "mytown.Controllers.UserController",
-    "Method": "Register",
-    "RelativePath": "api/User/register",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "regDetails",
-        "Type": "mytown.Models.Registration",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "mytown.Controllers.UserController",
     "Method": "RemoveFromCart",
     "RelativePath": "api/User/RemoveFromCart/{cartId}",
     "HttpMethod": "DELETE",
@@ -615,6 +1560,32 @@
         "Name": "cartId",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mytown.Controllers.UserController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/User/ResetPassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "newPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "confirmPassword",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -726,22 +1697,6 @@
   },
   {
     "ContainingType": "mytown.Controllers.UserController",
-    "Method": "RegisterShopper",
-    "RelativePath": "api/User/shopperregister",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "shopperDetails",
-        "Type": "mytown.Models.shopperregister",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "mytown.Controllers.UserController",
     "Method": "AddSubcategoryImage",
     "RelativePath": "api/User/SubcategoryImages",
     "HttpMethod": "POST",
@@ -824,26 +1779,5 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "mytown.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[mytown.WeatherForecast, mytown, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ],
-    "EndpointName": "GetWeatherForecast"
   }
 ]
