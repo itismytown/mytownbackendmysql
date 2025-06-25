@@ -6,6 +6,10 @@ namespace mytown.DataAccess.Interfaces
     {
         Payments AddPayment(int orderId, decimal amountPaid, string paymentMethod);
         List<BusinessRegisterDto> GetStoreDetailsByOrderId(int orderId);
+        List<ShippingDetails> GetShippingDetailsByOrderId(int orderId);
+
+        Task SendEmailToCourier(int branchId, int shippingDetailId);
+
 
     }
 }

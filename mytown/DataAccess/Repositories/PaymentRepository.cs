@@ -9,12 +9,14 @@ namespace mytown.DataAccess.Repositories
     public class PaymentRepository : IPaymentRepository
     {
         private readonly AppDbContext _context;
-       
+        private readonly IEmailService _emailService;
 
-        public PaymentRepository(AppDbContext context)
+
+        public PaymentRepository(AppDbContext context, IEmailService emailService)
         {
             _context = context;
-           
+            _emailService = emailService;
+
         }
 
         public Payments AddPayment(int orderId, decimal amountPaid, string paymentMethod)
@@ -67,6 +69,34 @@ namespace mytown.DataAccess.Repositories
             return storeDetails;
         }
 
+        public List<ShippingDetails> GetShippingDetailsByOrderId(int orderId)
+        {
+            return _context.ShippingDetails
+                           .Where(s => s.OrderId == orderId)
+                           .ToList();
+        }
+
+        public async Task SendEmailToCourier(int branchId, int shippingDetailId)
+        {
+            var courierInfo = await _context.CourierBranches
+                .Where(cb => cb.BranchId == branchId)
+                .Select(cb => new
+                {
+                    cb.CourierName,
+                    cb.CourierId,
+                    CourierEmail = cb.CourierService.CourierEmail
+                })
+                .FirstOrDefaultAsync();
+
+            if (courierInfo != null && !string.IsNullOrEmpty(courierInfo.CourierEmail))
+            {
+                await _emailService.SendEmailToCourierAsync(
+                    courierInfo.CourierEmail,
+                    courierInfo.CourierName,
+                    shippingDetailId
+                );
+            }
+        }
 
     }
 }

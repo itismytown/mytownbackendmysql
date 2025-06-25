@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using mytown.DataAccess.Interfaces;
 using mytown.DataAccess.Repositories;
 using mytown.Models;
@@ -44,9 +45,20 @@ namespace mytown.Controllers
                 }
             }
 
+            // ✅ Get ShippingDetails for the order and notify couriers
+            var shippingDetails = _paymentRepo.GetShippingDetailsByOrderId(model.OrderId);
+
+            foreach (var shipping in shippingDetails)
+            {
+                await _paymentRepo.SendEmailToCourier(shipping.BranchId, shipping.ShippingDetailId);
+            }
+
 
             return Ok(new { message = "Payment successful!", paymentId = payment.PaymentId });
         }
+
+        
+
         private string GetCurrencyFromCountry(string countryName)
         {
             // Example: Map country name to currency code
@@ -73,6 +85,8 @@ namespace mytown.Controllers
         {
             try
             {
+                StripeConfiguration.ApiKey = "sk_test_51RdmBv9QGOfKIHNoK0CLlOS4CM4oLpuPaLv8CpFyy1Thb2tb3SOfFDvFWsxock3znIofo1ypwLTryRGC5L02EQld00wWOdPqIG";
+
                 // Get the currency code based on the country name
                 string currency = GetCurrencyFromCountry(paymentRequest.CountryName);
 

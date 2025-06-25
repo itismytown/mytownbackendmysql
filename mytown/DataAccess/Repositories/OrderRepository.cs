@@ -63,36 +63,52 @@ namespace mytown.DataAccess.Repositories
 
             List<ShippingDetails> shippingList = new List<ShippingDetails>();
 
-            foreach (var orderDetail in orderDetailsList)
+            try
             {
-                var shippingSelection = shippingSelections
-                    .FirstOrDefault(s => s.StoreId == orderDetail.StoreId);
-
-                //if (shippingSelection == null)
-                //    throw new Exception($"No shipping selected for store {orderDetail.StoreId}");
-
-                var shipping = new ShippingDetails
+                foreach (var orderDetail in orderDetailsList)
                 {
-                    OrderId = newOrder.OrderId,
-                    OrderDetailId = orderDetail.OrderDetailId,
-                    BranchId = shippingSelection.BranchId,
-                    Shipping_type = shippingSelection.ShippingType,
-                    EstimatedDays = 5, // can be dynamic later
-                    Cost = shippingSelection.Cost,
-                    TrackingId = "",
-                    ShippingStatus = "Ready to Ship"
-                };
+                    var shippingSelection = shippingSelections
+                        .FirstOrDefault(s => s.StoreId == orderDetail.StoreId);
 
-                shippingList.Add(shipping);
+                    //if (shippingSelection == null)
+                    //    throw new Exception($"No shipping selected for store {orderDetail.StoreId}");
+
+                    var shipping = new ShippingDetails
+                    {
+                        OrderId = newOrder.OrderId,
+                        OrderDetailId = orderDetail.OrderDetailId,
+                        BranchId = shippingSelection.BranchId,
+                        Shipping_type = shippingSelection.ShippingType,
+                        EstimatedDays = 5, // can be dynamic later
+                        Cost = shippingSelection.Cost,
+                        TrackingId = "",
+                        ShippingStatus = "Ready to Ship"
+                    };
+
+                    shippingList.Add(shipping);
+                }
+
+                _context.ShippingDetails.AddRange(shippingList);
+                await _context.SaveChangesAsync();
             }
 
-            _context.ShippingDetails.AddRange(shippingList);
-            await _context.SaveChangesAsync();
-
-            foreach (var shippingDetail in shippingList)
+            catch (DbUpdateException dbEx)
             {
-                await SendEmailToCourier(shippingDetail.BranchId, shippingDetail.ShippingDetailId);
+                Console.WriteLine("❌ DbUpdateException occurred while saving ShippingDetails:");
+                Console.WriteLine(dbEx.InnerException?.Message ?? dbEx.Message);
+                throw; // rethrow if needed
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("❌ General exception occurred while saving ShippingDetails:");
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+
+            //foreach (var shippingDetail in shippingList)
+            //{
+            //    await SendEmailToCourier(shippingDetail.BranchId, shippingDetail.ShippingDetailId);
+            //}
 
             return newOrder.OrderId;
         }

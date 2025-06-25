@@ -67,7 +67,8 @@ namespace mytown.DataAccess.Repositories
                                        product_image = product.product_image,
                                        product_cost = product.product_cost,
                                        StoreName = business.BusinessUsername, // Store name
-                                       StoreLocation = business.business_location // Store location
+                                       StoreLocation = business.business_location, // Store location
+                                       StoreId = business.BusRegId
                                    }).ToListAsync();
 
             return cartItems;
