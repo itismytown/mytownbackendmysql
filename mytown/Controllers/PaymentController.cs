@@ -85,7 +85,7 @@ namespace mytown.Controllers
         {
             try
             {
-                StripeConfiguration.ApiKey = "sk_test_51RdmBv9QGOfKIHNoK0CLlOS4CM4oLpuPaLv8CpFyy1Thb2tb3SOfFDvFWsxock3znIofo1ypwLTryRGC5L02EQld00wWOdPqIG";
+              //  StripeConfiguration.ApiKey = "sk_test_51RdmBv9QGOfKIHNoK0CLlOS4CM4oLpuPaLv8CpFyy1Thb2tb3SOfFDvFWsxock3znIofo1ypwLTryRGC5L02EQld00wWOdPqIG";
 
                 // Get the currency code based on the country name
                 string currency = GetCurrencyFromCountry(paymentRequest.CountryName);
