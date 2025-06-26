@@ -50,6 +50,7 @@ namespace mytown.Controllers
 
             foreach (var shipping in shippingDetails)
             {
+                //email to courier main with the branch id
                 await _paymentRepo.SendEmailToCourier(shipping.BranchId, shipping.ShippingDetailId);
             }
 
@@ -85,6 +86,7 @@ namespace mytown.Controllers
         {
             try
             {
+                //removed stripe link as its creating git push issues
                
                 // Get the currency code based on the country name
                 string currency = GetCurrencyFromCountry(paymentRequest.CountryName);

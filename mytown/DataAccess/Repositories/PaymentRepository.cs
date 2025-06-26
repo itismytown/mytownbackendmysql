@@ -87,7 +87,7 @@ namespace mytown.DataAccess.Repositories
                     CourierEmail = cb.CourierService.CourierEmail
                 })
                 .FirstOrDefaultAsync();
-
+            //retrive main office email with branch id
             if (courierInfo != null && !string.IsNullOrEmpty(courierInfo.CourierEmail))
             {
                 await _emailService.SendEmailToCourierAsync(
