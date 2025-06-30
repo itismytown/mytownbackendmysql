@@ -256,6 +256,7 @@ public class EmailService : IEmailService
         }
     }
 
+    //send notification to courier
     public async Task SendEmailToCourierAsync(string email, string courierName, int shippingDetailId)
     {
         if (!await DomainHasMX(email))
