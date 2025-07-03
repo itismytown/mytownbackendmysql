@@ -145,5 +145,16 @@ namespace mytown.Controllers
             });
         }
 
+
+        //landing page
+
+        [HttpGet("business/completed-stores-in-locations")]
+        public async Task<IActionResult> GetLocationsWithCompletedStores()
+        {
+            var data = await _adminRepo.GetLocationsWithCompletedStoresAsync();
+            return Ok(data);
+        }
+
+
     }
 }

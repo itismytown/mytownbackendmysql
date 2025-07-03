@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mytown.DataAccess.Interfaces;
 using mytown.Models;
+using mytown.Models.DTO_s;
 using mytown.Models.mytown.DataAccess;
 
 namespace mytown.DataAccess.Repositories
@@ -114,5 +115,23 @@ namespace mytown.DataAccess.Repositories
 
             return (records, totalRecords);
         }
+
+
+        //landing page
+        public async Task<List<LocationStoresDto>> GetLocationsWithCompletedStoresAsync()
+        {
+            var result = await _context.BusinessProfiles
+                .Where(bp => bp.profile_status.ToLower() == "pending") // or "completed"
+                .GroupBy(bp => bp.business_location.Trim())
+                .Select(g => new LocationStoresDto
+                {
+                    Location = g.Key,
+                    Stores = g.ToList()
+                })
+                .ToListAsync();
+
+            return result;
+        }
+
     }
 }
