@@ -1,4 +1,5 @@
 ﻿using mytown.Models;
+using mytown.Models.DTO_s;
 
 namespace mytown.DataAccess.Interfaces
 {
@@ -16,6 +17,9 @@ namespace mytown.DataAccess.Interfaces
         Task<int> GetShoppersRegisterCountAsync();
         Task<int> GetCourierserviceCountAsync();
         Task<(IEnumerable<CourierService> records, int totalRecords)> GetCourierRegistersPaginatedAsync(int page, int pageSize);
+
+        //landing page
+        Task<List<LocationStoresDto>> GetLocationsWithCompletedStoresAsync();
     }
 }
 
