@@ -69,6 +69,8 @@ namespace mytown.DataAccess.Repositories
 
             var shopper = _context.ShopperRegisters.FirstOrDefault(s => s.Email == email);
             var business = _context.BusinessRegisters.FirstOrDefault(b => b.BusEmail == email);
+            var courier = _context.CourierService.FirstOrDefault(b => b.CourierEmail == email);
+            
 
             if (shopper != null)
             {
@@ -77,6 +79,10 @@ namespace mytown.DataAccess.Repositories
             else if (business != null)
             {
                 business.Password = HashPassword(newPassword);
+            }
+            else if (courier != null)
+            {
+                courier.Password = HashPassword(newPassword);
             }
             else
             {

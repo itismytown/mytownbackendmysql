@@ -117,12 +117,13 @@ namespace mytown.DataAccess.Repositories
         }
 
 
-        //landing page
+        // landing page
         public async Task<List<LocationStoresDto>> GetLocationsWithCompletedStoresAsync()
         {
             var result = await _context.BusinessProfiles
-                .Where(bp => bp.profile_status.ToLower() == "pending") // or "completed"
+                .Where(bp => bp.profile_status.ToLower() == "pending") // or "completed" if needed
                 .GroupBy(bp => bp.business_location.Trim())
+                .Where(g => g.Count() >= 3) // Only include locations with 3 or more stores
                 .Select(g => new LocationStoresDto
                 {
                     Location = g.Key,
