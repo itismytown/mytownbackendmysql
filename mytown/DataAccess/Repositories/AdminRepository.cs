@@ -120,16 +120,28 @@ namespace mytown.DataAccess.Repositories
         // landing page
         public async Task<List<LocationStoresDto>> GetLocationsWithCompletedStoresAsync()
         {
-            var result = await _context.BusinessProfiles
-                .Where(bp => bp.profile_status.ToLower() == "pending") // or "completed" if needed
+            // 1. Get all pending profiles from DB
+            var pendingProfiles = await _context.BusinessProfiles
+                .Where(bp => bp.profile_status.ToLower() == "pending")
+                .ToListAsync(); // Materialize here!
+
+            // 2. Group and process in memory
+            var result = pendingProfiles
                 .GroupBy(bp => bp.business_location.Trim())
-                .Where(g => g.Count() >= 3) // Only include locations with 3 or more stores
-                .Select(g => new LocationStoresDto
+                .Where(g => g.Count() >= 3)
+                .Select(g =>
                 {
-                    Location = g.Key,
-                    Stores = g.ToList()
+                    var parts = g.Key.Split(',').Select(p => p.Trim()).ToArray();
+
+                    return new LocationStoresDto
+                    {
+                        Town = parts.Length > 0 ? parts[0] : "",
+                        City = parts.Length > 1 ? parts[1] : "",
+                        Country = parts.Length > 3 ? parts[3] : "",
+                        Stores = g.ToList()
+                    };
                 })
-                .ToListAsync();
+                .ToList();
 
             return result;
         }
