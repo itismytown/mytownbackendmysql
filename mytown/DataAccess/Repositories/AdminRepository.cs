@@ -133,11 +133,16 @@ namespace mytown.DataAccess.Repositories
                 {
                     var parts = g.Key.Split(',').Select(p => p.Trim()).ToArray();
 
+                    var town = parts.Length > 0 ? parts[0] : "";
+                    var city = parts.Length > 1 ? parts[1] : "";
+                    var country = parts.Length > 3 ? parts[3] : "";
+
+                    // Clean join, skips empty values
+                    var locationDisplay = string.Join(", ", new[] { town, city, country }.Where(x => !string.IsNullOrWhiteSpace(x)));
+
                     return new LocationStoresDto
                     {
-                        Town = parts.Length > 0 ? parts[0] : "",
-                        City = parts.Length > 1 ? parts[1] : "",
-                        Country = parts.Length > 3 ? parts[3] : "",
+                        Location = locationDisplay,
                         Stores = g.ToList()
                     };
                 })
@@ -145,6 +150,7 @@ namespace mytown.DataAccess.Repositories
 
             return result;
         }
+
 
     }
 }
