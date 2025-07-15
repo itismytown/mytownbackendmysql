@@ -4,7 +4,7 @@
     {
         string CreatePasswordResetToken(string email);
         Task SendResetEmail(string email);
-        bool ResetPassword(string token, string newPassword);
+        bool ResetPassword(string token,string email, string newPassword);
         bool EmailExists(string email);
     }
 }
