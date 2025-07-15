@@ -52,7 +52,7 @@ namespace mytown.DataAccess.Repositories
 
             var token = CreatePasswordResetToken(email);
             string frontendBaseUrl = _configuration["FrontendBaseUrl"];
-            var resetLink = $"{frontendBaseUrl}/reset-password?token={token}";
+            var resetLink = $"{frontendBaseUrl}/?reset-password&token={token}";
            // var resetLink = $"{frontendBaseUrl}?reset=1&email={email}&token={token}";
            // var resetLink = $"{frontendBaseUrl}/reset-password?token={token}";
            // var resetLink = $"https://mytown-wa-d8gmezfjg7d7hhdy.canadacentral-01.azurewebsites.net/reset-password?token={token}";
@@ -60,15 +60,20 @@ namespace mytown.DataAccess.Repositories
             await _emailService.SendPasswordResetEmail(email, resetLink);
         }
 
-       
 
-
-        public bool ResetPassword(string token,string email, string newPassword)
+        public PasswordResetRequest GetResetRequestByToken(string token)
         {
-            var request = _context.PasswordResetRequests
-                .FirstOrDefault(r => r.Token == token && r.Expiry > DateTime.UtcNow);
+            return _context.PasswordResetRequests
+                           .FirstOrDefault(r => r.Token == token && r.Expiry > DateTime.UtcNow);
+        }
 
-            if (request == null) return false;
+
+        public bool ResetPassword(string email, string newPassword)
+        {
+            //var request = _context.PasswordResetRequests
+            //    .FirstOrDefault(r => r.Token == token && r.Expiry > DateTime.UtcNow);
+
+            //if (request == null) return false;
 
             var shopper = _context.ShopperRegisters.FirstOrDefault(s => s.Email == email);
             var business = _context.BusinessRegisters.FirstOrDefault(b => b.BusEmail == email);

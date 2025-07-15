@@ -39,26 +39,25 @@ namespace mytown.Controllers
             return Ok(new { success = true, message = "Reset link sent." });
         }
 
-        [HttpPost("reset-password")]
-        public IActionResult ResetPassword([FromForm] string token,[FromForm] string email, [FromForm] string newPassword, [FromForm] string confirmPassword)
+        [HttpGet("verify-reset-token")]
+        public IActionResult VerifyResetToken([FromQuery] string token)
         {
-            var result = _authRepo.ResetPassword(token,email, newPassword);
+            var request = _authRepo.GetResetRequestByToken(token);
+
+            if (request == null)
+                return BadRequest(new { error = "Invalid or expired token." });
+
+            return Ok(new { message = "Valid token", email = request.Email });
+        }
+
+        [HttpPost("reset-password")]
+        public IActionResult ResetPassword([FromForm] string email, [FromForm] string newPassword, [FromForm] string confirmPassword)
+        {
+            var result = _authRepo.ResetPassword(email, newPassword);
             if (!result) return BadRequest("Invalid or expired token.");
             return Ok("Password reset successful.");
         }
-        //[HttpPost("reset-password-withtoken")]
-        //public IActionResult ResetPassword([FromForm] string token, [FromForm] string email, [FromForm] string newPassword, [FromForm] string confirmPassword)
-        //{
-        //    if (newPassword != confirmPassword)
-        //        return BadRequest("Passwords do not match.");
-
-        //    var result = _authRepo.ResetPasswordUsingToken(token, newPassword);
-
-        //    if (!result)
-        //        return BadRequest("Invalid or expired token.");
-
-        //    return Ok("Password reset successful.");
-        //}
+       
     }
 
 }
