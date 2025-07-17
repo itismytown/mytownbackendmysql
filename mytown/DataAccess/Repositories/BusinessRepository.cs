@@ -43,13 +43,30 @@ namespace mytown.DataAccess.Repositories
             }
         }
 
+
         public async Task RegisterBusiness(BusinessRegister business)
         {
             _context.BusinessRegisters.Add(business);
             await _context.SaveChangesAsync();
         }
 
+        // resend email verfication
+        public async Task<BusinessVerification> FindPendingVerificationByEmail(string email)
+        {
+            return await _context.BusinessVerification
+                .Include(bv => bv.Business)
+                .Where(bv => bv.Business.BusEmail == email && !bv.IsUsed && bv.ExpiryDate > DateTime.UtcNow)
+                .FirstOrDefaultAsync();
+        }
 
+
+        public async Task RemoveVerification(BusinessVerification verification)
+        {
+            _context.BusinessVerification.Remove(verification);
+            await _context.SaveChangesAsync();
+        }
+
+      
 
         //public async Task<BusinessRegister> AddBusinessRegisterAsync(BusinessRegister newBusiness)
         //    {

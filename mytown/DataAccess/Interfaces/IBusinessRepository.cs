@@ -12,6 +12,10 @@ namespace mytown.DataAccess
         Task<PendingBusinessVerification> FindPendingVerificationByToken(string token);    
         Task DeletePendingVerification(string token);     
         Task RegisterBusiness(BusinessRegister business);
+
+        //FOR resend email verifcation
+        Task<BusinessVerification> FindPendingVerificationByEmail(string email);
+        Task RemoveVerification(BusinessVerification verification);
         Task<BusinessRegister> GetBusinessByIdAsync(int busRegId);
         Task<ActionResult<IEnumerable<businesscategoriescs>>> GetBusinessCategories();
         Task<ActionResult<IEnumerable<businessservices>>> GetBusinessServices();

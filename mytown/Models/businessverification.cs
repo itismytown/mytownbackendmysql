@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace mytown.Models
@@ -7,7 +8,9 @@ namespace mytown.Models
         {
             [Key]
             public int Id { get; set; }
-            public int BusRegId { get; set; }
+        [ForeignKey("Business")]
+        public int BusRegId { get; set; }
+
             public string VerificationToken { get; set; }
             public DateTime ExpiryDate { get; set; }
             public bool IsUsed { get; set; }

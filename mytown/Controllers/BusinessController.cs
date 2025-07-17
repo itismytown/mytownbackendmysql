@@ -4,6 +4,7 @@ using mytown.Models;
 using mytown.Services;
 using System.Text.Json;
 using mytown.DataAccess.Interfaces;
+using mytown.Models.DTO_s;
 
 
 namespace mytown.Controllers
@@ -154,51 +155,49 @@ namespace mytown.Controllers
         }
 
 
-        //[HttpPost("resend-business-verification")]
-        //public async Task<IActionResult> ResendVerificationEmail([FromQuery] string token)
-        //{
-        //    try
-        //    {
-        //        if (string.IsNullOrWhiteSpace(token))
-        //        {
-        //            _logger.LogWarning("Resend verification requested without a token.");
-        //            return BadRequest(new { error = "Verification token is missing." });
-        //        }
+        [HttpPost("resend-business-verification")]
+        public async Task<IActionResult> ResendVerificationEmail([FromBody] ResendemailVerificationDTO model)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(model.Email))
+                {
+                    _logger.LogWarning("Resend verification requested without email.");
+                    return BadRequest(new { error = "Email is required." });
+                }
 
-        //        var existingVerification = await _businessRepository.FindVerificationByToken(token);
-        //        if (existingVerification == null)
-        //        {
-        //            _logger.LogWarning("Resend verification requested: token {Token} not found.", token);
-        //            return BadRequest(new { error = "Verification token not found. Please register again." });
-        //        }
+                var existingVerification = await _businessRepository.FindPendingVerificationByEmail(model.Email);
+                if (existingVerification == null)
+                {
+                    return NotFound(new { error = "No pending verification found. Please register again." });
+                }
 
-        //        string email = existingVerification.Email;
-        //        _logger.LogInformation("Resend verification requested for {Email} (old token: {Token})", email, token);
+                // Remove old and create new
+                await _businessRepository.RemoveVerification(existingVerification);
 
-        //        // Remove old verification record and generate a new one
-        //        await _businessRepository.RemoveVerification(existingVerification);
-        //        var newVerification = await _businessRepository.GenerateEmailVerification(email);
+                string token = Guid.NewGuid().ToString();
+                DateTime expiry = DateTime.UtcNow.AddHours(24);
+                var newVerification = new PendingBusinessVerification
+                {
+                    Email = model.Email,
+                    Token = token,
+                    ExpiryDate = expiry,
+                   // JsonPayload = existingVerification.JsonPayload
+                };
+                await _businessRepository.SavePendingVerification(newVerification);
 
-        //        string frontendBaseUrl = _configuration["FrontendBaseUrl"];
-        //        if (string.IsNullOrWhiteSpace(frontendBaseUrl))
-        //        {
-        //            _logger.LogError("Frontend base URL is not configured properly.");
-        //            return StatusCode(500, new { message = "Frontend base URL is missing. Please contact support." });
-        //        }
+                string frontendBaseUrl = _configuration["FrontendBaseUrl"];
+                string link = _verificationLinkBuilderbusiness.BuildLink(frontendBaseUrl, token);
+                await _emailService.SendVerificationEmail(model.Email, link);
 
-        //        // Build and send new verification link
-        //        string verificationLink = _verificationLinkBuilderbusiness.BuildLink(frontendBaseUrl, newVerification.VerificationToken);
-        //        _logger.LogInformation("New verification link generated for {Email}: {VerificationLink}", email, verificationLink);
-
-        //        await _emailService.SendVerificationEmail(email, verificationLink);
-        //        return Ok(new { message = $"A new verification email has been sent to {email}." });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Exception during resend verification for token: {Token}", token);
-        //        return BadRequest(new { error = ex.Message });
-        //    }
-        //}
+                return Ok(new { message = $"New verification email sent to {model.Email}" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Resend verification failed for {Email}", model.Email);
+                return StatusCode(500, new { error = "Something went wrong. Please try again." });
+            }
+        }
 
         //get business owner home page with busregid
         [HttpGet("businessregister/{busRegId}")]
