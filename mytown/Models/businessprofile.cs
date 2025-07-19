@@ -12,6 +12,8 @@ namespace mytown.Models
         public string business_location { get; set; }
         public string business_about { get; set; }
         public string banner_path { get; set; }
+
+        public string logo_path { get; set; }
         public string profile_status { get; set; }
         public string bus_time { get; set; }
         public int BusCatId { get; set; }
