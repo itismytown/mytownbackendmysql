@@ -12,7 +12,6 @@ namespace mytown.DataAccess.Interfaces
         Task<businessprofile> AddBusinessProfileAsync(businessprofile businessProfile);
 
         Task<bool> UpdateBannerPathAsync(int busRegId, string bannerPath);
-        Task<bool> UpdateLogoPathAsync(int busRegId, string logoPath);
 
         List<product_sub_categories> GetProductSubCategoriesByBusRegId(int busRegId);
     }

@@ -2,7 +2,6 @@
 using mytown.DataAccess;
 using mytown.DataAccess.Interfaces;
 using mytown.Models;
-using mytown.Models.DTO_s;
 using MyTown.Controllers;
 
 namespace mytown.Controllers
@@ -64,21 +63,6 @@ namespace mytown.Controllers
 
             return Ok(new { message = "Banner path updated successfully" });
         }
-
-        [HttpPut("update-logo/{busRegId}")]
-        public async Task<IActionResult> UpdateLogoPath(int busRegId, [FromBody] UpdateLogoRequestDTO request)
-        {
-            if (request == null || string.IsNullOrEmpty(request.LogoPath))
-                return BadRequest("Logo path cannot be empty");
-
-            bool isUpdated = await _businessprofileRepo.UpdateLogoPathAsync(busRegId, request.LogoPath);
-
-            if (!isUpdated)
-                return NotFound($"Business profile with BusRegId {busRegId} not found.");
-
-            return Ok(new { message = "Logo path updated successfully" });
-        }
-
         //get sub categories of each business
         [HttpGet("GetProductSubCategories/{BusRegId}")]
         public IActionResult GetProductSubCategories(int busRegId)

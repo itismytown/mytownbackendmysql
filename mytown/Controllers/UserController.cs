@@ -11,8 +11,6 @@ using System.Buffers.Text;
 using Stripe;
 using mytown.Services;
 using mytown.DataAccess.Repositories;
-using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
 
 namespace mytown.Controllers
 {
@@ -27,17 +25,12 @@ namespace mytown.Controllers
         private readonly string stripeSecretKey = "sk_test_51QtS7OFMWqb9scCuoOdpdCcEb7WultTBEDZMEF7MsjyvgbbdHsQalQyKXsDQaYKBFg4DAAQkL1VeGp6DfO6FZ0CW00hbxqjakt";
         private readonly IEmailService _emailService;
 
-        private readonly IConfiguration _configuration;
-
-       
-
-        public UserController(UserRepository userRepository, IWebHostEnvironment env, IEmailService emailService, IConfiguration configuration)
+        public UserController(UserRepository userRepository, IWebHostEnvironment env, IEmailService emailService)
         {
             _userRepository = userRepository; // Inject UserRepository
             _env = env;  // Inject IWebHostEnvironment to get access to WebRootPath
             StripeConfiguration.ApiKey = stripeSecretKey;
             _emailService = emailService;
-            _configuration = configuration;
         }
 
        
@@ -180,49 +173,6 @@ namespace mytown.Controllers
            // return Ok(new { FileName = newFileName, FilePath = filePath });
 
         }
-
-        [HttpPost("upload_image")]
-        public async Task<IActionResult> UploadImage(IFormFile file, string imageType)
-        {
-            if (file == null || file.Length == 0)
-                return BadRequest("No file uploaded.");
-
-            var containerName = _configuration["AzureBlobStorage:ContainerName"];
-            var connectionString = _configuration["AzureBlobStorage:ConnectionString"];
-
-            var blobServiceClient = new BlobServiceClient(connectionString);
-            var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-
-            // Ensure container exists and is publicly accessible
-            await containerClient.CreateIfNotExistsAsync();
-            await containerClient.SetAccessPolicyAsync(PublicAccessType.Blob);
-
-            var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
-            var fileExtension = Path.GetExtension(file.FileName);
-            var newFileName = $"{imageType}_{fileNameWithoutExtension}_{timestamp}{fileExtension}";
-
-            var blobClient = containerClient.GetBlobClient(newFileName);
-
-            // Set the correct content type (e.g., image/png, image/jpeg)
-            var httpHeaders = new BlobHttpHeaders
-            {
-                ContentType = file.ContentType
-            };
-
-            using (var stream = file.OpenReadStream())
-            {
-                await blobClient.UploadAsync(stream, new BlobUploadOptions
-                {
-                    HttpHeaders = httpHeaders
-                });
-            }
-
-            var blobUrl = blobClient.Uri.AbsoluteUri;
-
-            return Ok(new { FileName = newFileName, Url = blobUrl });
-        }
-
 
         //get buisness store types
 
