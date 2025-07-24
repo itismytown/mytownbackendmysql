@@ -170,6 +170,22 @@ namespace mytown.DataAccess.Repositories
         }
 
 
+        // resend email verfication
+        public async Task<ShopperVerification> FindPendingVerificationByEmail(string email)
+        {
+            return await _context.ShopperVerification
+                .Include(sv => sv.Shopper)
+                .Where(sv => sv.Shopper.Email == email && !sv.IsUsed && sv.ExpiryDate > DateTime.UtcNow)
+                .FirstOrDefaultAsync();
+        }
+
+
+        public async Task RemoveVerification(ShopperVerification verification)
+        {
+            _context.ShopperVerification.Remove(verification);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<ShopperRegister> GetShopperByIdAsync(int shopperRegId)
         {
             return await _context.ShopperRegisters
