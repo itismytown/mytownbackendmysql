@@ -33,7 +33,7 @@ namespace mytown.Controllers
             _emailService = emailService;
         }
 
-       
+
 
 
         [HttpPost("login")]
@@ -41,18 +41,26 @@ namespace mytown.Controllers
         {
             if (loginRequest == null || string.IsNullOrWhiteSpace(loginRequest.Email) || string.IsNullOrWhiteSpace(loginRequest.Password))
             {
-                return BadRequest(new { message = "Invalid login request" });
+                return BadRequest(new { code = 400, message = "Invalid login request" });
             }
 
             var result = await _userRepository.LoginAsync(loginRequest.Email, loginRequest.Password);
 
-            if (result == null)
+            if (result is string message)
             {
-                return Unauthorized(new { message = "Invalid email or password" });
+                return message switch
+                {
+                    "EmailNotFound" => NotFound(new { code = 404, message = "Email not registered" }),
+                    "WrongPassword" => Unauthorized(new { code = 401, message = "Incorrect password" }),
+                    "EmailNotVerified" => StatusCode(403, new { code = 403, message = "Please verify your email before login" }),
+                    _ => StatusCode(500, new { code = 500, message = "Unexpected login error" })
+                };
             }
 
-            return Ok(result); // Return the object directly
+            return Ok(result); // success
         }
+
+
 
         #region Forgotpassword
 

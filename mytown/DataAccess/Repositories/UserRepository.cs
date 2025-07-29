@@ -64,66 +64,69 @@ namespace mytown.DataAccess.Repositories
 
         public async Task<object> LoginAsync(string email, string password)
         {
-            // 🔹 Check BusinessRegisters first.
-            var businessUser = await _context.BusinessRegisters
-                .Where(r => r.BusEmail != null && r.BusEmail == email)
-                .FirstOrDefaultAsync();
-
-            if (businessUser != null && BCrypt.Net.BCrypt.Verify(password, businessUser.Password))
+            // 🔹 Business login
+            var businessUser = await _context.BusinessRegisters.FirstOrDefaultAsync(r => r.BusEmail == email);
+            if (businessUser != null)
             {
-                var businessProfile = await _context.BusinessProfiles
-                    .Where(bp => bp.BusRegId == businessUser.BusRegId)
-                    .Select(bp => new
+                if (BCrypt.Net.BCrypt.Verify(password, businessUser.Password))
+                {
+                    var businessProfile = await _context.BusinessProfiles
+                        .Where(bp => bp.BusRegId == businessUser.BusRegId)
+                        .Select(bp => new { bp, businessUser.BusinessUsername })
+                        .FirstOrDefaultAsync();
+
+                    return new
                     {
-                        bp,
-                        businessUser.BusinessUsername
-                    })
-                    .FirstOrDefaultAsync();
+                        userType = "Business",
+                        user = businessUser,
+                        businessProfile,
+                        shopper = (object)null,
+                        courier = (object)null
+                    };
+                }
 
-                return new
-                {
-                    userType = "Business",
-                    user = businessUser,
-                    businessProfile,
-                    shopper = (object)null,
-                    courier = (object)null
-                };
+                return "WrongPassword"; // ⬅ indicate failure reason
             }
 
-            // 🔹 Check ShopperRegisters
-            var shopper = await _context.ShopperRegisters
-                .FirstOrDefaultAsync(s => s.Email == email);
-
-            if (shopper != null && BCrypt.Net.BCrypt.Verify(password, shopper.Password))
+            // 🔹 Shopper login
+            var shopper = await _context.ShopperRegisters.FirstOrDefaultAsync(s => s.Email == email);
+            if (shopper != null)
             {
-                return new
+                if (BCrypt.Net.BCrypt.Verify(password, shopper.Password))
                 {
-                    userType = "Shopper",
-                    user = (object)null,
-                    businessProfile = (object)null,
-                    shopper,
-                    courier = (object)null
-                };
+                    return new
+                    {
+                        userType = "Shopper",
+                        user = (object)null,
+                        businessProfile = (object)null,
+                        shopper,
+                        courier = (object)null
+                    };
+                }
+
+                return "WrongPassword";
             }
 
-            // 🔹 Check CourierServices
-            var courier = await _context.CourierService
-                .FirstOrDefaultAsync(c => c.CourierEmail == email); // adjust field name as per your model
-
-            if (courier != null && BCrypt.Net.BCrypt.Verify(password, courier.Password))
+            // 🔹 Courier login
+            var courier = await _context.CourierService.FirstOrDefaultAsync(c => c.CourierEmail == email);
+            if (courier != null)
             {
-                return new
+                if (BCrypt.Net.BCrypt.Verify(password, courier.Password))
                 {
-                    userType = "Courier",
-                    user = (object)null,
-                    businessProfile = (object)null,
-                    shopper = (object)null,
-                    courier
-                };
+                    return new
+                    {
+                        userType = "Courier",
+                        user = (object)null,
+                        businessProfile = (object)null,
+                        shopper = (object)null,
+                        courier
+                    };
+                }
+
+                return "WrongPassword";
             }
 
-            // 🔹 No match or password incorrect
-            return null;
+            return "EmailNotFound"; // ⬅ clearly mark email not found
         }
 
 

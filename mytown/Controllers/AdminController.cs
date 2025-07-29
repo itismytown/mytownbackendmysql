@@ -97,7 +97,7 @@ namespace mytown.Controllers
             }
         }
 
-        [HttpPut("updateprofilestatusbyadmin")]
+        [HttpPost("updateprofilestatusbyadmin")]
         public async Task<IActionResult> updateprofilestatusbyadmin([FromQuery] int busRegId, [FromQuery] string status)
         {
             if (string.IsNullOrEmpty(status))

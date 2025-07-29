@@ -24,7 +24,7 @@ namespace mytown.Models
         public string Businessservice_name { get; set; }
         public string Businesscategory_name { get; set; }
 
-        public DateTime? ApprovedDate { get; set; }
+        public DateTime? approved_date { get; set; }
 
         // Store pan data as separate columns
         public int image_positionx { get; set; }

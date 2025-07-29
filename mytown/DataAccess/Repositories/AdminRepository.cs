@@ -52,7 +52,7 @@ namespace mytown.DataAccess.Repositories
                     b.BusinessRegDate,
 
                     ProfileStatus = bp != null && bp.profile_status != null ? bp.profile_status : "pending",
-                    bp.ApprovedDate,
+                    bp.approved_date,
 
                     ServiceType =
                         b.BusservId == 1 && b.BuscatId == 1 ? "product, service" :
@@ -97,7 +97,7 @@ namespace mytown.DataAccess.Repositories
         //Business summary count for profile status
         public async Task<Dictionary<string, int>> Businessprofilestatuscounts()
         {
-            var allStatuses = new[] { "pending", "submitted", "approved", "rejected", "blocked" };
+            var allStatuses = new[] { "incomplete", "submitted", "approved", "rejected", "blocked" };
 
             var counts = await _context.BusinessProfiles
                 .GroupBy(bp => bp.profile_status.ToLower())
@@ -124,7 +124,7 @@ namespace mytown.DataAccess.Repositories
                 return false;
 
             profile.profile_status = status;
-            profile.ApprovedDate = status.ToLower() == "approved" ? DateTime.Now : profile.ApprovedDate;
+            profile.approved_date = status.ToLower() == "approved" ? DateTime.Now : profile.approved_date;
 
             _context.BusinessProfiles.Update(profile);
             await _context.SaveChangesAsync();
@@ -248,7 +248,7 @@ namespace mytown.DataAccess.Repositories
         {
             // 1. Get all pending profiles from DB
             var pendingProfiles = await _context.BusinessProfiles
-                .Where(bp => bp.profile_status.ToLower() == "pending")
+                .Where(bp => bp.profile_status.ToLower() == "incomplete")
                 .ToListAsync(); // Materialize here!
 
             // 2. Group and process in memory
