@@ -31,9 +31,7 @@ namespace mytown.Models
         [Required]
         public int BuscatId { get; set; }
 
-        // Uncomment and define if needed
-        // [DataType(DataType.Date)]
-        // public DateTime Dob { get; set; } // Date of birth or similar, if applicable
+      
 
         [Required]
         [StringLength(100)]
@@ -76,10 +74,9 @@ namespace mytown.Models
         public string? Password { get; set; }
 
         public DateTime BusinessRegDate { get; set; } = DateTime.UtcNow;
-        //[Required]
-        //[DataType(DataType.Password)]
-        //[StringLength(100, MinimumLength = 6)] // Password must be at least 6 characters
-        //public string CnfPassword { get; set; }
+
+        public virtual businessprofile? BusinessProfile { get; set; }
+
     }
 }
 

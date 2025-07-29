@@ -5,6 +5,7 @@ using mytown.Services;
 using System.Text.Json;
 using mytown.DataAccess.Interfaces;
 using mytown.Models.DTO_s;
+using Azure.Storage.Blobs;
 
 
 namespace mytown.Controllers
@@ -279,6 +280,44 @@ namespace mytown.Controllers
 
             return Ok(new { message = "Product updated successfully" });
         }
+
+
+     // Upload image to blob
+
+        [HttpPost("upload_image")]
+        public async Task<IActionResult> UploadImage(IFormFile file, string imageType)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            var containerName = _configuration["AzureBlobStorage:ContainerName"];
+            var connectionString = _configuration["AzureBlobStorage:ConnectionString"];
+
+            // Create a blob container client
+            var blobServiceClient = new BlobServiceClient(connectionString);
+            var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+
+            // Create container if not exists (optional)
+            await containerClient.CreateIfNotExistsAsync();
+            await containerClient.SetAccessPolicyAsync(Azure.Storage.Blobs.Models.PublicAccessType.Blob);
+
+            var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
+            var fileExtension = Path.GetExtension(file.FileName);
+            var newFileName = $"{imageType}_{fileNameWithoutExtension}_{timestamp}{fileExtension}";
+
+            var blobClient = containerClient.GetBlobClient(newFileName);
+
+            using (var stream = file.OpenReadStream())
+            {
+                await blobClient.UploadAsync(stream, overwrite: true);
+            }
+
+            var blobUrl = blobClient.Uri.AbsoluteUri;
+
+            return Ok(new { FileName = newFileName, Url = blobUrl });
+        }
+
     }
 
 }

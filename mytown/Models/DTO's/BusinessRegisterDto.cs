@@ -66,6 +66,7 @@ namespace mytown.Models
 
         public DateTime BusinessRegDate { get; set; }
 
+        public string ProfileStatus { get; set; } = "Incomplete";
 
     }
 }

@@ -123,7 +123,18 @@ namespace mytown.DataAccess.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<bool> UpdateLogoPathAsync(int busRegId, string logoPath)
+        {
+            var business = await _context.BusinessProfiles
+                                         .FirstOrDefaultAsync(b => b.BusRegId == busRegId);
 
+            if (business == null)
+                return false; // Business not found
+
+            business.logo_path = logoPath;
+            await _context.SaveChangesAsync();
+            return true;
+        }
         //get categories ofproducts for a businessid
         public List<product_sub_categories> GetProductSubCategoriesByBusRegId(int busRegId)
         {

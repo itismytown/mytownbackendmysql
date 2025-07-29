@@ -38,7 +38,78 @@ namespace mytown.Controllers
             });
         }
 
+        // for stores with all profil status types
 
+        [HttpGet("getBusinessesstoresByStatusPaginated")]
+        public async Task<IActionResult> GetBusinessesstoresByStatusPaginated(
+        [FromQuery] string status,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10)
+            {
+                if (page < 1 || pageSize < 1)
+                    return BadRequest(new { message = "Invalid pagination parameters." });
+
+                var (records, totalRecords) = await _adminRepo.GetBusinessesstoresByStatusPaginatedAsync(status, page, pageSize);
+
+                return Ok(new
+                {
+                    data = records,
+                    totalRecords,
+                    currentPage = page,
+                    pageSize
+                });
+         }
+
+        // for services with all profile status
+        [HttpGet("GetBusinessesservicesByStatusPaginated")]
+        public async Task<IActionResult> GetBusinessesservicesByStatusPaginated(
+         [FromQuery] string status,
+         [FromQuery] int page = 1,
+         [FromQuery] int pageSize = 10)
+            {
+                if (page < 1 || pageSize < 1)
+                    return BadRequest(new { message = "Invalid pagination parameters." });
+
+                var (records, totalRecords) = await _adminRepo.GetBusinessesservicesByStatusPaginated(status, page, pageSize);
+
+                return Ok(new
+                {
+                    data = records,
+                    totalRecords,
+                    currentPage = page,
+                    pageSize
+                });
+            }
+
+
+        //Business Summary count for all profile status
+        [HttpGet("Businessprofilestatuscounts")]
+        public async Task<IActionResult> Businessprofilestatuscounts()
+        {
+            try
+            {
+                var result = await _adminRepo.Businessprofilestatuscounts();
+                return Ok(result); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPut("updateprofilestatusbyadmin")]
+        public async Task<IActionResult> updateprofilestatusbyadmin([FromQuery] int busRegId, [FromQuery] string status)
+        {
+            if (string.IsNullOrEmpty(status))
+                return BadRequest("Status is required.");
+
+            var updated = await _adminRepo.UpdateProfileStatusbyAdminAsync(busRegId, status);
+
+            if (!updated)
+                return NotFound($"No business profile found with BusRegId {busRegId}.");
+
+            return Ok("Profile status updated successfully.");
+        }
 
         // Add API to get unique counts for cities, states, and countries
         [HttpGet("GetUniqueCounts")]

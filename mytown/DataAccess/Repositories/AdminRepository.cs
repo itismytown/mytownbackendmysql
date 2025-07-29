@@ -18,10 +18,136 @@ namespace mytown.DataAccess.Repositories
         //ADMIN PANEL
 
         //to get all business profiles with status
-        public async Task<(IEnumerable<BusinessRegister> records, int totalRecords)> GetBusinessRegistersPaginatedAsync(int page, int pageSize)
+        public async Task<(IEnumerable<object> Records, int TotalRecords)> GetBusinessRegistersPaginatedAsync(int page, int pageSize)
         {
+            var skip = (page - 1) * pageSize;
+
             var totalRecords = await _context.BusinessRegisters.CountAsync();
-            var records = await _context.BusinessRegisters
+
+            var records = await (
+                from b in _context.BusinessRegisters
+                join bp in _context.BusinessProfiles
+                    on b.BusRegId equals bp.BusRegId into bpJoin
+                from bp in bpJoin.DefaultIfEmpty()
+                select new
+                {
+                    b.BusRegId,
+                    b.BusinessUsername,
+                    b.Businessname,
+                    b.LicenseType,
+                    b.Gstin,
+                    b.BusservId,
+                    b.BuscatId,
+                    b.Town,
+                    b.BusMobileNo,
+                    b.BusEmail,
+                    b.IsEmailVerified,
+                    b.Address1,
+                    b.Address2,
+                    b.businessCity,
+                    b.businessState,
+                    b.businessCountry,
+                    b.postalCode,
+                    b.Password,
+                    b.BusinessRegDate,
+
+                    ProfileStatus = bp != null && bp.profile_status != null ? bp.profile_status : "pending",
+                    bp.ApprovedDate,
+
+                    ServiceType =
+                        b.BusservId == 1 && b.BuscatId == 1 ? "product, service" :
+                        b.BuscatId == 1 ? "product" :
+                        b.BusservId == 1 ? "service" : "none"
+                }
+            )
+            .Skip(skip)
+            .Take(pageSize)
+            .ToListAsync();
+
+            return (records, totalRecords);
+        }
+
+
+        //get business services
+
+        public async Task<(List<BusinessRegister> Records, int TotalRecords)> GetBusinessesstoresByStatusPaginatedAsync(string status, int page, int pageSize)
+        {
+            var query = from br in _context.BusinessRegisters
+                        join bp in _context.BusinessProfiles
+                            on br.BusRegId equals bp.BusRegId into bpGroup
+                        from bp in bpGroup.DefaultIfEmpty() // Left join
+                        where
+                            br.BuscatId == 1 && // Filter by productcategory
+                            (
+                                (bp != null && bp.profile_status.ToLower() == status.ToLower()) ||
+                                (bp == null && status.ToLower() == "incomplete")
+                            )
+                        select br;
+
+            int totalRecords = await query.CountAsync();
+
+            var records = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (records, totalRecords);
+        }
+
+        //Business summary count for profile status
+        public async Task<Dictionary<string, int>> Businessprofilestatuscounts()
+        {
+            var allStatuses = new[] { "pending", "submitted", "approved", "rejected", "blocked" };
+
+            var counts = await _context.BusinessProfiles
+                .GroupBy(bp => bp.profile_status.ToLower())
+                .Select(g => new { Status = g.Key, Count = g.Count() })
+                .ToListAsync();
+
+            var finalCounts = allStatuses
+                .ToDictionary(
+                    status => status,
+                    status => counts.FirstOrDefault(c => c.Status == status)?.Count ?? 0
+                );
+
+            return finalCounts;
+        }
+
+        // Admin  - Approve, Reject, Block business profiles
+
+        public async Task<bool> UpdateProfileStatusbyAdminAsync(int busRegId, string status)
+        {
+            var profile = await _context.BusinessProfiles
+                .FirstOrDefaultAsync(p => p.BusRegId == busRegId);
+
+            if (profile == null)
+                return false;
+
+            profile.profile_status = status;
+            profile.ApprovedDate = status.ToLower() == "approved" ? DateTime.Now : profile.ApprovedDate;
+
+            _context.BusinessProfiles.Update(profile);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+        public async Task<(List<BusinessRegister> Records, int TotalRecords)> GetBusinessesservicesByStatusPaginated(string status, int page, int pageSize)
+        {
+            var query = from br in _context.BusinessRegisters
+                        join bp in _context.BusinessProfiles
+                            on br.BusRegId equals bp.BusRegId into bpGroup
+                        from bp in bpGroup.DefaultIfEmpty() // Left join
+                        where
+                            br.BusservId == 1 && // Filter by servicecategory
+                            (
+                                (bp != null && bp.profile_status.ToLower() == status.ToLower()) ||
+                                (bp == null && status.ToLower() == "incomplete")
+                            )
+                        select br;
+
+            int totalRecords = await query.CountAsync();
+
+            var records = await query
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
