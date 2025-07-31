@@ -139,9 +139,18 @@ namespace mytown.DataAccess.Repositories
         }
 
         // Other existing shopper methods like:
-        public async Task<bool> IsEmailTaken(string email)
+        public async Task<(bool isTaken, string message)> IsEmailTaken(string email)
         {
-            return await _context.ShopperRegisters.AnyAsync(s => s.Email == email);
+            var shopper = await _context.ShopperRegisters
+        .FirstOrDefaultAsync(s => s.Email.ToLower() == email.ToLower());
+
+            if (shopper == null || shopper.status == "Deactivated")
+                return (false, null); // Treat as new
+
+            if (shopper.status == "Blocked")
+                return (true, "This email is blocked. Please contact support.");
+
+            return (true, null); 
         }
 
         public async Task<ShopperRegister> RegisterShopper(ShopperRegister shopper)

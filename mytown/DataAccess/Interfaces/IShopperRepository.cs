@@ -5,7 +5,7 @@ namespace mytown.DataAccess.Interfaces
     public interface IShopperRepository
     {
         Task<ShopperRegister> RegisterShopper(ShopperRegister shopper);
-        Task<bool> IsEmailTaken(string email);
+        Task<(bool isTaken, string message)> IsEmailTaken(string email);
         ////     Task<ShopperVerification> GenerateEmailVerification(string email);
         //     Task<bool> VerifyEmail(string token);
 

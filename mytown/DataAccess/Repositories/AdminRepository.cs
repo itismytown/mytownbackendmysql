@@ -206,6 +206,7 @@ namespace mytown.DataAccess.Repositories
             return count;
         }
 
+        // Shoppers tab
         public async Task<(IEnumerable<ShopperRegister> records, int totalRecords)> GetShopperRegistersPaginatedAsync(int page, int pageSize)
         {
             var totalRecords = await _context.ShopperRegisters.CountAsync();
@@ -216,6 +217,23 @@ namespace mytown.DataAccess.Repositories
 
             return (records, totalRecords);
         }
+        public async Task<bool> UpdateShopperStatusAsync(int shopperId, string newStatus)
+        {
+            var shopper = await _context.ShopperRegisters.FindAsync(shopperId);
+            if (shopper == null)
+                return false;
+
+            shopper.status = newStatus;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<ShopperRegister?> GetShopperByIdAsync(int shopperId)
+        {
+            return await _context.ShopperRegisters
+                                 .FirstOrDefaultAsync(s => s.ShopperRegId == shopperId);
+        }
+
 
         public async Task<int> GetShoppersRegisterCountAsync()
         {

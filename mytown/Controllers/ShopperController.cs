@@ -118,11 +118,18 @@ namespace mytown.Controllers
 
                 try
                 {
-                    bool emailExists = await _shopperRepository.IsEmailTaken(shopperRegisterDto.Email);
-                    if (emailExists)
-                    {
-                        return Conflict(new { error = "This email is already registered. Try logging in instead." });
+                (bool isTaken, string statusMessage) = await _shopperRepository.IsEmailTaken(shopperRegisterDto.Email);
+
+                if (statusMessage != null)
+                {
+                    return StatusCode(StatusCodes.Status403Forbidden, new { error = statusMessage });
                 }
+
+                if (isTaken)
+                {
+                    return Conflict(new { error = "This email is already registered. Try logging in instead." });
+                }
+
 
                 // Generate verification token and save to pending table
                 string verificationToken = Guid.NewGuid().ToString();
@@ -205,7 +212,8 @@ namespace mytown.Controllers
                         PostalCode = shopperDto.PostalCode,
                         PhoneNumber = shopperDto.PhoneNumber,
                         PhotoName = shopperDto.PhotoName,
-                        IsEmailVerified = true
+                        IsEmailVerified = true,
+                        status = "Active"
                     };
 
                     await _shopperRepository.RegisterShopper(newShopper);

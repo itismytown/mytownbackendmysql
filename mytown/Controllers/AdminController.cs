@@ -160,6 +160,7 @@ namespace mytown.Controllers
             return Ok(new { count });
         }
 
+        // Shoppers Tab
         [HttpGet("getShopperRegistersPaginated")]
         public async Task<IActionResult> GetShopperRegistersPaginated(int page = 1, int pageSize = 10)
         {
@@ -186,6 +187,27 @@ namespace mytown.Controllers
                 currentPage = page,
                 pageSize
             });
+        }
+
+        [HttpPost("updateshopperstatusbyadmin")]
+        public async Task<IActionResult> updateshopperstatusbyadmin([FromQuery] int shopperId, [FromQuery] string status)
+        {
+            if (string.IsNullOrEmpty(status))
+                return BadRequest("Status is required.");
+
+            var updated = await _adminRepo.UpdateProfileStatusbyAdminAsync(shopperId, status);
+
+            if (!updated)
+                return NotFound($"No Shopper found with Id {shopperId}.");
+            // Fetch shopper details (e.g., email)
+            var shopper = await _adminRepo.GetShopperByIdAsync(shopperId);
+            if (shopper != null && !string.IsNullOrEmpty(shopper.Email))
+            {
+                // Send status update email
+               // await _emailService.SendStatusUpdateEmail(shopper.Email, shopper.FullName, status);
+            }
+
+            return Ok("Shopper status updated successfully.");
         }
 
         [HttpGet("getCourierRegistersPaginated")]
