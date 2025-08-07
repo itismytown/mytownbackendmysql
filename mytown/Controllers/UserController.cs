@@ -409,30 +409,7 @@ namespace mytown.Controllers
         }
 
 
-        //get profile details using busregid
-        [HttpGet("getBusinessProfilesByBusRegId")]
-        public async Task<IActionResult> GetBusinessProfilesByBusRegId(int busRegId)
-        {
-            try
-            {
-                var businessProfiles = await _userRepository.GetBusinessProfilesByBusRegIdAsync(busRegId);
-
-                if (businessProfiles == null || !businessProfiles.Any())
-                {
-                    return NotFound(new { message = "No business profiles found for the given BusRegId" });
-                }
-
-                return Ok(new
-                {
-                    message = "Business profiles retrieved successfully",
-                    data = businessProfiles
-                });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "An error occurred while retrieving business profiles", error = ex.Message });
-            }
-        }
+       
 
         //get products for selected category and busregid on preview page
         [HttpGet("by-busreg-and-subcat")]

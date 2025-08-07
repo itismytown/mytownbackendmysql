@@ -26,11 +26,11 @@ namespace mytown.DataAccess
         Task<products> GetProductById(int productId);
         Task<IEnumerable<products>> GetAllProductsAsync(int busRegId);
         Task DeleteProductAsync(int productId);
-        Task<businessprofile> AddBusinessProfileAsync(businessprofile businessProfile);
+      //  Task<businessprofile> AddBusinessProfileAsync(businessprofile businessProfile);
         Task<bool> UpdateBannerPathAsync(int busRegId, string bannerPath);
         List<product_sub_categories> GetProductSubCategoriesByBusRegId(int busRegId);
         bool UpdateProduct(products updatedProduct);
-        Task<List<busprofilepreview>> GetBusinessProfilesByBusRegIdAsync(int busRegId);
+      //  Task<List<busprofilepreview>> GetBusinessProfilesByBusRegIdAsync(int busRegId);
         IEnumerable<products> GetProductsByBusRegIdAndSubcatId(int busRegId, int prodSubcatId);
     }
 }

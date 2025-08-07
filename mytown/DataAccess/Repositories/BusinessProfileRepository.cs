@@ -34,6 +34,7 @@ namespace mytown.DataAccess.Repositories
                                     business_location = bp.business_location,
                                     business_about = bp.business_about,
                                     banner_path = bp.banner_path,
+                                    logo_path = bp.logo_path,
                                     profile_status = bp.profile_status,
                                     bus_time = bp.bus_time,
                                     BusCatId = bp.BusCatId,
@@ -41,13 +42,13 @@ namespace mytown.DataAccess.Repositories
                                     Businessservice_name = bs != null ? bs.Businessservice_name : null,
                                     Businesscategory_name = bc != null ? bc.Businesscategory_name : null,
 
-                                    // Map Pan as an object
-                                    Pan = new PanData
-                                    {
-                                        X = bp.image_positionx,
-                                        Y = bp.image_positiony,
-                                        Zoom = bp.zoom
-                                    }
+                                    //// Map Pan as an object
+                                    //Pan = new PanData
+                                    //{
+                                    //    X = bp.image_positionx,
+                                    //    Y = bp.image_positiony,
+                                    //    Zoom = bp.zoom
+                                    //}
                                 }).ToListAsync();
 
             return result;
@@ -64,52 +65,90 @@ namespace mytown.DataAccess.Repositories
         }
 
         // adding business profile data to DB
+        //public async Task<businessprofile> AddBusinessProfileAsync(businessprofile businessProfile)
+        //{
+        //    // Check if the business profile with the given BusRegId already exists
+        //    var existingProfile = await _context.BusinessProfiles
+        //        .FirstOrDefaultAsync(bp => bp.BusRegId == businessProfile.BusRegId);
+
+        //    if (existingProfile != null)
+        //    {
+        //        // Updating an existing profile
+        //        existingProfile.BusinessUsername = businessProfile.BusinessUsername;
+        //        existingProfile.business_location = businessProfile.business_location;
+        //        existingProfile.business_about = businessProfile.business_about;
+        //        existingProfile.banner_path = businessProfile.banner_path;
+        //        existingProfile.profile_status = businessProfile.profile_status;
+        //        existingProfile.bus_time = businessProfile.bus_time;
+        //        existingProfile.BusCatId = businessProfile.BusCatId;
+        //        existingProfile.BusServId = businessProfile.BusServId;
+
+        //        // Update image position & zoom
+        //        existingProfile.image_positionx = businessProfile.image_positionx;
+        //        existingProfile.image_positiony = businessProfile.image_positiony;
+        //        existingProfile.zoom = businessProfile.zoom;
+
+        //        // Mark entity as modified
+        //        _context.BusinessProfiles.Update(existingProfile);
+        //    }
+        //    else
+        //    {
+        //        // Set default values if they are not provided
+        //        if (businessProfile.image_positionx == 0 && businessProfile.image_positiony == 0 && businessProfile.zoom == 0)
+        //        {
+        //            businessProfile.image_positionx = 0;
+        //            businessProfile.image_positiony = 0;
+        //            businessProfile.zoom = 1; // Default zoom value
+        //        }
+
+        //        // Add a new profile
+        //        await _context.BusinessProfiles.AddAsync(businessProfile);
+        //    }
+
+        //    // Save changes asynchronously
+        //    await _context.SaveChangesAsync();
+
+        //    // Return the updated or newly added profile
+        //    return existingProfile ?? businessProfile;
+        //}
+
         public async Task<businessprofile> AddBusinessProfileAsync(businessprofile businessProfile)
-        {
-            // Check if the business profile with the given BusRegId already exists
-            var existingProfile = await _context.BusinessProfiles
-                .FirstOrDefaultAsync(bp => bp.BusRegId == businessProfile.BusRegId);
+{
+    var existingProfile = await _context.BusinessProfiles
+        .FirstOrDefaultAsync(bp => bp.BusRegId == businessProfile.BusRegId);
 
-            if (existingProfile != null)
-            {
-                // Updating an existing profile
-                existingProfile.BusinessUsername = businessProfile.BusinessUsername;
-                existingProfile.business_location = businessProfile.business_location;
-                existingProfile.business_about = businessProfile.business_about;
-                existingProfile.banner_path = businessProfile.banner_path;
-                existingProfile.profile_status = businessProfile.profile_status;
-                existingProfile.bus_time = businessProfile.bus_time;
-                existingProfile.BusCatId = businessProfile.BusCatId;
-                existingProfile.BusServId = businessProfile.BusServId;
+    if (existingProfile != null)
+    {
+        // Update existing profile
+        existingProfile.BusinessUsername = businessProfile.BusinessUsername;
+        existingProfile.business_location = businessProfile.business_location;
+        existingProfile.business_about = businessProfile.business_about;
+        existingProfile.banner_path = businessProfile.banner_path;
+        existingProfile.logo_path = businessProfile.logo_path;
+        existingProfile.profile_status = businessProfile.profile_status;
+        existingProfile.bus_time = businessProfile.bus_time;
+        existingProfile.BusCatId = businessProfile.BusCatId;
+        existingProfile.BusServId = businessProfile.BusServId;
+        existingProfile.Businessservice_name = businessProfile.Businessservice_name;
+        existingProfile.Businesscategory_name = businessProfile.Businesscategory_name;
 
-                // Update image position & zoom
-                existingProfile.image_positionx = businessProfile.image_positionx;
-                existingProfile.image_positiony = businessProfile.image_positiony;
-                existingProfile.zoom = businessProfile.zoom;
+        // Keep coordinate-related updates
+        existingProfile.image_positionx = businessProfile.image_positionx;
+        existingProfile.image_positiony = businessProfile.image_positiony;
+        existingProfile.zoom = businessProfile.zoom;
 
-                // Mark entity as modified
-                _context.BusinessProfiles.Update(existingProfile);
-            }
-            else
-            {
-                // Set default values if they are not provided
-                if (businessProfile.image_positionx == 0 && businessProfile.image_positiony == 0 && businessProfile.zoom == 0)
-                {
-                    businessProfile.image_positionx = 0;
-                    businessProfile.image_positiony = 0;
-                    businessProfile.zoom = 1; // Default zoom value
-                }
+        _context.BusinessProfiles.Update(existingProfile);
+    }
+    else
+    {
+        // Directly add new profile with defaults already set in model or DTO
+        await _context.BusinessProfiles.AddAsync(businessProfile);
+    }
 
-                // Add a new profile
-                await _context.BusinessProfiles.AddAsync(businessProfile);
-            }
+    await _context.SaveChangesAsync();
+    return existingProfile ?? businessProfile;
+}
 
-            // Save changes asynchronously
-            await _context.SaveChangesAsync();
-
-            // Return the updated or newly added profile
-            return existingProfile ?? businessProfile;
-        }
 
         public async Task<bool> UpdateBannerPathAsync(int busRegId, string bannerPath)
         {
