@@ -125,8 +125,8 @@ namespace mytown.DataAccess.Repositories
         existingProfile.business_about = businessProfile.business_about;
         existingProfile.banner_path = businessProfile.banner_path;
         existingProfile.logo_path = businessProfile.logo_path;
-        existingProfile.profile_status = businessProfile.profile_status;
-        existingProfile.bus_time = businessProfile.bus_time;
+                existingProfile.profile_status = "Incomplete";
+                existingProfile.bus_time = businessProfile.bus_time;
         existingProfile.BusCatId = businessProfile.BusCatId;
         existingProfile.BusServId = businessProfile.BusServId;
         existingProfile.Businessservice_name = businessProfile.Businessservice_name;
