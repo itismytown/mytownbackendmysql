@@ -95,23 +95,47 @@ namespace mytown.DataAccess.Repositories
         }
 
         //Business summary count for profile status
-        public async Task<Dictionary<string, int>> Businessprofilestatuscounts()
+        public async Task<Dictionary<string, Dictionary<string, int>>> Businessprofilestatuscounts()
         {
             var allStatuses = new[] { "incomplete", "submitted", "approved", "rejected", "blocked" };
 
-            var counts = await _context.BusinessProfiles
-                .GroupBy(bp => bp.profile_status.ToLower())
-                .Select(g => new { Status = g.Key, Count = g.Count() })
+            var businessProfiles = await _context.BusinessProfiles
+                .Select(bp => new
+                {
+                    bp.profile_status,
+                    bp.BusCatId,
+                    bp.BusServId
+                })
                 .ToListAsync();
 
-            var finalCounts = allStatuses
-                .ToDictionary(
-                    status => status,
-                    status => counts.FirstOrDefault(c => c.Status == status)?.Count ?? 0
-                );
+            // Stores
+            var storeCounts = allStatuses.ToDictionary(
+                status => status,
+                status => businessProfiles.Count(bp =>
+                    bp.profile_status.Equals(status, StringComparison.OrdinalIgnoreCase) &&
+                    bp.BusCatId == 1
+                )
+            );
 
-            return finalCounts;
+            // Services
+            var serviceCounts = allStatuses.ToDictionary(
+                status => status,
+                status => businessProfiles.Count(bp =>
+                    bp.profile_status.Equals(status, StringComparison.OrdinalIgnoreCase) &&
+                    bp.BusServId == 1
+                )
+            );
+
+            // Final structure
+            var result = new Dictionary<string, Dictionary<string, int>>
+    {
+        { "stores", storeCounts },
+        { "services", serviceCounts }
+    };
+
+            return result;
         }
+
 
         // Admin  - Approve, Reject, Block business profiles
 

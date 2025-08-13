@@ -12,7 +12,7 @@ namespace mytown.DataAccess.Interfaces
         Task<(List<BusinessRegister> Records, int TotalRecords)> GetBusinessesstoresByStatusPaginatedAsync(string status, int page, int pageSize);
         Task<(List<BusinessRegister> Records, int TotalRecords)> GetBusinessesservicesByStatusPaginated(string status, int page, int pageSize);
 
-        Task<Dictionary<string, int>> Businessprofilestatuscounts();
+        Task<Dictionary<string, Dictionary<string, int>>> Businessprofilestatuscounts();
 
         Task<bool> UpdateProfileStatusbyAdminAsync(int busRegId, string status);
         Task<(IEnumerable<ShopperRegister> records, int totalRecords)> GetShopperRegistersPaginatedAsync(int page, int pageSize);
