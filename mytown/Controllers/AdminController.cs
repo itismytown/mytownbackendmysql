@@ -118,7 +118,7 @@ namespace mytown.Controllers
             try
             {
                 // Get unique counts from the repository
-                var (uniqueCities, uniqueStates, uniqueCountries) = await _adminRepo.GetUniqueCountsAsync();
+                var (uniqueTowns,uniqueCities, uniqueStates, uniqueCountries) = await _adminRepo.GetUniqueCountsAsync();
 
                 // Return the result
                 return Ok(new
@@ -126,6 +126,7 @@ namespace mytown.Controllers
                     message = "Unique counts retrieved successfully",
                     data = new
                     {
+                        uniqueTowns = uniqueTowns,
                         uniqueCities = uniqueCities,
                         uniqueStates = uniqueStates,
                         uniqueCountries = uniqueCountries

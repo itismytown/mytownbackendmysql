@@ -158,8 +158,19 @@ namespace mytown.DataAccess.Repositories
 
 
 
-        public async Task<(int uniqueCities, int uniqueStates, int uniqueCountries)> GetUniqueCountsAsync()
+        public async Task<(int uniqueTowns,int uniqueCities, int uniqueStates, int uniqueCountries)> GetUniqueCountsAsync()
         {
+                    var uniqueTowns = await _context.BusinessRegisters
+            .Select(b => b.Town)
+            .Where(town => !string.IsNullOrEmpty(town))
+            .Union(
+                _context.ShopperRegisters
+                    .Select(s => s.Town)
+                    .Where(town => !string.IsNullOrEmpty(town))
+            )
+            .Distinct()
+            .CountAsync();
+
             // Fetch unique cities from both tables
             var uniqueCities = await _context.BusinessRegisters
                 .Select(b => b.businessCity)
@@ -196,7 +207,7 @@ namespace mytown.DataAccess.Repositories
                 .Distinct()
                 .CountAsync();
 
-            return (uniqueCities, uniqueStates, uniqueCountries);
+            return (uniqueTowns,uniqueCities, uniqueStates, uniqueCountries);
         }
 
         public async Task<int> GetBusinessRegisterCountAsync()
