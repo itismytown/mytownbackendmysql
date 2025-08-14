@@ -36,6 +36,30 @@ namespace mytown.Controllers
 
 
 
+        //[HttpPost("login")]
+        //public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        //{
+        //    if (loginRequest == null || string.IsNullOrWhiteSpace(loginRequest.Email) || string.IsNullOrWhiteSpace(loginRequest.Password))
+        //    {
+        //        return BadRequest(new { code = 400, message = "Invalid login request" });
+        //    }
+
+        //    var result = await _userRepository.LoginAsync(loginRequest.Email, loginRequest.Password);
+
+        //    //if (result is string message)
+        //    //{
+        //    //    return message switch
+        //    //    {
+        //    //        "EmailNotFound" => NotFound(new { code = 404, message = "Email not registered" }),
+        //    //        "WrongPassword" => Unauthorized(new { code = 401, message = "Incorrect password" }),
+        //    //        "EmailNotVerified" => StatusCode(403, new { code = 403, message = "Please verify your email before login" }),
+        //    //        _ => StatusCode(500, new { code = 500, message = "Unexpected login error" })
+        //    //    };
+        //    //}
+
+        //    return Ok(result); // success
+        //}
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
@@ -44,22 +68,23 @@ namespace mytown.Controllers
                 return BadRequest(new { code = 400, message = "Invalid login request" });
             }
 
-            var result = await _userRepository.LoginAsync(loginRequest.Email, loginRequest.Password);
-
-            if (result is string message)
+            try
             {
-                return message switch
-                {
-                    "EmailNotFound" => NotFound(new { code = 404, message = "Email not registered" }),
-                    "WrongPassword" => Unauthorized(new { code = 401, message = "Incorrect password" }),
-                    "EmailNotVerified" => StatusCode(403, new { code = 403, message = "Please verify your email before login" }),
-                    _ => StatusCode(500, new { code = 500, message = "Unexpected login error" })
-                };
+                var result = await _userRepository.LoginAsync(loginRequest.Email, loginRequest.Password);
+
+                if (result == null)
+                    return Unauthorized(new { code = 401, message = "Invalid credentials" });
+
+                return Ok(result);
             }
+            catch (Exception ex)
+            {
+                // Log full error for debugging
+                Console.WriteLine($"Login error: {ex}");
 
-            return Ok(result); // success
+                return StatusCode(500, new { code = 500, message = "An unexpected error occurred" });
+            }
         }
-
 
 
         #region Forgotpassword
