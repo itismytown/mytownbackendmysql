@@ -113,41 +113,67 @@ namespace mytown.DataAccess.Repositories
         //}
 
         public async Task<businessprofile> AddBusinessProfileAsync(businessprofile businessProfile)
-{
-    var existingProfile = await _context.BusinessProfiles
-        .FirstOrDefaultAsync(bp => bp.BusRegId == businessProfile.BusRegId);
+        {
+            var existingProfile = await _context.BusinessProfiles
+                .FirstOrDefaultAsync(bp => bp.BusRegId == businessProfile.BusRegId);
 
-    if (existingProfile != null)
-    {
-        // Update existing profile
-        existingProfile.BusinessUsername = businessProfile.BusinessUsername;
-        existingProfile.business_location = businessProfile.business_location;
-        existingProfile.business_about = businessProfile.business_about;
-        existingProfile.banner_path = businessProfile.banner_path;
-        existingProfile.logo_path = businessProfile.logo_path;
-                existingProfile.profile_status = "Incomplete";
-                existingProfile.bus_time = businessProfile.bus_time;
-        existingProfile.BusCatId = businessProfile.BusCatId;
-        existingProfile.BusServId = businessProfile.BusServId;
-        existingProfile.Businessservice_name = businessProfile.Businessservice_name;
-        existingProfile.Businesscategory_name = businessProfile.Businesscategory_name;
+            if (existingProfile != null)
+            {
+                // Update only if values are provided
+                if (!string.IsNullOrEmpty(businessProfile.BusinessUsername))
+                    existingProfile.BusinessUsername = businessProfile.BusinessUsername;
 
-        // Keep coordinate-related updates
-        existingProfile.image_positionx = businessProfile.image_positionx;
-        existingProfile.image_positiony = businessProfile.image_positiony;
-        existingProfile.zoom = businessProfile.zoom;
+                if (!string.IsNullOrEmpty(businessProfile.business_location))
+                    existingProfile.business_location = businessProfile.business_location;
 
-        _context.BusinessProfiles.Update(existingProfile);
-    }
-    else
-    {
-        // Directly add new profile with defaults already set in model or DTO
-        await _context.BusinessProfiles.AddAsync(businessProfile);
-    }
+                if (!string.IsNullOrEmpty(businessProfile.business_about))
+                    existingProfile.business_about = businessProfile.business_about;
 
-    await _context.SaveChangesAsync();
-    return existingProfile ?? businessProfile;
-}
+                if (!string.IsNullOrEmpty(businessProfile.banner_path))
+                    existingProfile.banner_path = businessProfile.banner_path;
+
+                if (!string.IsNullOrEmpty(businessProfile.logo_path))
+                    existingProfile.logo_path = businessProfile.logo_path;
+
+                if (!string.IsNullOrEmpty(businessProfile.profile_status))
+                    existingProfile.profile_status = businessProfile.profile_status;
+
+                if (!string.IsNullOrEmpty(businessProfile.bus_time))
+                    existingProfile.bus_time = businessProfile.bus_time;
+
+                if (businessProfile.BusCatId != 0)
+                    existingProfile.BusCatId = businessProfile.BusCatId;
+
+                if (businessProfile.BusServId != 0)
+                    existingProfile.BusServId = businessProfile.BusServId;
+
+                if (!string.IsNullOrEmpty(businessProfile.Businessservice_name))
+                    existingProfile.Businessservice_name = businessProfile.Businessservice_name;
+
+                if (!string.IsNullOrEmpty(businessProfile.Businesscategory_name))
+                    existingProfile.Businesscategory_name = businessProfile.Businesscategory_name;
+
+                // Update coordinates only if they are different from default
+                if (businessProfile.image_positionx != 0)
+                    existingProfile.image_positionx = businessProfile.image_positionx;
+
+                if (businessProfile.image_positiony != 0)
+                    existingProfile.image_positiony = businessProfile.image_positiony;
+
+                if (businessProfile.zoom != 0)
+                    existingProfile.zoom = businessProfile.zoom;
+
+                _context.BusinessProfiles.Update(existingProfile);
+            }
+            else
+            {
+                // Add new profile
+                await _context.BusinessProfiles.AddAsync(businessProfile);
+            }
+
+            await _context.SaveChangesAsync();
+            return existingProfile ?? businessProfile;
+        }
 
 
         public async Task<bool> UpdateBannerPathAsync(int busRegId, string bannerPath)
