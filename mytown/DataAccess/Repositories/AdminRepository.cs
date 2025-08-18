@@ -180,6 +180,73 @@ namespace mytown.DataAccess.Repositories
         }
 
 
+        public async Task<AdminDashboardcountDto> GetDashboardCountsAsync()
+        {
+            // Unique Towns
+            var uniqueTowns = await _context.BusinessRegisters
+                .Select(b => b.Town)
+                .Where(town => !string.IsNullOrEmpty(town))
+                .Union(
+                    _context.ShopperRegisters
+                        .Select(s => s.Town)
+                        .Where(town => !string.IsNullOrEmpty(town))
+                )
+                .Distinct()
+                .CountAsync();
+
+            // Unique Cities
+            var uniqueCities = await _context.BusinessRegisters
+                .Select(b => b.businessCity)
+                .Where(city => !string.IsNullOrEmpty(city))
+                .Union(
+                    _context.ShopperRegisters
+                        .Select(s => s.City)
+                        .Where(city => !string.IsNullOrEmpty(city))
+                )
+                .Distinct()
+                .CountAsync();
+
+            // Unique States
+            var uniqueStates = await _context.BusinessRegisters
+                .Select(b => b.businessState)
+                .Where(state => !string.IsNullOrEmpty(state))
+                .Union(
+                    _context.ShopperRegisters
+                        .Select(s => s.State)
+                        .Where(state => !string.IsNullOrEmpty(state))
+                )
+                .Distinct()
+                .CountAsync();
+
+            // Unique Countries
+            var uniqueCountries = await _context.BusinessRegisters
+                .Select(b => b.businessCountry)
+                .Where(country => !string.IsNullOrEmpty(country))
+                .Union(
+                    _context.ShopperRegisters
+                        .Select(s => s.Country)
+                        .Where(country => !string.IsNullOrEmpty(country))
+                )
+                .Distinct()
+                .CountAsync();
+
+            // Other counts
+            var businessCount = await _context.BusinessRegisters.CountAsync();
+            var shopperCount = await _context.ShopperRegisters.CountAsync();
+            var courierServiceCount = await _context.CourierService.CountAsync();
+
+            // Return everything in one object
+            return new AdminDashboardcountDto
+            {
+                UniqueTowns = uniqueTowns,
+                UniqueCities = uniqueCities,
+                UniqueStates = uniqueStates,
+                UniqueCountries = uniqueCountries,
+                BusinessRegisterCount = businessCount,
+                ShopperRegisterCount = shopperCount,
+                CourierServiceCount = courierServiceCount
+            };
+        }
 
 
         public async Task<(int uniqueTowns,int uniqueCities, int uniqueStates, int uniqueCountries)> GetUniqueCountsAsync()

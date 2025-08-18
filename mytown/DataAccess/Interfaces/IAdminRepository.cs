@@ -18,6 +18,8 @@ namespace mytown.DataAccess.Interfaces
         Task<(IEnumerable<ShopperRegister> records, int totalRecords)> GetShopperRegistersPaginatedAsync(int page, int pageSize);
         Task<bool> UpdateShopperStatusAsync(int shopperId, string newStatus);
         Task<ShopperRegister?> GetShopperByIdAsync(int shopperId);
+
+        Task<AdminDashboardcountDto> GetDashboardCountsAsync();
         Task<(int uniqueTowns, int uniqueCities, int uniqueStates, int uniqueCountries)> GetUniqueCountsAsync();
 
         Task<int> GetBusinessRegisterCountAsync();

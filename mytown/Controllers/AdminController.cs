@@ -111,6 +111,14 @@ namespace mytown.Controllers
             return Ok("Profile status updated successfully.");
         }
 
+
+        [HttpGet("GetDashboardCounts")]
+        public async Task<IActionResult> GetDashboardCounts()
+        {
+            var counts = await _adminRepo.GetDashboardCountsAsync();
+            return Ok(counts);
+        }
+
         // Add API to get unique counts for cities, states, and countries
         [HttpGet("GetUniqueCounts")]
         public async Task<IActionResult> GetUniqueCounts()
