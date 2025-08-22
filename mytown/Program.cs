@@ -23,6 +23,11 @@ try
         .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
         .AddEnvironmentVariables();
 
+    builder.Services.AddControllers()
+    .AddJsonOptions(x =>
+        x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
+
+
     // Initialize Startup and register all services.
     var startup = new Startup(builder.Configuration);
     startup.ConfigureServices(builder.Services);

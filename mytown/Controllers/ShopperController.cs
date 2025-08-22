@@ -280,5 +280,33 @@ namespace mytown.Controllers
                 return StatusCode(500, new { error = "Something went wrong. Please try again." });
             }
         }
+
+
+
+        [HttpGet("GetTownsWithStoreCountByCountry/{country}")]
+        public async Task<IActionResult> GetTownsWithStoreCountByCountry(string country)
+        {
+            if (string.IsNullOrEmpty(country))
+            {
+                return BadRequest("Country is required.");
+            }
+
+            var result = await _shopperRepository.GetTownsWithStoreCountByCountryAsync(country);
+
+            if (result == null || !result.Any())
+            {
+                return NotFound($"No towns found for country '{country}'.");
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("productsrecentlyviewedbyshopper/{shopperId}")]
+        public async Task<IActionResult> GetRecentlyViewed(int shopperId, int days = 7, int limit = 10)
+        {
+            var products = await _shopperRepository.GetRecentlyViewedProductsAsync(shopperId, days, limit);
+            return Ok(products);
+        }
+
     }
     }

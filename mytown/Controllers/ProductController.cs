@@ -84,7 +84,7 @@ namespace MyTown.Controllers
         }
 
         // GET: api/User/GetAllProducts
-        [HttpGet("GetAllProducts/{BusRegId}")]
+        [HttpGet("GetAllProductsforbusid/{BusRegId}")]
         public async Task<ActionResult<products>> GetAllProducts(int BusRegId)
         {
             try
@@ -106,6 +106,50 @@ namespace MyTown.Controllers
                 // Handle any errors and return a 500 Internal Server Error
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+        }
+
+        [HttpGet("GetDiscountedProductsAsync")]
+        public async Task<ActionResult<products>> GetDiscountedProductsAsync()
+        {
+            try
+            {
+                // Fetch all products from the repository
+                var products = await _productRepo.GetDiscountedProductsAsync();
+
+                // Check if no products were found
+                if (products == null || !products.Any())
+                {
+                    return NotFound("No products found.");
+                }
+
+                // Return the list of products with a 200 OK status
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors and return a 500 Internal Server Error
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("GetProductsBySubCategory/{subCategoryId}")]
+        public async Task<IActionResult> GetProductsBySubCategory(int subCategoryId)
+        {
+            var products = await _productRepo.GetProductsBySubCategoryAsync(subCategoryId);
+            if (products == null || !products.Any())
+            {
+                return NotFound(new { Message = "No products found for this subcategory" });
+            }
+
+            return Ok(products);
+        }
+
+        //save shopper recently viewd product
+        [HttpPost("ShopperRecentViewProduct")]
+        public async Task<IActionResult> ShopperRecentViewProduct(int shopperId, int productId)
+        {
+            await _productRepo.SaveProductViewAsync(shopperId, productId);
+            return Ok(new { message = "Product view recorded" });
         }
     }
 }

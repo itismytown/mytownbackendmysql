@@ -28,6 +28,8 @@ namespace mytown.DataAccess
         Task DeleteProductAsync(int productId);
       //  Task<businessprofile> AddBusinessProfileAsync(businessprofile businessProfile);
         Task<bool> UpdateBannerPathAsync(int busRegId, string bannerPath);
+
+      
         List<product_sub_categories> GetProductSubCategoriesByBusRegId(int busRegId);
         bool UpdateProduct(products updatedProduct);
       //  Task<List<busprofilepreview>> GetBusinessProfilesByBusRegIdAsync(int busRegId);

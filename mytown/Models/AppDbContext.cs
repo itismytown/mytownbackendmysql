@@ -39,6 +39,10 @@ namespace mytown.Models
             public DbSet<PendingCourierVerification> PendingCourierVerifications { get; set; }
             public DbSet<CourierBranch> CourierBranches { get; set; }
 
+            public DbSet<ShopperProductRecentView> ShopperProductRecentViews { get; set; }
+
+           
+
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
@@ -76,6 +80,10 @@ namespace mytown.Models
                     new businesscategoriescs { BuscatId = 1, Businesscategory_name = "products" },
                     new businesscategoriescs { BuscatId = 2, Businesscategory_name = "services" }
                 );
+
+                modelBuilder.Entity<ShopperProductRecentView>()
+                   .HasIndex(v => new { v.ShopperId, v.ProductId })
+                   .IsUnique();
             }
         }
             

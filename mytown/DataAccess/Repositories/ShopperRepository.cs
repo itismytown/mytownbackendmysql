@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mytown.DataAccess.Interfaces;
 using mytown.Models;
+using mytown.Models.DTO_s;
 using mytown.Models.mytown.DataAccess;
 
 namespace mytown.DataAccess.Repositories
@@ -200,6 +202,55 @@ namespace mytown.DataAccess.Repositories
             return await _context.ShopperRegisters
                                 .FirstOrDefaultAsync(b => b.ShopperRegId == shopperRegId);
         }
+
+        public async Task<IEnumerable<object>> GetTownsWithStoreCountByCountryAsync(string country)
+        {
+            return await _context.BusinessRegisters
+                .Where(br => br.BusinessProfile != null && br.businessCountry == country) 
+                .GroupBy(br => br.Town)                                                  
+                .Select(g => new
+                {
+                    Town = g.Key,
+                    StoreCount = g.Count()
+                })
+                .ToListAsync();
+        }
+     // get recently viewed products for that shopper
+        public async Task<IEnumerable<ProductDto>> GetRecentlyViewedProductsAsync(
+     int shopperId, int days = 7, int limit = 10)
+        {
+            var sinceDate = DateTime.UtcNow.AddDays(-days);
+
+            var productDtos = await _context.ShopperProductRecentViews
+                .Where(v => v.ShopperId == shopperId && v.LastViewedAt >= sinceDate)
+                .OrderByDescending(v => v.LastViewedAt)
+                .Select(v => new ProductDto
+                {
+                    ProductId = v.Product.product_id,
+                    BusRegId = v.Product.BusRegId,
+                    BuscatId = v.Product.BuscatId,
+                    ProdSubcatId = v.Product.prod_subcat_id,
+                    ProductName = v.Product.product_name,
+                    ProductSubject = v.Product.product_subject,
+                    ProductDescription = v.Product.product_description,
+                    ProductImage = v.Product.product_image,
+                    ProductAmount = v.Product.product_cost,
+                    ProductLength = v.Product.product_length,
+                    ProductWidth = v.Product.product_width,
+                    ProductWeight = v.Product.product_weight,
+                    Quantity = v.Product.product_quantity,
+                    ProductHeight = v.Product.product_height,
+                    Discount = v.Product.discount,
+                    DiscountPrice = v.Product.discount_price,
+                    BusinessName = v.Product.BusinessRegister.Businessname
+                })
+                .Take(limit)
+                .ToListAsync();
+
+            return productDtos;
+        }
+
+
 
     }
 

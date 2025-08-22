@@ -2,6 +2,7 @@
 using mytown.Models;
 using mytown.DataAccess.Interfaces;
 using mytown.Models.mytown.DataAccess;
+using mytown.Models.DTO_s;
 
 namespace mytown.DataAccess.Repositories
 {
@@ -82,6 +83,85 @@ namespace mytown.DataAccess.Repositories
                                  .Where(p => p.BusRegId == BusRegId) // Filter by BusRegId
                                  .ToListAsync(); // Fetch matching products
         }
+
+        public async Task<IEnumerable<ProductDto>> GetDiscountedProductsAsync()
+        {
+            return await _context.products
+                .Include(p => p.BusinessRegister)
+                .Where(p => p.discount != null) //filter only products with discount
+                .Select(p => new ProductDto
+                {
+                    ProductId = p.product_id,
+                    BusRegId = p.BusRegId,
+                    BuscatId = p.BuscatId,
+                    ProdSubcatId = p.prod_subcat_id,
+                    ProductName = p.product_name,
+                    ProductSubject = p.product_subject,
+                    ProductDescription = p.product_description,
+                    ProductImage = p.product_image,
+                    ProductAmount = p.product_cost,
+                    ProductLength = p.product_length,
+                    ProductWidth = p.product_width,
+                    ProductWeight = p.product_weight,
+                    Quantity = p.product_quantity,
+                    ProductHeight = p.product_height,
+
+                    Discount = p.discount,
+                    DiscountPrice = p.discount_price,
+
+                    BusinessName = p.BusinessRegister.Businessname
+                })
+                .ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<ProductDto>> GetProductsBySubCategoryAsync(int subCategoryId)
+        {
+            var products = await _context.products
+                .Where(p => p.prod_subcat_id == subCategoryId)
+                .Include(p => p.BusinessRegister)
+                .Select(p => new ProductDto
+                {
+                    ProductId = p.product_id,
+                    BusRegId = p.BusRegId,
+                    BuscatId = p.BuscatId,
+                    ProdSubcatId = p.prod_subcat_id,
+                    ProductName = p.product_name,
+                    ProductSubject = p.product_subject,
+                    ProductDescription = p.product_description,
+                    ProductImage = p.product_image,
+                    ProductAmount = p.product_cost,
+                    ProductLength = p.product_length,
+                    ProductWidth = p.product_width,
+                    ProductWeight = p.product_weight,
+                    Quantity = p.product_quantity,
+                    ProductHeight = p.product_height,
+                    Discount = p.discount,
+                    DiscountPrice = p.discount_price,
+                    BusinessName = p.BusinessRegister.Businessname,
+
+                    // optional fields
+                    PurchasedCount = 0, // you can calculate later if needed
+                })
+                .ToListAsync();
+
+            return products;
+        }
+
+        // save shopper recently viewd products
+        public async Task SaveProductViewAsync(int shopperId, int productId)
+        {
+            var view = new ShopperProductRecentView
+            {
+                ShopperId = shopperId,
+                ProductId = productId,
+                LastViewedAt = DateTime.UtcNow
+            };
+
+            _context.ShopperProductRecentViews.Add(view);
+            await _context.SaveChangesAsync();
+        }
+
 
     }
 }

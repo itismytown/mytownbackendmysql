@@ -58,6 +58,7 @@ public class Startup
         services.AddScoped<IBusinessDashboardRepository, BusinessDashboardRepository>();
         services.AddScoped<ICourierServiceRepository, CourierServiceRepository>();
         services.AddScoped<IVerificationLinkBuildercourier, VerificationLinkBuildercourier>();
+        services.AddScoped<ISearchRepository, SearchRepository>();
     }
 
     // Registers controllers and Swagger (for API documentation).
@@ -74,6 +75,7 @@ public class Startup
         var allowedOrigins = new List<string>
         {
             "http://localhost:3000", // Local frontend
+            "http://localhost:3001",
             "https://mytown-wa-d8gmezfjg7d7hhdy.canadacentral-01.azurewebsites.net" // Production frontend
         };
         services.AddCors(options =>
@@ -115,11 +117,14 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
+          //  endpoints.MapFallbackToFile("index.html");
         });
 
         LogServerAddresses(app, logger);
         logger.LogInformation("API is ready and running.");
         Console.WriteLine("API is ready and running.");
+
+       
     }
 
     // Sets up error handling based on the environment.

@@ -15,6 +15,13 @@ namespace mytown.DataAccess.Repositories
             _context = context;
         }
 
+        // Get all business profiles including related BusinessRegister data
+        public async Task<IEnumerable<businessprofile>> GetAllBusinessProfilesAsync()
+        {
+            return await _context.BusinessProfiles
+                .Include(bp => bp.BusinessRegister) // eager load BusinessRegister
+                .ToListAsync();
+        }
 
         public async Task<List<busprofilepreview>> GetBusinessProfilesByBusRegIdAsync(int busRegId)
         {
@@ -200,6 +207,12 @@ namespace mytown.DataAccess.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        // Get all product subcategories
+        public async Task<IEnumerable<product_sub_categories>> GetAllSubCategoriesAsync()
+        {
+            return await _context.product_sub_categories.ToListAsync();
+        }
         //get categories ofproducts for a businessid
         public List<product_sub_categories> GetProductSubCategoriesByBusRegId(int busRegId)
         {
@@ -222,6 +235,25 @@ namespace mytown.DataAccess.Repositories
                           .ToList();
 
             return result;
+        }
+
+
+        // businessprofiels with discount products
+        public async Task<IEnumerable<businessprofile>> GetBusinessProfilesWithDiscountedProductsAsync()
+        {
+            // Step 1: Get distinct business ids from products having discounts
+            var businessIdsWithDiscounts = await _context.products
+                .Where(p => p.discount.HasValue && p.discount > 0) // only products with valid discount
+                .Select(p => p.BusRegId)
+                .Distinct()
+                .ToListAsync();
+
+            // Step 2: Fetch business profiles for those business ids
+            var businessProfiles = await _context.BusinessProfiles
+                .Where(bp => businessIdsWithDiscounts.Contains(bp.BusRegId))
+                .ToListAsync();
+
+            return businessProfiles;
         }
 
 

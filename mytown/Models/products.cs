@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace mytown.Models
 {
@@ -7,6 +8,7 @@ namespace mytown.Models
         [Key]
         public int product_id {  get; set; }
 
+        [ForeignKey("BusinessRegister")]
         public int BusRegId { get; set; }
 
         public int BuscatId { get; set; }
@@ -42,6 +44,16 @@ namespace mytown.Models
         public decimal product_quantity { get; set; }
         [Range(0, double.MaxValue)]
         public decimal product_height { get; set; }
+
+        [Range(0, 100)]
+        public decimal? discount { get; set; }   // nullable
+
+        [Range(0, double.MaxValue)]
+        public decimal? discount_price { get; set; }  // nullable
+
+
+        public virtual BusinessRegister BusinessRegister { get; set; }
+
 
     }
 }

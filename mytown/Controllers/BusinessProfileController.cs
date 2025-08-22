@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using mytown.DataAccess;
 using mytown.DataAccess.Interfaces;
 using mytown.Models;
@@ -77,6 +78,13 @@ namespace mytown.Controllers
 
             return Ok(new { message = "Logo path updated successfully" });
         }
+
+        [HttpGet("GetAllProductsubcategories")]
+        public async Task<IActionResult> GetAllProductsubcategories()
+        {
+            var subCategories = await _businessprofileRepo.GetAllSubCategoriesAsync();
+            return Ok(subCategories);
+        }
         //get sub categories of each business
         [HttpGet("GetProductSubCategories/{BusRegId}")]
         public IActionResult GetProductSubCategories(int busRegId)
@@ -91,6 +99,12 @@ namespace mytown.Controllers
             return Ok(subCategories);
         }
 
+        [HttpGet("getBusinessProfiles")]
+        public async Task<IActionResult> getBusinessProfiles()
+        {
+            var profiles = await _businessprofileRepo.GetAllBusinessProfilesAsync();
+            return Ok(profiles);
+        }
         //get profile details using busregid
         [HttpGet("getBusinessProfilesByBusRegId")]
         public async Task<IActionResult> GetBusinessProfilesByBusRegId(int busRegId)
@@ -127,6 +141,16 @@ namespace mytown.Controllers
             }
 
             return Ok(products);
+        }
+
+        //get stores with discounted products
+
+        
+        [HttpGet("BusinessprofileswithDiscountproducts")]
+        public async Task<IActionResult> GetStoresWithDiscountedProducts()
+        {
+            var result = await _businessprofileRepo.GetBusinessProfilesWithDiscountedProductsAsync();
+            return Ok(result);
         }
     }
 }

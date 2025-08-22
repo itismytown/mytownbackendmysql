@@ -14,7 +14,11 @@ namespace mytown.DataAccess.Interfaces
         Task<bool> UpdateBannerPathAsync(int busRegId, string bannerPath);
         Task<bool> UpdateLogoPathAsync(int busRegId, string logoPath);
 
+        Task<IEnumerable<product_sub_categories>> GetAllSubCategoriesAsync();
+
         List<product_sub_categories> GetProductSubCategoriesByBusRegId(int busRegId);
+        Task<IEnumerable<businessprofile>> GetAllBusinessProfilesAsync();
+        Task<IEnumerable<businessprofile>> GetBusinessProfilesWithDiscountedProductsAsync();
     }
 }
 
