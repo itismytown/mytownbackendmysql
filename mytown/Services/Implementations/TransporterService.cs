@@ -87,6 +87,20 @@ namespace mytown.Services.Implementations
             };
 
             await _repo.RegisterTransporter(transporter);
+
+            // Save bank account details
+            var accountDetails = new TransporterAccountDetail
+            {
+                TransporterRegId = transporter.TransporterRegId,
+                AccountHolderName = dto.AccountHolderName,
+                BankName = dto.BankName,
+                AccountNumber = dto.AccountNumber,
+                IFSCCode = dto.IFSCCode,
+                IsTermsAccepted = dto.IsTermsAccepted,
+                CreatedDate = DateTime.UtcNow
+            };
+
+            await _repo.AddTransporterAccountDetails(accountDetails);
             await _repo.DeletePendingVerification(token);
 
             return (true, "Email verified successfully.", transporter.TransporterRegId);

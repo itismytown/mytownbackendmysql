@@ -91,6 +91,10 @@ public class Startup
         services.AddScoped<IProductsNewRepository, ProductsNewRepository>(); 
 
         services.AddScoped<IProductsNewService, ProductsNewService>();
+        services.AddScoped<IStorePayoutRepository, StorePayoutRepository>();
+        services.AddScoped<IStorePayoutService, StorePayoutService>();
+        services.AddScoped<ICourierPayoutRepository, CourierPayoutRepository>();
+        services.AddScoped<ICourierPayoutService, CourierPayoutService>();
 
 
 
@@ -124,6 +128,7 @@ public class Startup
         services.AddScoped<IGuestService, GuestService>();
         services.AddScoped<IConnectionsService, ConnectionsService>();
         services.AddScoped<IMobileAppService, MobileAppService>();
+       
 
         services.AddSingleton<ConnectionManager>();
 
