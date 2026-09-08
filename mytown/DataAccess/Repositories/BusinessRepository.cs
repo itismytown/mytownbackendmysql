@@ -217,12 +217,9 @@ namespace mytown.DataAccess.Repositories
         {
             return await _context.ProductAttributes
                 .Where(x =>
-                    x.ProdSubcatId == prodSubcatId &&
                     x.BusCatId == busCatId &&
-                    (
-                        x.ProductGroupId == null ||
-                        x.ProductGroupId == productGroupId
-                    ))
+                    (x.ProdSubcatId == null || x.ProdSubcatId == prodSubcatId) &&
+                    (x.ProductGroupId == null || x.ProductGroupId == productGroupId))
                 .Select(x => new ProductAttributeDto
                 {
                     AttributeId = x.AttributeId,
