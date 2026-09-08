@@ -13,12 +13,14 @@ namespace mytown.DataAccess.Repositories
         private readonly AppDbContext _context;
         private readonly IOrderRepository _orderRepository;
         private readonly IEmailService _emailService;
+        private readonly IStorePayoutRepository _storePayoutRepository;
 
-        public TransporterDashboardRepository(AppDbContext context, IOrderRepository orderRepo, IEmailService emailService)
+        public TransporterDashboardRepository(AppDbContext context, IOrderRepository orderRepo, IEmailService emailService, IStorePayoutRepository storePayoutRepository)
         {
             _context = context;
             _orderRepository = orderRepo;
             _emailService = emailService;
+            _storePayoutRepository = storePayoutRepository;
         }
 
         // -------------------------------------------------------------------------
@@ -843,7 +845,15 @@ public async Task<TravelPlanDto> SaveTravelPlanAsync(TravelPlanDto dto)
 
             await _context.SaveChangesAsync();
 
+            // Trigger transporter payout
+            if (shipping.TransporterRegId.HasValue)
+            {
+              //  await _storePayoutRepository.CreateTransporterPayoutAsync(storeOrderId);
+            }
+
+
             return "Delivery marked as completed";
+
         }
 
         // sender orders Repository

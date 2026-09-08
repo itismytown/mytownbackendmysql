@@ -87,5 +87,11 @@ namespace mytown.DataAccess.Repositories
                 .FirstOrDefaultAsync(p => p.Email.ToLower() == email.ToLower()
                                        && p.ExpiryDate > DateTime.UtcNow);
         }
+
+        public async Task AddTransporterAccountDetails(TransporterAccountDetail accountDetails)
+        {
+            await _context.TransporterAccountDetails.AddAsync(accountDetails);
+            await _context.SaveChangesAsync();
+        }
     }
 }

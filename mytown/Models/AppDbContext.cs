@@ -123,6 +123,15 @@ namespace mytown.Models
             public DbSet<ProductVariantAttributeNew> ProductVariantAttributesNew { get; set; }
             public DbSet<ProductVariantImageNew> ProductVariantImagesNew { get; set; }
 
+            public DbSet<StorePayout> StorePayouts { get; set; }
+            public DbSet<CourierPayout> CourierPayouts { get; set; }
+            public DbSet<TransporterAccountDetail> TransporterAccountDetails { get; set; }
+
+            public DbSet<TransporterPayout> TransporterPayouts { get; set; }
+
+
+
+
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
                 base.OnModelCreating(modelBuilder);

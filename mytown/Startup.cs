@@ -17,6 +17,7 @@ using mytown.Services.Implementations;
 using mytown.Services.Interfaces;
 using mytown.Services.Interfaces;
 using MyTown.Configurations;
+using MyTown.Models;
 using Stripe;
 using Stripe.Climate;
 using System.Security.Claims;
@@ -90,6 +91,10 @@ public class Startup
         services.AddScoped<IProductsNewRepository, ProductsNewRepository>(); 
 
         services.AddScoped<IProductsNewService, ProductsNewService>();
+        services.AddScoped<IStorePayoutRepository, StorePayoutRepository>();
+        services.AddScoped<IStorePayoutService, StorePayoutService>();
+        services.AddScoped<ICourierPayoutRepository, CourierPayoutRepository>();
+        services.AddScoped<ICourierPayoutService, CourierPayoutService>();
 
 
 
@@ -123,8 +128,14 @@ public class Startup
         services.AddScoped<IGuestService, GuestService>();
         services.AddScoped<IConnectionsService, ConnectionsService>();
         services.AddScoped<IMobileAppService, MobileAppService>();
+       
 
         services.AddSingleton<ConnectionManager>();
+
+        services.Configure<CashfreePayoutOptions>(
+    Configuration.GetSection("CashfreePayout"));
+
+        services.AddHttpClient("CashfreePayout");
     }
 
     private void RegisterControllersAndSwagger(IServiceCollection services)
