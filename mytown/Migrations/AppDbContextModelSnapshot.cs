@@ -1835,7 +1835,7 @@ namespace mytown.Migrations
                         .HasColumnName("bus_cat_id")
                         .HasAnnotation("Relational:JsonPropertyName", "bus_cat_id");
 
-                    b.Property<int>("ProdSubcatId")
+                    b.Property<int?>("ProdSubcatId")
                         .HasColumnType("int")
                         .HasColumnName("prod_subcat_id")
                         .HasAnnotation("Relational:JsonPropertyName", "prod_subcat_id");
