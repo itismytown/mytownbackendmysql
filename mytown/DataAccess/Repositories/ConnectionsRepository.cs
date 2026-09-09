@@ -223,7 +223,8 @@ namespace mytown.DataAccess.Repositories
                 {
                     BusRegId = request.BusRegId,
                     ShopperRegId = request.ShopperRegId,
-                    LastSeen = DateTime.UtcNow
+                    LastSeen = DateTime.UtcNow,
+                    ViewCount = 1              // ← new: first-ever view for this shopper
                 };
 
                 _context.BusinessProfileViewers.Add(viewer);
@@ -231,6 +232,7 @@ namespace mytown.DataAccess.Repositories
             else
             {
                 existingViewer.LastSeen = DateTime.UtcNow;
+                existingViewer.ViewCount += 1; // ← new: increment on every repeat visit
             }
 
             await _context.SaveChangesAsync();
@@ -281,6 +283,14 @@ namespace mytown.DataAccess.Repositories
             return true;
         }
 
+        //pushtoqa
+        public async Task<int> GetTotalProfileViewCountAsync(int busRegId)
+        {
+            return await _context.BusinessProfileViewers
+                .Where(v => v.BusRegId == busRegId)
+                .SumAsync(v => v.ViewCount);
+        }
+
         public async Task<bool> IsBusinessConnectedAsync(
     int busRegId,
     int shopperRegId)
@@ -305,6 +315,16 @@ namespace mytown.DataAccess.Repositories
                         UserType.Shopper) != null
                 })
                 .ToListAsync();
+        }
+
+        //connected shopper count
+        public async Task<int> GetUniqueShopperconnectedCountByBusRegIdAsync(int busRegId)
+        {
+            return await _context.BusinessConnections
+                .Where(bc => bc.BusRegId == busRegId && bc.Status)
+                .Select(bc => bc.ShopperRegId)
+                .Distinct()
+                .CountAsync();
         }
 
         // like

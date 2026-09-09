@@ -53,6 +53,20 @@ namespace mytown.Migrations
                         .HasColumnType("int")
                         .HasColumnName("bus_reg_id");
 
+                    b.Property<DateTime?>("CashfreeBeneficiaryCreatedDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("cashfree_beneficiary_created_date");
+
+                    b.Property<string>("CashfreeBeneficiaryId")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("cashfree_beneficiary_id");
+
+                    b.Property<string>("CashfreeBeneficiaryStatus")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("cashfree_beneficiary_status");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("created_date");
@@ -620,6 +634,10 @@ namespace mytown.Migrations
                         .HasColumnType("int")
                         .HasColumnName("shopper_reg_id");
 
+                    b.Property<int>("ViewCount")
+                        .HasColumnType("int")
+                        .HasColumnName("view_count");
+
                     b.HasKey("ProfileViewId");
 
                     b.HasIndex("BusRegId");
@@ -740,6 +758,20 @@ namespace mytown.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("varchar(150)")
                         .HasColumnName("bank_name");
+
+                    b.Property<DateTime?>("CashfreeBeneficiaryCreatedDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("cashfree_beneficiary_created_date");
+
+                    b.Property<string>("CashfreeBeneficiaryId")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("cashfree_beneficiary_id");
+
+                    b.Property<string>("CashfreeBeneficiaryStatus")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("cashfree_beneficiary_status");
 
                     b.Property<int>("CourierId")
                         .HasColumnType("int")
@@ -935,6 +967,73 @@ namespace mytown.Migrations
                     b.HasIndex("CourierId");
 
                     b.ToTable("courier_db_notifications");
+                });
+
+            modelBuilder.Entity("mytown.Models.CourierPayout", b =>
+                {
+                    b.Property<int>("PayoutId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("payout_id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PayoutId"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(65,30)")
+                        .HasColumnName("amount");
+
+                    b.Property<string>("BeneficiaryId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("beneficiary_id");
+
+                    b.Property<string>("CfTransferId")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("cf_transfer_id");
+
+                    b.Property<int>("CourierId")
+                        .HasColumnType("int")
+                        .HasColumnName("courier_id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_date");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("status");
+
+                    b.Property<string>("StatusDescription")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("status_description");
+
+                    b.Property<int>("StoreOrderId")
+                        .HasColumnType("int")
+                        .HasColumnName("store_order_id");
+
+                    b.Property<string>("TransferId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("transfer_id");
+
+                    b.Property<string>("TransferUtr")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("transfer_utr");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_date");
+
+                    b.HasKey("PayoutId");
+
+                    b.ToTable("courier_payout");
                 });
 
             modelBuilder.Entity("mytown.Models.CourierService", b =>
@@ -1736,7 +1835,7 @@ namespace mytown.Migrations
                         .HasColumnName("bus_cat_id")
                         .HasAnnotation("Relational:JsonPropertyName", "bus_cat_id");
 
-                    b.Property<int>("ProdSubcatId")
+                    b.Property<int?>("ProdSubcatId")
                         .HasColumnType("int")
                         .HasColumnName("prod_subcat_id")
                         .HasAnnotation("Relational:JsonPropertyName", "prod_subcat_id");
@@ -3274,6 +3373,141 @@ namespace mytown.Migrations
                     b.ToTable("store_orders");
                 });
 
+            modelBuilder.Entity("mytown.Models.StorePayout", b =>
+                {
+                    b.Property<int>("PayoutId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("payout_id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PayoutId"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(65,30)")
+                        .HasColumnName("amount");
+
+                    b.Property<string>("BeneficiaryId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("beneficiary_id");
+
+                    b.Property<string>("CfTransferId")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("cf_transfer_id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_date");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("status");
+
+                    b.Property<string>("StatusDescription")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("status_description");
+
+                    b.Property<int>("StoreOrderId")
+                        .HasColumnType("int")
+                        .HasColumnName("store_order_id");
+
+                    b.Property<string>("TransferId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("transfer_id");
+
+                    b.Property<string>("TransferUtr")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("transfer_utr");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_date");
+
+                    b.HasKey("PayoutId");
+
+                    b.HasIndex("StoreOrderId");
+
+                    b.ToTable("store_payout");
+                });
+
+            modelBuilder.Entity("mytown.Models.TransporterAccountDetail", b =>
+                {
+                    b.Property<int>("AccountDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("account_detail_id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("AccountDetailId"));
+
+                    b.Property<string>("AccountHolderName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)")
+                        .HasColumnName("account_holder_name");
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("account_number");
+
+                    b.Property<string>("BankName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)")
+                        .HasColumnName("bank_name");
+
+                    b.Property<DateTime?>("CashfreeBeneficiaryCreatedDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("cashfree_beneficiary_created_date");
+
+                    b.Property<string>("CashfreeBeneficiaryId")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("cashfree_beneficiary_id");
+
+                    b.Property<string>("CashfreeBeneficiaryStatus")
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)")
+                        .HasColumnName("cashfree_beneficiary_status");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_date");
+
+                    b.Property<string>("IFSCCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("ifsc_code");
+
+                    b.Property<bool>("IsTermsAccepted")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("is_terms_accepted");
+
+                    b.Property<int>("TransporterRegId")
+                        .HasColumnType("int")
+                        .HasColumnName("transporter_reg_id");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_date");
+
+                    b.HasKey("AccountDetailId");
+
+                    b.HasIndex("TransporterRegId");
+
+                    b.ToTable("transporter_account_details");
+                });
+
             modelBuilder.Entity("mytown.Models.TransporterBankDetails", b =>
                 {
                     b.Property<int>("BankDetailId")
@@ -3528,6 +3762,73 @@ namespace mytown.Migrations
                     b.HasIndex("TransporterRegId");
 
                     b.ToTable("transporter_kyc");
+                });
+
+            modelBuilder.Entity("mytown.Models.TransporterPayout", b =>
+                {
+                    b.Property<int>("PayoutId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("payout_id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PayoutId"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("amount");
+
+                    b.Property<string>("BeneficiaryId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("beneficiary_id");
+
+                    b.Property<string>("CfTransferId")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("cf_transfer_id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_date");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("status");
+
+                    b.Property<string>("StatusDescription")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("status_description");
+
+                    b.Property<int>("StoreOrderId")
+                        .HasColumnType("int")
+                        .HasColumnName("store_order_id");
+
+                    b.Property<string>("TransferId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("transfer_id");
+
+                    b.Property<string>("TransferUtr")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("transfer_utr");
+
+                    b.Property<int>("TransporterRegId")
+                        .HasColumnType("int")
+                        .HasColumnName("transporter_reg_id");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_date");
+
+                    b.HasKey("PayoutId");
+
+                    b.ToTable("transporter_payout");
                 });
 
             modelBuilder.Entity("mytown.Models.TransporterRegister", b =>
@@ -4509,6 +4810,28 @@ namespace mytown.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("mytown.Models.StorePayout", b =>
+                {
+                    b.HasOne("mytown.Models.StoreOrder", "StoreOrder")
+                        .WithMany()
+                        .HasForeignKey("StoreOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StoreOrder");
+                });
+
+            modelBuilder.Entity("mytown.Models.TransporterAccountDetail", b =>
+                {
+                    b.HasOne("mytown.Models.TransporterRegister", "TransporterRegister")
+                        .WithMany()
+                        .HasForeignKey("TransporterRegId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TransporterRegister");
                 });
 
             modelBuilder.Entity("mytown.Models.TransporterBankDetails", b =>
