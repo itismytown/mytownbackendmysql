@@ -23,7 +23,10 @@ namespace mytown.Models
             [Column("last_seen")]
             public DateTime LastSeen { get; set; }
 
-            [ForeignKey(nameof(BusRegId))]
+                [Column("view_count")]
+                public int ViewCount { get; set; } = 1;
+
+        [ForeignKey(nameof(BusRegId))]
             public virtual BusinessRegister Business { get; set; }
 
             [ForeignKey(nameof(ShopperRegId))]

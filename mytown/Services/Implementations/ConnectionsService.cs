@@ -116,6 +116,14 @@ namespace mytown.Services.Implementations
             return await _Connectrepo.GetCurrentBusinessProfileViewersAsync(busRegId, shopperRegId);
         }
 
+        //pushtoqa
+        public async Task<int> GetTotalProfileViewCountAsync(int busRegId)
+        {
+            if (busRegId <= 0)
+                throw new ArgumentException("Invalid Business Registration ID.", nameof(busRegId));
+
+            return await _Connectrepo.GetTotalProfileViewCountAsync(busRegId);
+        }
         public async Task<bool> ConnectBusinessAsync(BusinessConnection connection)
         {
             return await _Connectrepo.ConnectBusinessAsync(connection);
@@ -129,6 +137,14 @@ namespace mytown.Services.Implementations
         public async Task<List<ConnectedShopperDto>> GetConnectedShoppersAsync(int busRegId)
         {
             return await _Connectrepo.GetConnectedShoppersAsync(busRegId);
+        }
+
+        public async Task<int> GetUniqueShopperconnectedCountAsync(int busRegId)
+        {
+            if (busRegId <= 0)
+                throw new ArgumentException("Invalid Business Registration ID.", nameof(busRegId));
+
+            return await _Connectrepo.GetUniqueShopperconnectedCountByBusRegIdAsync(busRegId);
         }
 
         // for likes and comments

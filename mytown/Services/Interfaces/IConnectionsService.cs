@@ -21,6 +21,8 @@ namespace mytown.Services.Interfaces
         Task<bool> ConnectBusinessAsync(BusinessConnection connection);
         Task<bool> IsBusinessConnectedAsync(int busRegId, int shopperRegId);
         Task<List<ConnectedShopperDto>> GetConnectedShoppersAsync(int busRegId);
+        Task<int> GetUniqueShopperconnectedCountAsync(int busRegId);
+        Task<int> GetTotalProfileViewCountAsync(int busRegId);
 
         //likes and comments
 
