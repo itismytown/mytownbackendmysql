@@ -105,6 +105,20 @@ CreateExperience(
             return Ok(await _service.GetCurrentBusinessProfileViewersAsync(busRegId, shopperRegId));
         }
 
+        [HttpGet("total-profile-views/{busRegId}")]
+        public async Task<IActionResult> GetTotalProfileViewCount(int busRegId)
+        {
+            try
+            {
+                var total = await _service.GetTotalProfileViewCountAsync(busRegId);
+                return Ok(new { BusRegId = busRegId, TotalViews = total });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("connect-business")]
         public async Task<IActionResult> ConnectBusiness(
     [FromBody] BusinessConnectionDto request)
@@ -146,6 +160,24 @@ CreateExperience(
             return Ok(await _service.GetConnectedShoppersAsync(busRegId));
         }
 
+        // GET: api/BusinessConnection/unique-shopper-count/5
+        [HttpGet("shopper-connected-count/{busRegId}")]
+        public async Task<IActionResult> GetUniqueShopperCount(int busRegId)
+        {
+            try
+            {
+                var count = await _service.GetUniqueShopperconnectedCountAsync(busRegId);
+                return Ok(new { BusRegId = busRegId, UniqueShopperCount = count });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
+        }
 
         // likes and comments
         [HttpPost("toggle-like")]
