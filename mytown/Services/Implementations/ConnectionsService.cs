@@ -116,6 +116,7 @@ namespace mytown.Services.Implementations
             return await _Connectrepo.GetCurrentBusinessProfileViewersAsync(busRegId, shopperRegId);
         }
 
+        //pushtoqa
         public async Task<int> GetTotalProfileViewCountAsync(int busRegId)
         {
             if (busRegId <= 0)

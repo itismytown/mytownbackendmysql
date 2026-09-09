@@ -283,6 +283,7 @@ namespace mytown.DataAccess.Repositories
             return true;
         }
 
+        //pushtoqa
         public async Task<int> GetTotalProfileViewCountAsync(int busRegId)
         {
             return await _context.BusinessProfileViewers
