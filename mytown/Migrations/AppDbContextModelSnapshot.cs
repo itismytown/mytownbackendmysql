@@ -2728,6 +2728,10 @@ namespace mytown.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("tracking_id");
 
+                    b.Property<decimal?>("TransporterCharges")
+                        .HasColumnType("decimal(65,30)")
+                        .HasColumnName("transporter_charges");
+
                     b.Property<int?>("TransporterPlanId")
                         .HasColumnType("int")
                         .HasColumnName("transporter_plan_id");
