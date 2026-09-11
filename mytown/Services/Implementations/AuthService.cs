@@ -1,4 +1,5 @@
-﻿using mytown.DataAccess.Interfaces;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using mytown.DataAccess.Interfaces;
 using mytown.Services.Interfaces;
 using System.Threading.Tasks;
 
@@ -22,8 +23,8 @@ namespace mytown.Services.Implementations
         public object GetResetRequestByToken(string token)
             => _authRepo.GetResetRequestByToken(token);
 
-        public bool ResetPassword(string email, string newPassword)
-            => _authRepo.ResetPassword(email, newPassword);
+        public bool ResetPassword(string email, string newPassword, String role)
+            => _authRepo.ResetPassword(email, newPassword,role);
 
         public Task<bool> LogoutAsync(int userId, string sessionId, string userType)
             => _authRepo.LogoutAsync(userId, sessionId, userType);
