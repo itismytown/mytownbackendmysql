@@ -17,8 +17,8 @@ namespace mytown.Services.Implementations
         public bool EmailExists(string email, string role)
             => _authRepo.EmailExists(email,role);
 
-        public void SendResetEmail(string email)
-            => _authRepo.SendResetEmail(email);
+        public void SendResetEmail(string email,string role)
+            => _authRepo.SendResetEmail(email,role);
 
         public object GetResetRequestByToken(string token)
             => _authRepo.GetResetRequestByToken(token);

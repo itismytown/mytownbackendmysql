@@ -1531,6 +1531,11 @@ namespace mytown.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("expiry");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("role");
+
                     b.Property<string>("Token")
                         .IsRequired()
                         .HasColumnType("longtext")
