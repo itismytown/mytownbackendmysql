@@ -51,7 +51,7 @@ namespace mytown.DataAccess.Repositories
         }
 
 
-        public string CreatePasswordResetToken(string email)
+        public string CreatePasswordResetToken(string email, string role)
         {
             var token = Guid.NewGuid().ToString();
             var expiry = DateTime.UtcNow.AddHours(1);
@@ -60,7 +60,8 @@ namespace mytown.DataAccess.Repositories
             {
                 Email = email,
                 Token = token,
-                Expiry = expiry
+                Expiry = expiry,
+                Role = role
             };
 
             _context.PasswordResetRequests.Add(request);
@@ -69,12 +70,12 @@ namespace mytown.DataAccess.Repositories
             return token;
         }
 
-        public async Task SendResetEmail(string email)
+        public async Task SendResetEmail(string email,string role)
         {
             //if (!EmailExists(email))
             //    throw new Exception("Email not found.");
 
-            var token = CreatePasswordResetToken(email);
+            var token = CreatePasswordResetToken(email,role);
             string frontendBaseUrl = _configuration["FrontendBaseUrl"];
             var resetLink = $"{frontendBaseUrl}?reset-password&token={token}";
             // var resetLink = $"{frontendBaseUrl}?reset=1&email={email}&token={token}";
